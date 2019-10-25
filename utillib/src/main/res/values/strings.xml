@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">UtilLibX</string>
+    <string name="delete">删除</string>
+    <string name="message_permission_rationale">请在设置中开启以下权限,以便你使用软件的功能:\n\n%1$s</string>
+    <string name="message_permission_always_failed">请在设置中开启以下权限,以便你使用软件的功能:\n\n%1$s</string>
+    <string name="tips">提示</string>
+    <string name="setting">设置</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="no_permission_tips">未开启权限，将影响软件部分功能</string>
+    <string name="noData">还没有数据哦~</string>
+    <string name="loadDataError">数据加载失败点击重试~</string>
+    <string name="loadDataErrorPullDownRefresh">数据加载失败下拉刷新~</string>
+    <string name="please_open_permissions">请开启软件相关权限，便于使用相关功能</string>
+    <!--选择图片相关-->
+    <string name="select_picture_photograph">拍照</string>
+    <string name="select_picture_select_from_album">从相册选择</string>
+    <string name="select_picture_cancel">取消</string>
+</resources>
