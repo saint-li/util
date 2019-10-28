@@ -1,6 +1,8 @@
 package com.saint.util;
 
 import android.app.Application;
+
+import com.saint.util.util.toast.AppToast;
 import com.umeng.commonsdk.UMConfigure;
 
 public class UtilConfig {
@@ -9,6 +11,7 @@ public class UtilConfig {
 
     public static void init(Application app, String um_key, boolean debug) {
         UtilConfig.app = app;
+        AppToast.init(app);
         //友盟
         /**
          * 注意: 即使您已经在AndroidManifest.xml中配置过appkey和channel值，也需要在App代码中调
