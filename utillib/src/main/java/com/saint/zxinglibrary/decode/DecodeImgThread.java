@@ -54,8 +54,9 @@ public class DecodeImgThread extends Thread {
         decodeFormats.addAll(DecodeFormatManager.DATA_MATRIX_FORMATS);
 
         hints.put(DecodeHintType.POSSIBLE_FORMATS, decodeFormats);
+        hints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE);//设置尽量识别
         // 设置解析的字符编码格式为UTF8
-        //  hints.put(DecodeHintType.CHARACTER_SET, "UTF8");
+//        hints.put(DecodeHintType.CHARACTER_SET, "UTF8");
         // 设置解析配置参数
         multiFormatReader.setHints(hints);
         // 开始对图像资源解码
@@ -63,11 +64,11 @@ public class DecodeImgThread extends Thread {
         try {
             rawResult = multiFormatReader.decodeWithState(new BinaryBitmap(new HybridBinarizer(new BitmapLuminanceSource(scanBitmap))));
 
-            Log.i("解析结果", rawResult.getText());
+            Log.e("解析结果", rawResult.getText());
 
         } catch (Exception e) {
             e.printStackTrace();
-            //  Log.i("解析的图片结果","失败");
+              Log.e("解析的图片结果","失败");
         }
 
         if (rawResult != null) {
@@ -75,8 +76,6 @@ public class DecodeImgThread extends Thread {
         } else {
             callback.onImageDecodeFailed();
         }
-
-
     }
 
 
@@ -118,5 +117,7 @@ public class DecodeImgThread extends Thread {
         }
         return inSampleSize;
     }
+
+
 
 }

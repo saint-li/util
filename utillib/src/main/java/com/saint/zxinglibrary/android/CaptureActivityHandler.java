@@ -83,7 +83,6 @@ public final class CaptureActivityHandler extends Handler {
                     cameraManager.requestPreviewFrame(decodeThread.getHandler(),
                             Constant.DECODE);
                 }
-
                 break;
             case Constant.DECODE_FAILED:
 

@@ -51,7 +51,7 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
     private TextView flashLightTv;
     private AppCompatImageView backIv;
     private LinearLayoutCompat flashLightLayout;
-    private LinearLayoutCompat albumLayout;
+    private AppCompatImageView albumIv;
     private LinearLayoutCompat bottomLayout;
     private boolean hasSurface;
     private InactivityTimer inactivityTimer;
@@ -138,14 +138,14 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
 
         flashLightLayout = findViewById(R.id.flashLightLayout);
         flashLightLayout.setOnClickListener(this);
-        albumLayout = findViewById(R.id.albumLayout);
-        albumLayout.setOnClickListener(this);
+        albumIv = findViewById(R.id.albumIv);
+        albumIv.setOnClickListener(this);
         bottomLayout = findViewById(R.id.bottomLayout);
 
 
         switchVisibility(bottomLayout, config.isShowbottomLayout());
         switchVisibility(flashLightLayout, config.isShowFlashLight());
-//        switchVisibility(albumLayout, config.isShowAlbum());
+//        switchVisibility(albumIv, config.isShowAlbum());
 
 
         /*有闪光灯就显示手电筒按钮  否则不显示*/
@@ -276,7 +276,7 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
     @Override
     protected void onPause() {
 
-        Log.i("CaptureActivity","onPause");
+        Log.i("CaptureActivity", "onPause");
         if (handler != null) {
             handler.quitSynchronously();
             handler = null;
@@ -326,7 +326,7 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
         if (id == R.id.flashLightLayout) {
             /*切换闪光灯*/
             cameraManager.switchFlashLight(handler);
-        } else if (id == R.id.albumLayout) {
+        } else if (id == R.id.albumIv) {
             /*打开相册*/
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_PICK);

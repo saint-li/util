@@ -1,5 +1,6 @@
 package com.saint.zxinglibrary.bean;
 
+
 import androidx.annotation.ColorRes;
 
 

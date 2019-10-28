@@ -129,6 +129,7 @@ public final class ViewfinderView extends View {
         textPaint.setColor(Color.WHITE);
     }
 
+
     private void initAnimator() {
 
         if (valueAnimator == null) {
@@ -186,7 +187,6 @@ public final class ViewfinderView extends View {
 
         int width = canvas.getWidth();
         int height = canvas.getHeight();
-
         /*提示文字*/
         String scanTips = "请将二维码/条码放入框内，即可自动扫描";
         float textX = width / 2 - textPaint.measureText(scanTips) / 2;
