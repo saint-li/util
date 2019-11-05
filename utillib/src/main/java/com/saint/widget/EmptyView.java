@@ -1,6 +1,7 @@
 package com.saint.widget;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -80,4 +81,17 @@ public class EmptyView extends LinearLayout {
         ivTips.setVisibility(GONE);
     }
 
+    public void tips(String str, int resId) {
+        if (!TextUtils.isEmpty(str))
+            tvTips.setText(str);
+        if (resId > 0)
+            ivTips.setImageResource(resId);
+    }
+
+    public void tips(int strResId, int resId) {
+        if (strResId > 0)
+            tvTips.setText(strResId);
+        if (resId > 0)
+            ivTips.setImageResource(resId);
+    }
 }
