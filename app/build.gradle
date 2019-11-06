@@ -35,6 +35,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-//    implementation project(path: ':utillib')
-    implementation 'com.github.SaintLong:util:v1.0.1'
+    implementation project(path: ':utillib')
+//    implementation 'com.github.SaintLong:util:v1.0.1'
+    //Toast工具
+//    implementation 'com.github.the-pig-of-jungle.smart-show:toast:x2.8.3'
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  菜单选项  -->
+    <string-array name="mainMenu">
+        <item>Toast</item>
+        <item>Log</item>
+    </string-array>
+
+    <string-array name="test_toast_items">
+        <item>show</item>
+        <item>show another</item>
+        <item>show at top</item>
+        <item>show in center</item>
+        <item>show at location（top|left，10dp，90dp）</item>
+    </string-array>
+</resources>

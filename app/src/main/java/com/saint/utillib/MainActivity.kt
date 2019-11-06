@@ -1,16 +1,42 @@
 package com.saint.utillib
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.saint.util.UtilConfig
+import com.saint.util.base.BaseAct
+import com.saint.util.listener.OnItemCLick
 import com.saint.util.util.AppLog
+import com.saint.util.util.toast.AppToast
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        UtilConfig.setIsDebug(true)
-        AppLog.e("打印日志-----------")
+class MainActivity : BaseAct(), OnItemCLick {
+
+    override fun setLayout(): Int {
+        return R.layout.activity_main
     }
+
+    override fun initTitleView() {
+        mActionBar = findViewById(R.id.my_action_bar)
+        mActionBar.setTitle(R.string.app_name)
+    }
+
+    override fun initView() {
+
+    }
+
+    override fun initData() {
+        val adapter = MainAdapter(act)
+        recycler_view.adapter = adapter
+        adapter.setOnItemCLick(this)
+    }
+
+    override fun onItemClick(position: Int) {
+        when (position) {
+            0 -> showAct(ToastAct::class.java)
+            1 -> {
+                AppToast.showInCenter("请在AS控制台查看日志")
+                AppLog.e("log日志打印测试测试")
+            }
+        }
+    }
+
+
 }
