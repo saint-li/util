@@ -2,6 +2,8 @@ package com.saint.util.util;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -29,12 +31,16 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
+import com.saint.util.R;
 import com.saint.util.UtilConfig;
+import com.saint.util.util.toast.AppToast;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 /**
  * `Author: Administrator
@@ -468,5 +474,15 @@ public class AppUtil {
 
     public static boolean isScreenPortrait() {
         return screenOrientation() == Configuration.ORIENTATION_PORTRAIT;
+    }
+
+
+    public static void copyString(String str) {
+        if (!TextUtils.isEmpty(str)) {
+            ClipboardManager clipboardManager = (ClipboardManager) UtilConfig.getApp().getSystemService(CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText("text", str);
+            clipboardManager.setPrimaryClip(clipData);
+            AppToast.tShort(R.string.copy_succeed);
+        }
     }
 }
