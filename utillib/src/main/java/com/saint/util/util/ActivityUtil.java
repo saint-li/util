@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
  * 活动工具类
  */
 
@@ -46,6 +45,18 @@ public class ActivityUtil {
         if (activities.contains(activity)) {
             activities.remove(activity);
         }
+    }
+
+    public boolean isInStack(Activity activity) {
+        return !activities.isEmpty() && activities.contains(activity);
+    }
+
+    public Activity getTop() {
+        return activities.isEmpty() ? null : activities.get(activities.size() - 1);
+    }
+
+    public  int count() {
+        return activities == null ? 0 : activities.size();
     }
 
     public void removeAct(Class clazz) {

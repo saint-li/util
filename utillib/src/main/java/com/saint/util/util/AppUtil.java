@@ -1,19 +1,34 @@
 package com.saint.util.util;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.*;
+import android.view.inputmethod.InputMethodManager;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.LayoutRes;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.StringRes;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
+
 import com.saint.util.UtilConfig;
 
 import java.lang.reflect.Field;
@@ -87,15 +102,15 @@ public class AppUtil {
         mContentView.addView(mTopView, 0, lp);
     }
 
-    //获取状态栏高度函数
-    public static int getStatusBarHeight() {
-        int result = 0;
-        int resId = UtilConfig.getApp().getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resId > 0) {
-            result = UtilConfig.getApp().getResources().getDimensionPixelSize(resId);
-        }
-        return result;
-    }
+//    //获取状态栏高度函数
+//    public static int getStatusBarHeight() {
+//        int result = 0;
+//        int resId = UtilConfig.getApp().getResources().getIdentifier("status_bar_height", "dimen", "android");
+//        if (resId > 0) {
+//            result = UtilConfig.getApp().getResources().getDimensionPixelSize(resId);
+//        }
+//        return result;
+//    }
 
 
     public static int getColor(int colorResId) {
@@ -166,7 +181,7 @@ public class AppUtil {
                 }
                 result = true;
 
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && RomUtils.isMiUIV7OrAbove()) {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && RomAppUtil.isMiUIV7OrAbove()) {
 //                    //开发版 7.7.13 及以后版本采用了系统API，旧方法无效但不会报错，所以两个方式都要加上
 //                    if (dark) {
 //                        activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -303,5 +318,155 @@ public class AppUtil {
             }
         }
         return mIsAllScreenDevice;
+    }
+
+    public static int dpToPx(float dp) {
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, UtilConfig.getApp().getResources().getDisplayMetrics()));
+    }
+
+    @ColorInt
+    public static int getColorFromRes(@ColorRes int colorRes) {
+        return ContextCompat.getColor(UtilConfig.getApp(), colorRes);
+    }
+
+    public static LayoutInflater getInflater() {
+        return LayoutInflater.from(UtilConfig.getApp());
+    }
+
+    public static <T> T requireNonNull(T obj, String tip) {
+        if (obj == null) {
+            throw new NullPointerException(tip);
+        }
+
+        return obj;
+    }
+
+
+    public static boolean isEmpty(CharSequence c) {
+        return TextUtils.isEmpty(c) || c.toString().trim().isEmpty();
+    }
+
+    public static int screenWidth() {
+        return UtilConfig.getApp().getResources().getDisplayMetrics().widthPixels;
+    }
+
+
+    public static int getStatusBarHeight() {
+        int resourceId = UtilConfig.getApp().getResources().getIdentifier("status_bar_height", "dimen", "android");
+        int height = 0;
+        try {
+            height = UtilConfig.getApp().getResources().getDimensionPixelSize(resourceId);
+        } catch (Resources.NotFoundException e) {
+            height = AppUtil.dpToPx(24);
+        }
+
+        return height;
+    }
+
+    public static int getToolbarHeight() {
+        int resourceId = UtilConfig.getApp().getResources().getIdentifier("abc_action_bar_default_height_material", "dimen", "android");
+        int height = 0;
+        try {
+            height = UtilConfig.getApp().getResources().getDimensionPixelSize(resourceId);
+        } catch (Resources.NotFoundException e) {
+            height = AppUtil.dpToPx(56);
+        }
+
+        return height;
+    }
+
+
+    public static boolean isActivityDestroyed(Activity activity) {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 ?
+                activity.isDestroyed() : !ActivityUtil.getInstance().isInStack(activity);
+    }
+
+    public static void popKeyboardWhenDialogShow(Dialog dialog) {
+        if (dialog != null) {
+            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+    public static void hideKeyboard(View view) {
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) UtilConfig.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }
+    }
+
+
+    public static Drawable getDrawableFromRes(int drawableRes) {
+        return ContextCompat.getDrawable(UtilConfig.getApp(), drawableRes);
+    }
+
+    public static void setBackgroundDrawable(View view, Drawable drawable) {
+        if (view == null) {
+            return;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            view.setBackground(drawable);
+        } else {
+            view.setBackgroundDrawable(drawable);
+        }
+    }
+
+    /**
+     * 判断 activity的状态是可以操作UI
+     *
+     * @param activity
+     * @return
+     */
+    public static boolean isUpdateActivityUIPermitted(Activity activity) {
+        return activity != null && !activity.isFinishing() && !isActivityDestroyed(activity);
+    }
+
+    public static boolean isUpdateFragmentUIPermitted(Fragment fragment) {
+        return fragment != null && fragment.isVisible() && !fragment.isRemoving()
+                && isUpdateActivityUIPermitted(fragment.getActivity());
+    }
+
+    public static boolean isCanShowDialogInFragment(Fragment fragment) {
+        return isUpdateFragmentUIPermitted(fragment) && fragment.getUserVisibleHint();
+    }
+
+    public static String getStringFromRes(@StringRes int msg) {
+        return UtilConfig.getApp().getString(msg);
+    }
+
+    public static float pxToDp(int px) {
+        float scale = UtilConfig.getApp().getResources().getDisplayMetrics().density;
+        return px / scale;
+    }
+
+    public static boolean isNotificationPermitted() {
+        return NotificationManagerCompat.from(UtilConfig.getApp()).areNotificationsEnabled();
+    }
+
+    public static int screenHeight() {
+        return UtilConfig.getApp().getResources().getDisplayMetrics().heightPixels;
+    }
+
+    public static String getActivityInfo(Activity activity) {
+        return activity == null ? "the activity == null" : activity.getClass().getSimpleName() + "(" + activity.getClass().hashCode() + ")";
+    }
+
+    public static String getObjectDesc(Object object) {
+        return object == null ? "(null)" : "(class:" + object.getClass().getSimpleName() + ";hashcode:" + object.hashCode() + ")";
+    }
+
+    public static int screenOrientation() {
+        return UtilConfig.getApp().getResources().getConfiguration()
+                .orientation;
+    }
+
+    public static boolean isScreenLandscape() {
+        return screenOrientation() == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    public static boolean isScreenPortrait() {
+        return screenOrientation() == Configuration.ORIENTATION_PORTRAIT;
     }
 }
