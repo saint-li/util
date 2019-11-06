@@ -20,9 +20,9 @@
 
     <!-- 侧滑 -->
     <declare-styleable name="SwipeMenuLayout">
-        <attr format="boolean" name="swipeEnable"/>
-        <attr format="boolean" name="ios"/>
-        <attr format="boolean" name="leftSwipe"/>
+        <attr name="swipeEnable" format="boolean" />
+        <attr name="ios" format="boolean" />
+        <attr name="leftSwipe" format="boolean" />
     </declare-styleable>
 
 
@@ -40,7 +40,6 @@
         <item name="android:paddingEnd">@dimen/dp_10</item>
         <item name="android:maxLines">1</item>
     </style>
-
 
 
     <!--ActionSheet Dialog样式-->
@@ -67,4 +66,16 @@
         <item name="android:windowEnterAnimation">@anim/actionsheet_dialog_in</item>
         <item name="android:windowExitAnimation">@anim/actionsheet_dialog_out</item>
     </style>
+
+    <!--  圆角ImageView  开始 -->
+    <attr name="borderRadius" format="dimension" />
+    <attr name="type">
+        <enum name="circle" value="0" />
+        <enum name="round" value="1" />
+    </attr>
+    <declare-styleable name="RoundImageView">
+        <attr name="borderRadius" />
+        <attr name="type" />
+    </declare-styleable>
+    <!--  圆角ImageView  结束 -->
 </resources>
