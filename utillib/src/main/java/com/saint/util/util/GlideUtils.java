@@ -3,13 +3,15 @@ package com.saint.util.util;
 import android.app.Activity;
 import android.content.Context;
 import android.widget.ImageView;
+
 import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.saint.util.UtilConfig;
 import com.saint.util.GlideApp;
 import com.saint.util.R;
+import com.saint.util.UtilConfig;
 
 /**
  * Created by Administrator on 2017/12/4.
@@ -37,6 +39,12 @@ public class GlideUtils {
 //                .error(errorId);
 //
 //    }
+
+    public static void loadIMg(Context context, String imgUrl, ImageView imageView) {
+        GlideApp.with(context).load(imgUrl)
+//                .apply(option)
+                .into(imageView);
+    }
 
     public static void loadIMg(Activity act, String imgUrl, ImageView imageView) {
         GlideApp.with(act).load(imgUrl)
@@ -121,7 +129,7 @@ public class GlideUtils {
                 .into(iv);
     }
 
-    public static void loadRound(Context context, RequestOptions options, String url, ImageView iv) {
+    public static void loadImg(Context context, RequestOptions options, String url, ImageView iv) {
         GlideApp.with(context)
                 .load(url)
                 .apply(options)
