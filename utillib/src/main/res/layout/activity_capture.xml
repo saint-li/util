@@ -57,7 +57,7 @@
 
 
         <!-- 扫描取景框 -->
-        <com.yzq.zxinglibrary.view.ViewfinderView
+        <com.saint.zxinglibrary.view.ViewfinderView
             android:id="@+id/viewfinder_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
