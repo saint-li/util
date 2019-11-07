@@ -3,7 +3,7 @@
     <!--  菜单选项  -->
     <string-array name="mainMenu">
         <item>Toast</item>
-        <item>Log</item>
+        <item>扫码测试</item>
     </string-array>
 
     <string-array name="test_toast_items">

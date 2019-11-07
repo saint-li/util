@@ -1,2 +1,2 @@
-include ':app', ':utillib'
+include ':app', ':utillib', ':ucrop'
 rootProject.name='UtilLib'

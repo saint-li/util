@@ -1,0 +1,16 @@
+<resources>
+
+
+    <string name="ucrop_error_input_data_is_absent" translatable="false">Both input and output Uri must be specified</string>
+    <string name="ucrop_mutate_exception_hint" translatable="false">Therefore, override color resource (ucrop_color_toolbar_widget) in your app to make it work on pre-L devices</string>
+    <string name="ucrop_rotate">Rotate</string>
+    <string name="ucrop_scale">Scale</string>
+    <string name="ucrop_crop">Crop</string>
+
+    <string name="ucrop_label_original">原始比例</string>
+    <string name="ucrop_label_edit_photo">裁剪</string>
+    <string name="ucrop_menu_crop">裁剪</string>
+    <string name="ucrop_crop_tips">为保证图片识别率，请尽量只保留二维码或条形码部分</string>
+
+
+</resources>

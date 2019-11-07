@@ -31,10 +31,8 @@ class MainActivity : BaseAct(), OnItemCLick {
     override fun onItemClick(position: Int) {
         when (position) {
             0 -> showAct(ToastAct::class.java)
-            1 -> {
-                AppToast.showInCenter("请在AS控制台查看日志")
-                AppLog.e("log日志打印测试测试")
-            }
+            1 -> showAct(ScanAct::class.java)
+
         }
     }
 
