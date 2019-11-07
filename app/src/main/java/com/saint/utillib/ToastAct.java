@@ -13,6 +13,7 @@ import com.saint.util.base.BaseAct;
 import com.saint.util.base.BaseRecyclerAdapter;
 import com.saint.util.base.BaseViewHolder;
 import com.saint.util.listener.OnItemCLick;
+import com.saint.util.util.AppUtil;
 import com.saint.util.util.toast.AppToast;
 
 import java.util.Arrays;
@@ -62,6 +63,9 @@ public class ToastAct extends BaseAct implements OnItemCLick {
                 break;
             case 4:
                 AppToast.darkAtLocation("荔枝", Gravity.LEFT | Gravity.TOP, 10, 90);
+                break;
+            case 5:
+                AppUtil.copyString("荔枝");
                 break;
             default:
                 break;

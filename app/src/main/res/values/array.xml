@@ -12,5 +12,6 @@
         <item>show at top</item>
         <item>show in center</item>
         <item>show at location（top|left，10dp，90dp）</item>
+        <item>CopyTest</item>
     </string-array>
 </resources>
