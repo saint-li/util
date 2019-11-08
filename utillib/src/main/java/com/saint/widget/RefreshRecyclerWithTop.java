@@ -7,6 +7,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 public class RefreshRecyclerWithTop extends LinearLayout {
     private SmartRefreshLayout refreshLayout;
     private RecyclerView recyclerView;
+    private NestedScrollView scrollView;
     private OnRefreshLoadMoreListener listener;
     private OnRefreshListener refreshListener;
     private OnLoadMoreListener loadMoreListener;
@@ -52,6 +54,7 @@ public class RefreshRecyclerWithTop extends LinearLayout {
         addView(view);
         topContainer = view.findViewById(R.id.top_container);
         refreshLayout = view.findViewById(R.id.smart_refresh_layout);
+        scrollView = view.findViewById(R.id.scroll_view);
         recyclerView = view.findViewById(R.id.recycler_view);
         emptyView = view.findViewById(R.id.empty_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -76,6 +79,9 @@ public class RefreshRecyclerWithTop extends LinearLayout {
         if (topContainer != null) topContainer.addView(v);
     }
 
+    public void toTop() {
+        if (scrollView != null) scrollView.fullScroll(View.FOCUS_UP);
+    }
 
     public void setAdapter(RecyclerView.Adapter adapter) {
         recyclerView.setAdapter(adapter);
