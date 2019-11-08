@@ -260,4 +260,26 @@
 
     </declare-styleable>
     <!-- UCrop 结束 -->
+
+    <!-- 伸缩TextView -->
+    <declare-styleable name="ExpandableTextView">
+        <attr name="ep_max_line" format="integer" />
+        <attr name="ep_need_expand" format="boolean" />
+        <attr name="ep_need_contract" format="boolean" />
+        <attr name="ep_need_mention" format="boolean" />
+        <attr name="ep_need_link" format="boolean" />
+        <attr name="ep_need_animation" format="boolean" />
+        <attr name="ep_need_always_showright" format="boolean" />
+        <attr name="ep_need_convert_url" format="boolean" />
+        <attr name="ep_need_self" format="boolean" />
+        <attr name="ep_contract_text" format="string" />
+        <attr name="ep_expand_text" format="string" />
+        <attr name="ep_expand_color" format="color" />
+        <attr name="ep_contract_color" format="color" />
+        <attr name="ep_end_color" format="color" />
+        <attr name="ep_link_color" format="color" />
+        <attr name="ep_mention_color" format="color" />
+        <attr name="ep_self_color" format="color" />
+        <attr name="ep_link_res" format="reference" />
+    </declare-styleable>
 </resources>

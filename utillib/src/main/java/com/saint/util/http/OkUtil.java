@@ -127,4 +127,8 @@ public class OkUtil {
                 .tag(tag)
                 .execute(callback);
     }
+
+    public void cancelTag(Object obj) {
+        mOkGo.cancelTag(obj);
+    }
 }

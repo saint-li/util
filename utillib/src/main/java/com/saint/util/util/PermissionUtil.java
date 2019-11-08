@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import com.saint.util.R;
+import com.saint.util.UtilConfig;
 import com.saint.util.listener.RequestPermissionBack;
 import com.saint.util.other.RuntimeRationale;
 import com.saint.util.util.toast.AppToast;
@@ -71,5 +72,28 @@ public class PermissionUtil {
                     AppToast.tLong(R.string.no_permission_tips);
                 })
                 .show();
+    }
+
+    /**
+     * 显示设置提示框
+     */
+    public static void showSettingDialog(Context context, String msg) {
+        android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(context)
+                .setCancelable(false)
+                .setTitle("提示")
+                .setMessage(msg)
+                .setPositiveButton("确定", (dialog1, which) -> {
+                    Uri packageURI = Uri.parse("package:" + UtilConfig.getApp().getPackageName());
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+//                    startActivityForResult(intent, PERMISSION_REQUEST);
+                    UtilConfig.getApp().startActivity(intent);
+                })
+                .setNegativeButton("取消", (dialog12, which) -> {
+                    AppToast.tShort("取消获取权限");
+                })
+                .create();
+        dialog.show();
     }
 }

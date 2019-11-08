@@ -140,4 +140,12 @@ public class RefreshRecyclerView extends LinearLayout {
         recyclerView.setVisibility(GONE);
         emptyView.setVisibility(VISIBLE);
     }
+
+    public void finishWithTips(String str, int resId) {
+        finishLoad();
+        emptyView.tips(str, resId);
+        recyclerView.setVisibility(GONE);
+        emptyView.setVisibility(VISIBLE);
+    }
+
 }
