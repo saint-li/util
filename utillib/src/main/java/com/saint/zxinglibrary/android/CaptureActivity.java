@@ -26,6 +26,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.zxing.Result;
+import com.saint.ucrop.UCrop;
 import com.saint.util.R;
 import com.saint.util.util.AppLog;
 import com.saint.util.util.PictureFileUtils;
@@ -37,7 +38,6 @@ import com.saint.zxinglibrary.decode.DecodeImgCallback;
 import com.saint.zxinglibrary.decode.DecodeImgThread;
 import com.saint.zxinglibrary.decode.ImageUtil;
 import com.saint.zxinglibrary.view.ViewfinderView;
-import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 import java.io.IOException;

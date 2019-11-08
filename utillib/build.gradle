@@ -15,6 +15,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -35,9 +36,11 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.exifinterface:exifinterface:1.1.0-rc01'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
     api 'androidx.recyclerview:recyclerview:1.0.0'
     //权限申请
     api 'com.yanzhenjie.permission:support:2.0.1'
@@ -59,5 +62,5 @@ dependencies {
     api 'com.umeng.umsdk:common:2.0.0'
     implementation files('libs/core-3.3.3.jar')
     //图片裁剪
-    implementation project(path: ':ucrop')
+//    implementation project(path: ':ucrop')
 }

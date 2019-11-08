@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.saint.util">
+    package="com.saint.util">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
@@ -15,28 +15,28 @@
     <application>
 
         <activity
-                android:name="com.saint.pictureselector.PictureSelectActivity"
-                android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:name="com.saint.pictureselector.PictureSelectActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <activity
-                android:name="com.saint.zxinglibrary.android.CaptureActivity"
-                android:configChanges="orientation|screenSize"
-                android:screenOrientation="portrait"
-                android:theme="@style/Theme.AppCompat.NoActionBar"
-                android:windowSoftInputMode="adjustPan|stateHidden" />
+            android:name="com.saint.zxinglibrary.android.CaptureActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
 
 
-        <activity android:name="com.yalantis.ucrop.UCropActivity" />
-        <activity android:name="com.yalantis.ucrop.PictureMultiCuttingActivity" />
+        <activity android:name="com.saint.ucrop.UCropActivity" />
+        <activity android:name="com.saint.ucrop.PictureMultiCuttingActivity" />
 
         <provider
-                android:name="androidx.core.content.FileProvider"
-                android:authorities="${applicationId}.fileProvider"
-                android:exported="false"
-                android:grantUriPermissions="true">
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
-                    android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/file_paths" />
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
         </provider>
 
     </application>
