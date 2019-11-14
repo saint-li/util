@@ -148,4 +148,8 @@ public class RefreshRecyclerView extends LinearLayout {
         emptyView.setVisibility(VISIBLE);
     }
 
+    public void setTipsText(String msg) {
+        emptyView.setTextTips(msg);
+    }
+
 }
