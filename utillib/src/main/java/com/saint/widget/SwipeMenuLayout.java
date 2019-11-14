@@ -81,7 +81,7 @@ public class SwipeMenuLayout extends ViewGroup {
     private static boolean isTouching;
 
     private VelocityTracker mVelocityTracker;//滑动速度变量
-    private android.util.Log LogUtils;
+    private android.util.Log AppLogs;
 
     /**
      * 右滑删除功能的开关,默认开
@@ -278,7 +278,7 @@ public class SwipeMenuLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        //LogUtils.e(TAG, "onLayout() called with: " + "changed = [" + changed + "], l = [" + l + "], t = [" + t + "], r = [" + r + "], b = [" + b + "]");
+        //AppLogs.e(TAG, "onLayout() called with: " + "changed = [" + changed + "], l = [" + l + "], t = [" + t + "], r = [" + r + "], b = [" + b + "]");
         int childCount = getChildCount();
         int left = 0 + getPaddingLeft();
         int right = 0 + getPaddingLeft();
@@ -305,7 +305,7 @@ public class SwipeMenuLayout extends ViewGroup {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        //LogUtils.d(TAG, "dispatchTouchEvent() called with: " + "ev = [" + ev + "]");
+        //AppLogs.d(TAG, "dispatchTouchEvent() called with: " + "ev = [" + ev + "]");
         if (isSwipeEnable) {
             acquireVelocityTracker(ev);
             final VelocityTracker verTracker = mVelocityTracker;
@@ -418,7 +418,7 @@ public class SwipeMenuLayout extends ViewGroup {
                     }
                     //释放
                     releaseVelocityTracker();
-                    //LogUtils.i(TAG, "onTouch A ACTION_UP ACTION_CANCEL:velocityY:" + velocityX);
+                    //AppLogs.i(TAG, "onTouch A ACTION_UP ACTION_CANCEL:velocityY:" + velocityX);
                     isTouching = false;//没有手指在摸我了
                     break;
                 default:
@@ -567,7 +567,7 @@ public class SwipeMenuLayout extends ViewGroup {
             }
         });
         mCloseAnim.setDuration(300).start();
-        //LogUtils.d(TAG, "smoothClose() called with:getScrollX() " + getScrollX());
+        //AppLogs.d(TAG, "smoothClose() called with:getScrollX() " + getScrollX());
     }
 
 
