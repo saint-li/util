@@ -127,6 +127,10 @@ public class AppUtil {
         return UtilConfig.getApp().getResources().getString(strResId);
     }
 
+    public static String getString(int strResId, Object... formatArgs) {
+        return UtilConfig.getApp().getResources().getString(strResId, formatArgs);
+    }
+
     public static int getDimen(int dimenResId) {
         return (int) UtilConfig.getApp().getResources().getDimension(dimenResId);
     }

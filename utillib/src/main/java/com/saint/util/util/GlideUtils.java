@@ -2,6 +2,7 @@ package com.saint.util.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.saint.util.GlideApp;
 import com.saint.util.R;
 import com.saint.util.UtilConfig;
@@ -148,6 +150,14 @@ public class GlideUtils {
                 .load(drawableResId)
                 .apply(options)
                 .into(iv);
+    }
+
+    public static void loadBitmap(Fragment context, String avatar, RequestOptions option,SimpleTarget<Bitmap> target) {
+        GlideApp.with(context)
+                .asBitmap()
+                .apply(option)
+                .load(avatar)
+                .into(target);
     }
 
 }

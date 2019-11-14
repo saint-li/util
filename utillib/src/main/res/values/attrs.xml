@@ -107,6 +107,10 @@
         <attr name="tl_tab_padding" />
         <attr name="tl_tab_space_equal" />
         <attr name="tl_tab_width" />
+        <attr name="tl_tab_padding_top"/>
+        <attr name="tl_tab_padding_left"/>
+        <attr name="tl_tab_padding_right"/>
+        <attr name="tl_tab_padding_bottom"/>
 
         <!-- title -->
         <attr name="tl_textsize" />

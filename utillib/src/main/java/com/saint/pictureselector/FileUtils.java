@@ -1,8 +1,16 @@
 package com.saint.pictureselector;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Environment;
+import android.util.Log;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import static com.saint.util.util.PictureFileUtils.createFile;
 
 /**
  * Author       wildma
@@ -82,6 +90,21 @@ public final class FileUtils {
             }
         }
         return true;
+    }
+
+    public static File saveBitmapFile(Context context, Bitmap bitmap) {
+        try {
+            File file = createFile(context, System.currentTimeMillis() + ".jpg");
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            bos.flush();
+            bos.close();
+            return file;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("图片选择工具包：", "保存文件异常：" + e.getMessage());
+            return null;
+        }
     }
 
 }
