@@ -6,9 +6,11 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.saint.widget.MyActionBar;
 
 public abstract class BaseFrag extends Fragment {
@@ -42,6 +44,18 @@ public abstract class BaseFrag extends Fragment {
      * 初始化标题栏
      */
     protected void initTitleView() {
+    }
+
+    protected int setTitleId() {
+        return 0;
+    }
+
+    protected void setTitle(int strRes) {
+        if (mActionBar != null) mActionBar.setTitle(strRes);
+    }
+
+    protected void setTitle(String strRes) {
+        if (mActionBar != null) mActionBar.setTitle(strRes);
     }
 
     /**
