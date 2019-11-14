@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.IdRes;
 import androidx.core.content.ContextCompat;
 
 import com.saint.util.UtilConfig;
@@ -126,6 +128,12 @@ public class MyActionBar extends LinearLayout {
         }
     }
 
+    public void setTitleColor(@IdRes int color) {
+        if (tvTitle != null) {
+            tvTitle.setTextColor(AppUtil.getColor(color));
+        }
+    }
+
     public void setTitleRightDrawable(int resId) {
         Drawable right = getResources().getDrawable(resId);
         tvTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, right, null);
@@ -199,6 +207,14 @@ public class MyActionBar extends LinearLayout {
             tvRight.setText(text);
             tvRight.setVisibility(VISIBLE);
             ivRight.setVisibility(GONE);
+        }
+    }
+
+    public void setRightIcon(int iconRes) {
+        if (ivRight != null) {
+            ivRight.setImageResource(iconRes);
+            ivRight.setVisibility(VISIBLE);
+            tvRight.setVisibility(GONE);
         }
     }
 
