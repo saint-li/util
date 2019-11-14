@@ -44,6 +44,12 @@ public class GsonUtil {
     }
 
     public String beanToJson(Object bean) {
+        if (bean == null) return "";
         return gson.toJson(bean);
+    }
+
+    public String toJsonStr(Object obj) {
+        if (obj == null) return "";
+        return gson.toJson(obj);
     }
 }

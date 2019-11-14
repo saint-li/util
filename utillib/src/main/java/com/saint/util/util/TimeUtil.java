@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class TimeUtil {
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static SimpleDateFormat sdfStr = new SimpleDateFormat("yyyyMMddHHmmssSSS");
     private static SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy.MM.dd");
     private static SimpleDateFormat sdfHms = new SimpleDateFormat("HH:mm:ss");
@@ -29,6 +30,11 @@ public class TimeUtil {
     public static String formatYM(long timeMillis) {
         if (timeMillis <= 0) return "";
         return sdfYM.format(timeMillis);
+    }
+
+    public static String formatMillisecond(long timeMillis) {
+        if (timeMillis <= 0) return "";
+        return sdfStr.format(timeMillis);
     }
 
     public static String formatYMd(long timeMillis) {
