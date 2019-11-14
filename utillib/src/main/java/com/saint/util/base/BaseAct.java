@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.umeng.analytics.MobclickAgent;
 import com.saint.util.util.ActivityUtil;
 import com.saint.util.util.AppUtil;
@@ -96,13 +98,13 @@ public abstract class BaseAct extends AppCompatActivity {
         super.onDestroy();
     }
 
-    protected boolean isDispatch() {
+    protected boolean hideKeyboard() {
         return true;
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (!isDispatch()) return super.dispatchTouchEvent(ev);
+        if (!hideKeyboard()) return super.dispatchTouchEvent(ev);
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             View v = getCurrentFocus();
             if (isShouldHideInput(v, ev)) {
@@ -152,6 +154,12 @@ public abstract class BaseAct extends AppCompatActivity {
     }
 
     public void showAct(Class clazz, String key, String value) {
+        Intent intent = new Intent(act, clazz);
+        intent.putExtra(key, value);
+        act.startActivity(intent);
+    }
+
+    public void showAct(Class clazz, String key, long value) {
         Intent intent = new Intent(act, clazz);
         intent.putExtra(key, value);
         act.startActivity(intent);

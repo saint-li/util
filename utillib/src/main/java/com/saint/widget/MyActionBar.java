@@ -12,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import androidx.core.content.ContextCompat;
+
 import com.saint.util.UtilConfig;
 import com.saint.util.R;
 import com.saint.util.util.AppUtil;
@@ -27,7 +29,7 @@ public class MyActionBar extends LinearLayout {
     private RelativeLayout layRoot;
     private View vStatusBar;
     private ImageView ivLeft, ivRight;
-    private TextView tvTitle, tvRight;
+    private TextView tvTitle, tvLeft, tvRight;
     private int colorTitleBG;
 
 
@@ -50,6 +52,7 @@ public class MyActionBar extends LinearLayout {
         vStatusBar = contentView.findViewById(R.id.view_status_bar);
         layRoot = contentView.findViewById(R.id.rl_title_parent);
         ivLeft = contentView.findViewById(R.id.iv_left);
+        tvLeft = contentView.findViewById(R.id.tv_left);
         tvTitle = contentView.findViewById(R.id.tv_title);
         ivRight = contentView.findViewById(R.id.iv_right);
         tvRight = contentView.findViewById(R.id.tv_right);
@@ -123,13 +126,22 @@ public class MyActionBar extends LinearLayout {
         }
     }
 
+    public void setTitleRightDrawable(int resId) {
+        Drawable right = getResources().getDrawable(resId);
+        tvTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, right, null);
+    }
+
+    public void setTitleClick(OnClickListener onClickListener) {
+        tvTitle.setOnClickListener(onClickListener);
+    }
+
     /**
      * 设置标题
      *
      * @param resId 标题资源ID
      */
     public void setTitle(int resId) {
-        String strTitle = UtilConfig.getApp().getResources().getString(resId);
+        String strTitle = AppUtil.getString(resId);
         setTitle(strTitle);
     }
 
@@ -148,18 +160,26 @@ public class MyActionBar extends LinearLayout {
         }
     }
 
+    public void setLeftTextListener(int iconRes, OnClickListener onClickListener) {
+        if (tvLeft != null) {
+            tvLeft.setText(iconRes);
+            tvLeft.setOnClickListener(onClickListener);
+            tvLeft.setVisibility(VISIBLE);
+        }
+    }
+
+    public void setLeftTextListener(String str, OnClickListener onClickListener) {
+        if (tvLeft != null) {
+            tvLeft.setText(str);
+            tvLeft.setOnClickListener(onClickListener);
+            tvLeft.setVisibility(VISIBLE);
+        }
+    }
+
     public void setRightListener(int iconRes, OnClickListener onClickListener) {
         if (ivRight != null) {
             ivRight.setImageResource(iconRes);
             ivRight.setOnClickListener(onClickListener);
-            ivRight.setVisibility(VISIBLE);
-            tvRight.setVisibility(GONE);
-        }
-    }
-
-    public void setRightIcon(int iconRes) {
-        if (ivRight != null) {
-            ivRight.setImageResource(iconRes);
             ivRight.setVisibility(VISIBLE);
             tvRight.setVisibility(GONE);
         }
@@ -174,13 +194,6 @@ public class MyActionBar extends LinearLayout {
         }
     }
 
-    public void addView(View view) {
-        if (layRoot != null) {
-            layRoot.addView(view);
-        }
-    }
-
-
     public void setRightText(String text) {
         if (tvRight != null) {
             tvRight.setText(text);
@@ -188,4 +201,5 @@ public class MyActionBar extends LinearLayout {
             ivRight.setVisibility(GONE);
         }
     }
+
 }
