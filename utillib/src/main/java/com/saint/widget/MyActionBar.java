@@ -218,4 +218,10 @@ public class MyActionBar extends LinearLayout {
         }
     }
 
+    public void addView(View view) {
+        if (layRoot != null) {
+            layRoot.addView(view);
+        }
+    }
+
 }
