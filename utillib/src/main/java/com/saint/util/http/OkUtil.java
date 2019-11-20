@@ -8,6 +8,8 @@ import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpParams;
 import com.saint.util.UtilConfig;
+import com.saint.util.util.GsonUtil;
+
 import okhttp3.OkHttpClient;
 
 import java.io.File;
@@ -124,6 +126,13 @@ public class OkUtil {
 
     public void download(Object tag, String url, FileCallback callback) {
         OkGo.<File>post(url)
+                .tag(tag)
+                .execute(callback);
+    }
+
+    public void postJson(Object tag, String url, Object postObj, StringCallback callback) {
+        OkGo.<String>post(url)
+                .upJson(GsonUtil.instance().beanToJson(postObj))
                 .tag(tag)
                 .execute(callback);
     }
