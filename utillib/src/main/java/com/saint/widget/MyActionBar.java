@@ -85,7 +85,7 @@ public class MyActionBar extends LinearLayout {
     }
 
 
-    public void setTitleBarBG(int colorRes) {
+    public void setTitleBarBG(@ColorRes int colorRes) {
         if (colorRes == colorTitleBG) return;
         contentView.setBackground(new ColorDrawable(ContextCompat.getColor(getContext(), colorRes)));
         colorTitleBG = colorRes;
@@ -128,7 +128,7 @@ public class MyActionBar extends LinearLayout {
         }
     }
 
-    public void setTitleColor(@IdRes int color) {
+    public void setTitleColor(@ColorRes int color) {
         if (tvTitle != null) {
             tvTitle.setTextColor(AppUtil.getColor(color));
         }
