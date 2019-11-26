@@ -210,6 +210,12 @@ public class MyActionBar extends LinearLayout {
         }
     }
 
+    public void setRightTextColor(@ColorRes int colorRes) {
+        if (tvRight != null) {
+            tvRight.setTextColor(AppUtil.getColor(colorRes));
+        }
+    }
+
     public void setRightIcon(int iconRes) {
         if (ivRight != null) {
             ivRight.setImageResource(iconRes);
