@@ -25,6 +25,7 @@
         </activity>
         <activity android:name=".ToastAct" />
         <activity android:name=".ScanAct" />
+        <activity android:name=".NotificationAct" />
     </application>
 
 </manifest>

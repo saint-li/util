@@ -4,6 +4,7 @@
     <string-array name="mainMenu">
         <item>Toast</item>
         <item>扫码测试</item>
+        <item>通知测试</item>
     </string-array>
 
     <string-array name="test_toast_items">

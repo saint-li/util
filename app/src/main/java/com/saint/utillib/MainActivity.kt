@@ -32,7 +32,7 @@ class MainActivity : BaseAct(), OnItemCLick {
         when (position) {
             0 -> showAct(ToastAct::class.java)
             1 -> showAct(ScanAct::class.java)
-
+            2 -> showAct(NotificationAct::class.java)
         }
     }
 
