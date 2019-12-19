@@ -165,6 +165,14 @@ public class GlideUtils {
                 .into(target);
     }
 
+    public static void loadBitmap(Context context, String avatar, RequestOptions option, SimpleTarget<Bitmap> target) {
+        GlideApp.with(context)
+                .asBitmap()
+                .apply(option)
+                .load(avatar)
+                .into(target);
+    }
+
     public static void loadDrawable(Context context, Uri uri, SimpleTarget<Drawable> simpleTarget) {
         GlideApp.with(context)
                 .load(uri)
