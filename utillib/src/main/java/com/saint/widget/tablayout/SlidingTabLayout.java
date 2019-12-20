@@ -16,12 +16,14 @@ import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
 import com.saint.widget.tablayout.listener.OnTabSelectListener;
 import com.saint.widget.tablayout.utils.UnreadMsgUtils;
 import com.saint.widget.tablayout.widget.MsgView;
@@ -60,7 +62,10 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
     private static final int STYLE_BLOCK = 2;
     private int mIndicatorStyle = STYLE_NORMAL;
 
-    private float mTabPadding;
+    private float mTabPaddingTop;
+    private float mTabPaddingLeft;
+    private float mTabPaddingRight;
+    private float mTabPaddingBottom;
     private boolean mTabSpaceEqual;
     private float mTabWidth;
 
@@ -177,7 +182,11 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
 
         mTabSpaceEqual = ta.getBoolean(R.styleable.SlidingTabLayout_tl_tab_space_equal, false);
         mTabWidth = ta.getDimension(R.styleable.SlidingTabLayout_tl_tab_width, dp2px(-1));
-        mTabPadding = ta.getDimension(R.styleable.SlidingTabLayout_tl_tab_padding, mTabSpaceEqual || mTabWidth > 0 ? dp2px(0) : dp2px(20));
+        mTabPaddingTop = ta.getDimension(R.styleable.SlidingTabLayout_tl_tab_padding_top, mTabSpaceEqual || mTabWidth > 0 ? dp2px(0) : dp2px(10));
+        mTabPaddingLeft = ta.getDimension(R.styleable.SlidingTabLayout_tl_tab_padding_left, mTabSpaceEqual || mTabWidth > 0 ? dp2px(0) : dp2px(10));
+        mTabPaddingRight = ta.getDimension(R.styleable.SlidingTabLayout_tl_tab_padding_right, mTabSpaceEqual || mTabWidth > 0 ? dp2px(0) : dp2px(10));
+        mTabPaddingBottom = ta.getDimension(R.styleable.SlidingTabLayout_tl_tab_padding_bottom, mTabSpaceEqual || mTabWidth > 0 ? dp2px(0) : dp2px(10));
+
 
         ta.recycle();
     }
@@ -323,7 +332,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
             if (tv_tab_title != null) {
                 tv_tab_title.setTextColor(i == mCurrentTab ? mTextSelectColor : mTextUnselectColor);
                 tv_tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextsize);
-                tv_tab_title.setPadding((int) mTabPadding, 0, (int) mTabPadding, 0);
+                tv_tab_title.setPadding((int) mTabPaddingLeft, (int) mTabPaddingTop, (int) mTabPaddingRight, (int) mTabPaddingBottom);
                 if (mTextAllCaps) {
                     tv_tab_title.setText(tv_tab_title.getText().toString().toUpperCase());
                 }
@@ -567,8 +576,23 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         invalidate();
     }
 
-    public void setTabPadding(float tabPadding) {
-        this.mTabPadding = dp2px(tabPadding);
+    public void setmTabPaddingLeft(float tabPadding) {
+        this.mTabPaddingLeft = dp2px(tabPadding);
+        updateTabStyles();
+    }
+
+    public void setTabPaddingTop(float tabPadding) {
+        this.mTabPaddingTop = dp2px(tabPadding);
+        updateTabStyles();
+    }
+
+    public void setmTabPaddingRight(float tabPadding) {
+        this.mTabPaddingRight = dp2px(tabPadding);
+        updateTabStyles();
+    }
+
+    public void setmTabPaddingBottom(float tabPadding) {
+        this.mTabPaddingBottom = dp2px(tabPadding);
         updateTabStyles();
     }
 
@@ -693,8 +717,20 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
         return mIndicatorStyle;
     }
 
-    public float getTabPadding() {
-        return mTabPadding;
+    public float getmTabPaddingLeft() {
+        return mTabPaddingLeft;
+    }
+
+    public float getmTabPaddingTop() {
+        return mTabPaddingTop;
+    }
+
+    public float getmTabPaddingRight() {
+        return mTabPaddingRight;
+    }
+
+    public float getmTabPaddingBottom() {
+        return mTabPaddingBottom;
     }
 
     public boolean isTabSpaceEqual() {
@@ -856,7 +892,7 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
             float textWidth = mTextPaint.measureText(tv_tab_title.getText().toString());
             float textHeight = mTextPaint.descent() - mTextPaint.ascent();
             MarginLayoutParams lp = (MarginLayoutParams) tipView.getLayoutParams();
-            lp.leftMargin = mTabWidth >= 0 ? (int) (mTabWidth / 2 + textWidth / 2 + dp2px(leftPadding)) : (int) (mTabPadding + textWidth + dp2px(leftPadding));
+            lp.leftMargin = mTabWidth >= 0 ? (int) (mTabWidth / 2 + textWidth / 2 + dp2px(leftPadding)) : (int) (mTabPaddingLeft + textWidth + dp2px(leftPadding));
             lp.topMargin = mHeight > 0 ? (int) (mHeight - textHeight) / 2 - dp2px(bottomPadding) : 0;
             tipView.setLayoutParams(lp);
         }
