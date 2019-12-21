@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:drawablePadding="@dimen/dp_8"
+            android:drawableStart="@dimen/dp_8"
             android:gravity="center"
             android:paddingStart="@dimen/dp_10"
             android:paddingEnd="@dimen/dp_10"
