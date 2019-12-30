@@ -14,6 +14,7 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.saint.util.R;
 import com.umeng.analytics.MobclickAgent;
 import com.saint.util.util.ActivityUtil;
 import com.saint.util.util.AppUtil;
@@ -61,10 +62,14 @@ public abstract class BaseAct extends AppCompatActivity {
     protected void initTitleView() {
     }
 
+
     /**
      * 初始化布局
      */
-    protected abstract void initView();
+    protected void initView() {
+    }
+
+    ;
 
     /**
      * 初始化数据
