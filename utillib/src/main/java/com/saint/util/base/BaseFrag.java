@@ -28,11 +28,16 @@ public abstract class BaseFrag extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(setLayout(), container, false);
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initTitleView();
         initView();
         initData();
         initListener();
-        return rootView;
     }
 
     /**
@@ -61,7 +66,10 @@ public abstract class BaseFrag extends Fragment {
     /**
      * 初始化布局
      */
-    protected abstract void initView();
+    protected void initView() {
+    }
+
+    ;
 
     /**
      * 初始化数据
