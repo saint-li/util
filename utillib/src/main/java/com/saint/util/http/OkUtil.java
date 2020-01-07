@@ -137,6 +137,20 @@ public class OkUtil {
                 .execute(callback);
     }
 
+    public void putJson(Object tag, String url, Object postObj, StringCallback callback) {
+        OkGo.<String>put(url)
+                .upJson(GsonUtil.instance().beanToJson(postObj))
+                .tag(tag)
+                .execute(callback);
+    }
+
+    public void deleteJson(Object tag, String url, Object postObj, StringCallback callback) {
+        OkGo.<String>delete(url)
+                .upJson(GsonUtil.instance().beanToJson(postObj))
+                .tag(tag)
+                .execute(callback);
+    }
+
     public void cancelTag(Object obj) {
         mOkGo.cancelTag(obj);
     }
