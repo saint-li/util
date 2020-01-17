@@ -26,6 +26,8 @@
         <activity android:name=".ToastAct" />
         <activity android:name=".ScanAct" />
         <activity android:name=".NotificationAct" />
+        <activity android:name=".fragkotlin.KotlinTestAct" />
+        <activity android:name=".time.TimeTestAct" />
     </application>
 
 </manifest>

@@ -4,6 +4,8 @@ import com.saint.util.base.BaseAct
 import com.saint.util.listener.OnItemCLick
 import com.saint.util.util.AppLog
 import com.saint.util.util.toast.AppToast
+import com.saint.utillib.fragkotlin.KotlinTestAct
+import com.saint.utillib.time.TimeTestAct
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -33,6 +35,8 @@ class MainActivity : BaseAct(), OnItemCLick {
             0 -> showAct(ToastAct::class.java)
             1 -> showAct(ScanAct::class.java)
             2 -> showAct(NotificationAct::class.java)
+            3 -> showAct(TimeTestAct::class.java)
+            4 ->  showAct(KotlinTestAct::class.java)
         }
     }
 
