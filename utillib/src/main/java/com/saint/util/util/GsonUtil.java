@@ -5,7 +5,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.saint.util.UtilConfig;
 
 public class GsonUtil {
-    private Gson gson;
+    public Gson gson;
     //    private Type type;
 //    private Class<T> clazz;
     private static GsonUtil instance;
