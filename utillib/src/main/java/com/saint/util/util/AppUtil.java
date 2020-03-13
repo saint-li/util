@@ -1,6 +1,7 @@
 package com.saint.util.util;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -13,6 +14,8 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
@@ -421,6 +424,51 @@ public class AppUtil {
         } else {
             view.setBackgroundDrawable(drawable);
         }
+    }
+
+    /**
+     * 包名判断是否为主进程
+     *
+     * @param
+     * @return
+     */
+    public static boolean isMainProcess(Context context) {
+        return context.getApplicationContext().getPackageName().equals(getCurrentProcessName(context));
+    }
+
+
+    /**
+     * 获取当前进程名
+     */
+    private static String getCurrentProcessName(Context context) {
+        int pid = android.os.Process.myPid();
+        String processName = "";
+        ActivityManager manager = (ActivityManager) context.getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        if (manager != null)
+            for (ActivityManager.RunningAppProcessInfo process : manager.getRunningAppProcesses()) {
+                if (process.pid == pid) {
+                    processName = process.processName;
+                }
+            }
+        return processName;
+    }
+
+    /**
+     * check if the network connected or not
+     * @param context context
+     * @return true: connected, false:not, null:unknown
+     */
+    public static Boolean isNetworkConnected(Context context) {
+        try {
+            context = context.getApplicationContext();
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (cm != null) {
+                NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+                return networkInfo != null && networkInfo.isConnected();
+            }
+        } catch (Exception ignored) {
+        }
+        return null;
     }
 
     /**
