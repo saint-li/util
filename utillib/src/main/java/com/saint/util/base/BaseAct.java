@@ -170,8 +170,21 @@ public abstract class BaseAct extends AppCompatActivity {
         act.startActivity(intent);
     }
 
+    public void showAct(Class clazz, Bundle bundle) {
+        Intent intent = new Intent(act, clazz);
+        intent.putExtras(bundle);
+        act.startActivity(intent);
+    }
+
+
     public void showActForResult(Class clazz, int requestCode) {
         Intent intent = new Intent(act, clazz);
+        startActivityForResult(intent, requestCode);
+    }
+
+    public void showActForResult(Class clazz, int requestCode, Bundle bundle) {
+        Intent intent = new Intent(act, clazz);
+        intent.putExtras(bundle);
         startActivityForResult(intent, requestCode);
     }
 
