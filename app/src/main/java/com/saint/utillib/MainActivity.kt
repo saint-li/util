@@ -1,7 +1,11 @@
 package com.saint.utillib
 
+import android.content.Intent
+import android.net.Uri
 import com.saint.util.base.BaseAct
 import com.saint.util.listener.OnItemCLick
+import com.saint.util.util.AppUtil
+import com.saint.util.util.toast.AppToast
 import com.saint.utillib.gloading.GLoadingAct
 import com.saint.utillib.fragkotlin.KotlinTestAct
 import com.saint.utillib.time.TimeTestAct
@@ -37,6 +41,22 @@ class MainActivity : BaseAct(), OnItemCLick {
             3 -> showAct(TimeTestAct::class.java)
             4 -> showAct(KotlinTestAct::class.java)
             5 -> showAct(GLoadingAct::class.java)
+            6 -> {
+                if (AppUtil.isInstall("com.xu5g.protection")) {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("tudingprotection://splash"))
+                    startActivity(intent)
+                } else {
+                    AppToast.tShort("未安装兔盯守护App")
+                }
+            }
+            7 -> {
+                if (AppUtil.isInstall("com.xu5g.ccba")) {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("ccser://splash"))
+                    startActivity(intent)
+                } else {
+                    AppToast.tShort("未安装CCSERApp")
+                }
+            }
         }
     }
 

@@ -40,6 +40,7 @@ import com.saint.util.util.toast.AppToast;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -455,6 +456,7 @@ public class AppUtil {
 
     /**
      * check if the network connected or not
+     *
      * @param context context
      * @return true: connected, false:not, null:unknown
      */
@@ -536,5 +538,26 @@ public class AppUtil {
             clipboardManager.setPrimaryClip(clipData);
             AppToast.tShort(R.string.copy_succeed);
         }
+    }
+
+    /**
+     * 检测app是否安装
+     *
+     * @param appPackageName 应用包名
+     * @return
+     */
+    public static boolean isInstall(String appPackageName) {
+        final PackageManager packageManager = UtilConfig.getApp().getPackageManager();// 获取packagemanager
+        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
+        if (pinfo != null) {
+            for (int i = 0; i < pinfo.size(); i++) {
+                String pn = pinfo.get(i).packageName;
+                if (pn.equals(appPackageName)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

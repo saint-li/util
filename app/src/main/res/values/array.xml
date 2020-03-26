@@ -8,6 +8,8 @@
         <item>TimeUtil测试</item>
         <item>FragKotlin测试</item>
         <item>GLoading测试</item>
+        <item>打开兔盯守护</item>
+        <item>打开CCSER</item>
     </string-array>
 
     <string-array name="test_toast_items">
