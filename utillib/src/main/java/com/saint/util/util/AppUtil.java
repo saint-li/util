@@ -560,4 +560,26 @@ public class AppUtil {
 
         return false;
     }
+
+    public static boolean isNewVersionHigh(String newVersion) {
+
+        String[] newVStr = newVersion.split("\\.");
+        String[] oldVStr = getVersionName().split("\\.");
+
+        int maxSize = Math.max(newVStr.length, oldVStr.length);
+        for (int i = 0; i < maxSize; i++) {
+            if (i < newVStr.length
+                    && i < oldVStr.length
+                    && !TextUtils.isEmpty(newVStr[i])
+                    && !TextUtils.isEmpty(oldVStr[i])
+                    && Integer.parseInt(newVStr[i]) > Integer.parseInt(oldVStr[i])
+            ) {
+                return true;
+            } else if (i >= oldVStr.length) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
