@@ -79,6 +79,10 @@ public class RefreshRecyclerWithTop extends LinearLayout {
         if (topContainer != null) topContainer.addView(v);
     }
 
+    public void removeTopView() {
+        if (topContainer != null) topContainer.removeAllViews();
+    }
+
     public void toTop() {
         if (scrollView != null) scrollView.fullScroll(View.FOCUS_UP);
     }
