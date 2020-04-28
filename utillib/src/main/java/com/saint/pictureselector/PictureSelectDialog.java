@@ -8,13 +8,6 @@ import android.view.*;
 import android.widget.Button;
 import com.saint.util.R;
 
-
-/**
- * Author       wildma
- * Github       https://github.com/wildma
- * CreateDate   2018/6/10
- * Desc	        ${选择图片Dialog}
- */
 public class PictureSelectDialog extends Dialog implements View.OnClickListener {
 
     private Context mContext;

@@ -8,36 +8,38 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
-import androidx.core.app.ActivityCompat;
-import com.saint.util.R;
 
-/**
- * Author   wildma
- * Github   https://github.com/wildma
- * Date     2018/6/24
- * Desc     ${图片选择}
- */
-public class PictureSelectActivity extends Activity {
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+
+import com.saint.ucrop.UCrop;
+import com.saint.util.R;
+import com.saint.util.base.BaseAct;
+import com.saint.util.util.AppLog;
+
+public class PictureSelectActivity extends BaseAct {
 
     private final int PERMISSION_CODE_FIRST = 0x14;//权限请求码
     private PictureSelectDialog mSelectPictureDialog;
-    private             boolean isToast      = true;//是否弹吐司，为了保证for循环只弹一次
-    public static final String CROP_WIDTH   = "crop_width";
-    public static final String CROP_HEIGHT  = "crop_Height";
-    public static final String RATIO_WIDTH  = "ratio_Width";
+    private boolean isToast = true;//是否弹吐司，为了保证for循环只弹一次
+    public static final String CROP_WIDTH = "crop_width";
+    public static final String CROP_HEIGHT = "crop_Height";
+    public static final String RATIO_WIDTH = "ratio_Width";
     public static final String RATIO_HEIGHT = "ratio_Height";
-    public static final String ENABLE_CROP  = "enable_crop";
-    private int     mCropWidth;
-    private int     mCropHeight;
-    private int     mRatioWidth;
-    private int     mRatioHeight;
+    public static final String ENABLE_CROP = "enable_crop";
+    private int mCropWidth;
+    private int mCropHeight;
+    private int mRatioWidth;
+    private int mRatioHeight;
     private boolean mCropEnabled;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_picture_select);
+    protected int setLayout() {
+        return R.layout.activity_picture_select;
+    }
 
+    @Override
+    protected void initData() {
         mCropEnabled = getIntent().getBooleanExtra(ENABLE_CROP, true);
         mCropWidth = getIntent().getIntExtra(CROP_WIDTH, 200);
         mCropHeight = getIntent().getIntExtra(CROP_HEIGHT, 200);
@@ -104,7 +106,9 @@ public class PictureSelectActivity extends Activity {
         });
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         /*选择图片中途按返回键*/
         if (resultCode == RESULT_CANCELED) {
             if (requestCode == PictureSelectUtils.GET_BY_ALBUM
@@ -112,7 +116,13 @@ public class PictureSelectActivity extends Activity {
                 finish();
             }
         }
-        String picturePath = PictureSelectUtils.onActivityResult(this, requestCode, resultCode, data, mCropEnabled, mCropWidth, mCropHeight, mRatioWidth, mRatioHeight);
+        String picturePath;
+        if (requestCode == UCrop.REQUEST_CROP) {
+            AppLog.e("裁剪图片：Uri " + UCrop.getOutput(data));
+            picturePath = UCrop.getOutput(data).getPath();
+        } else {
+            picturePath = PictureSelectUtils.onActivityResult(this, requestCode, resultCode, data, mCropEnabled, mCropWidth, mCropHeight, mRatioWidth, mRatioHeight);
+        }
         if (!TextUtils.isEmpty(picturePath)) {
             Intent intent = new Intent();
             intent.putExtra(PictureSelector.PICTURE_PATH, picturePath);

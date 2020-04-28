@@ -6,12 +6,6 @@ import androidx.fragment.app.Fragment;
 
 import java.lang.ref.WeakReference;
 
-/**
- * Author       wildma
- * Github       https://github.com/wildma
- * Date         2018/6/24
- * Desc	        ${图片选择器}
- */
 public class PictureSelector {
 
     public static final int    SELECT_REQUEST_CODE = 0x15;//选择图片请求码

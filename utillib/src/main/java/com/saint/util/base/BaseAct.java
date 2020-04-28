@@ -14,7 +14,6 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.saint.util.R;
 import com.umeng.analytics.MobclickAgent;
 import com.saint.util.util.ActivityUtil;
 import com.saint.util.util.AppUtil;

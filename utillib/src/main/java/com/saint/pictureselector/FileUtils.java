@@ -12,12 +12,6 @@ import java.io.IOException;
 
 import static com.saint.util.util.PictureFileUtils.createFile;
 
-/**
- * Author       wildma
- * Github       https://github.com/wildma
- * CreateDate   2018/6/10
- * Desc	        ${文件相关工具类}
- */
 public final class FileUtils {
 
     /**

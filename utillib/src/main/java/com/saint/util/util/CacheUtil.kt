@@ -27,6 +27,15 @@ fun deleteDir(file: File?): Boolean {
     return file.delete()
 }
 
+fun deleteSingleFile(filePath: String?): Boolean {
+    if (filePath == null || filePath.isEmpty()) return false
+    val file = File(filePath)
+    if (file.exists() && file.isFile) {
+        return file.delete()
+    }
+    return false
+}
+
 fun getCacheSize(context: Context): String {
     var cacheSize = getFolderSize(context.cacheDir)
     if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {

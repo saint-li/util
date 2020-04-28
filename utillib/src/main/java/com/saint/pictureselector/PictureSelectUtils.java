@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.widget.Toast;
+
 import androidx.core.content.FileProvider;
 
 import java.io.File;
@@ -16,9 +17,6 @@ import java.io.FileNotFoundException;
 
 
 /**
- * Author       wildma
- * Github       https://github.com/wildma
- * CreateDate   2018/6/10
  * Desc	        ${选择图片工具类}
  * 使用方法：
  * 1. 调用getByCamera()、getByAlbum()可通过拍照或相册获取图片
@@ -26,9 +24,9 @@ import java.io.FileNotFoundException;
  */
 public class PictureSelectUtils {
 
-    public static final int GET_BY_ALBUM  = 0x11;//相册标记
+    public static final int GET_BY_ALBUM = 0x11;//相册标记
     public static final int GET_BY_CAMERA = 0x12;//拍照标记
-    public static final int CROP          = 0x13;//裁剪标记
+    public static final int CROP = 0x13;//裁剪标记
     private static Uri takePictureUri;//拍照图片uri
     private static Uri cropPictureTempUri;//裁剪图片uri
     private static File takePictureFile;//拍照图片File
@@ -72,7 +70,7 @@ public class PictureSelectUtils {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { //解决Android 7.0 拍照出现FileUriExposedException的问题
                 String authority = activity.getPackageName() + ".fileProvider";
-                takePictureUri =  FileProvider.getUriForFile(activity, authority, takePictureFile);
+                takePictureUri = FileProvider.getUriForFile(activity, authority, takePictureFile);
             } else {
                 takePictureUri = Uri.fromFile(takePictureFile);
             }
@@ -165,8 +163,13 @@ public class PictureSelectUtils {
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
         /*解决小米miui系统调用系统裁剪图片功能camera.action.CROP后崩溃或重新打开app的问题*/
-        StringBuffer buffer = new StringBuffer();
-        String pathName = buffer.append("file:///").append(FileUtils.getRootPath()).append(File.separator).append(Constant.APP_NAME).append(".temp.jpg").toString();
+        String pathName = "file:///" +
+                FileUtils.getRootPath() +
+                File.separator +
+                Constant.APP_NAME +
+                "." +
+                System.currentTimeMillis() +
+                ".jpg";
         cropPictureTempUri = Uri.parse(pathName);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, cropPictureTempUri);//输出路径(裁剪后的保存路径)
         // 输出格式
