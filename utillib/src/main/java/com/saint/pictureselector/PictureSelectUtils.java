@@ -65,7 +65,7 @@ public class PictureSelectUtils {
         try {
             FileUtils.createOrExistsDir(Constant.DIR_ROOT);
             StringBuffer buffer = new StringBuffer();
-            String pathName = buffer.append(Constant.DIR_ROOT).append(Constant.APP_NAME).append(".").append(System.currentTimeMillis()).append(".jpg").toString();
+            String pathName = buffer.append(Constant.DIR_ROOT).append(System.currentTimeMillis()).append(".jpg").toString();
             takePictureFile = new File(pathName);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { //解决Android 7.0 拍照出现FileUriExposedException的问题
