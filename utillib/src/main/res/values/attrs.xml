@@ -56,6 +56,10 @@
     <!-- tab -->
     <!-- 设置tab的paddingLeft和paddingRight -->
     <attr name="tl_tab_padding" format="dimension" />
+    <attr name="tl_tab_padding_top" format="dimension" />
+    <attr name="tl_tab_padding_left" format="dimension" />
+    <attr name="tl_tab_padding_right" format="dimension" />
+    <attr name="tl_tab_padding_bottom" format="dimension" />
     <!-- 设置tab大小等分 -->
     <attr name="tl_tab_space_equal" format="boolean" />
     <!-- 设置tab固定大小 -->
@@ -150,6 +154,11 @@
 
         <!-- tab -->
         <attr name="tl_tab_padding" />
+
+        <attr name="tl_tab_padding_top"  />
+        <attr name="tl_tab_padding_left" />
+        <attr name="tl_tab_padding_right" />
+        <attr name="tl_tab_padding_bottom"  />
         <attr name="tl_tab_space_equal" />
         <attr name="tl_tab_width" />
 
