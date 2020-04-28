@@ -60,4 +60,9 @@ class PicTestAct : BaseAct() {
             }
         }
     }
+
+    override fun finish() {
+        deleteSingleFile(picPath)
+        super.finish()
+    }
 }
