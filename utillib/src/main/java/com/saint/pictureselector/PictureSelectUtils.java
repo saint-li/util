@@ -167,7 +167,7 @@ public class PictureSelectUtils {
                 FileUtils.getRootPath() +
                 File.separator +
                 Constant.APP_NAME +
-                "." +
+                "_" +
                 System.currentTimeMillis() +
                 ".jpg";
         cropPictureTempUri = Uri.parse(pathName);
