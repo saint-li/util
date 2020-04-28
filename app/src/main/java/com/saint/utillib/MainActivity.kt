@@ -7,6 +7,7 @@ import com.saint.util.listener.OnItemCLick
 import com.saint.util.util.AppUtil
 import com.saint.util.util.clearCache
 import com.saint.util.util.toast.AppToast
+import com.saint.utillib.act.PicTestAct
 import com.saint.utillib.gloading.GLoadingAct
 import com.saint.utillib.fragkotlin.KotlinTestAct
 import com.saint.utillib.time.TimeTestAct
@@ -66,6 +67,9 @@ class MainActivity : BaseAct(), OnItemCLick {
                     adapter?.notifyDataSetChanged()
                 }
 
+            }
+            9 -> {
+                showAct(PicTestAct::class.java)
             }
         }
     }

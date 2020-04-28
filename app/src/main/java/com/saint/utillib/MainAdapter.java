@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import com.saint.util.base.BaseRecyclerAdapter;
 import com.saint.util.base.BaseViewHolder;
 import com.saint.util.listener.OnItemCLick;
-import com.saint.util.util.AppLog;
 
 import static com.saint.util.util.CacheUtilKt.getCacheSize;
 
