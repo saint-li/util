@@ -10,6 +10,7 @@
         <item>GLoading测试</item>
         <item>打开兔盯守护</item>
         <item>打开CCSER</item>
+        <item>清除缓存</item>
     </string-array>
 
     <string-array name="test_toast_items">

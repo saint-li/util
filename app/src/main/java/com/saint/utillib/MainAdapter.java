@@ -11,12 +11,17 @@ import androidx.annotation.NonNull;
 import com.saint.util.base.BaseRecyclerAdapter;
 import com.saint.util.base.BaseViewHolder;
 import com.saint.util.listener.OnItemCLick;
+import com.saint.util.util.AppLog;
+
+import static com.saint.util.util.CacheUtilKt.getCacheSize;
 
 public class MainAdapter extends BaseRecyclerAdapter<String, MainAdapter.MainHolder> {
     private String[] strings;
     private OnItemCLick onItemCLick;
+    private Context context;
 
     public MainAdapter(Context context) {
+        this.context = context;
         this.strings = context.getResources().getStringArray(R.array.mainMenu);
     }
 
@@ -28,7 +33,9 @@ public class MainAdapter extends BaseRecyclerAdapter<String, MainAdapter.MainHol
     @Override
     protected void setHolderData(MainHolder holder, int position) {
         String str = strings[position];
-        if (!TextUtils.isEmpty(str)) {
+        if (!TextUtils.isEmpty(str) && str.startsWith("清除缓存")) {
+            holder.tvText.setText("清除缓存：" + getCacheSize(context));
+        } else if (!TextUtils.isEmpty(str)) {
             holder.tvText.setText(str);
         } else {
             holder.tvText.setText(R.string.app_name);
