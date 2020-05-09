@@ -2,10 +2,22 @@ package com.saint.util;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 
 import com.saint.util.lifecycle.ActivityCallback;
 import com.saint.util.lifecycle.IToastCallback;
+import com.saint.util.util.AppUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.umeng.commonsdk.UMConfigure;
 
 public class UtilConfig {
@@ -18,6 +30,7 @@ public class UtilConfig {
         if (app == null) {
             throw new NullPointerException("初始化Util的application不可为null！");
         }
+        if (!AppUtil.isMainProcess(app)) return;
         UtilConfig.app = app;
 //        AppToast.init(app, new ToastAliPayStyle(app));
         //友盟
@@ -49,7 +62,9 @@ public class UtilConfig {
                 }
             }
 
+
         });
+
     }
 
 
@@ -67,5 +82,14 @@ public class UtilConfig {
 
     public static void setToastCallback(IToastCallback toastCallback) {
         sToastCallback = toastCallback;
+    }
+
+    static {
+        //全局设置默认的 Header
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> new ClassicsHeader(context));
+
+        //全局设置默认的 Footer
+        SmartRefreshLayout.setDefaultRefreshFooterCreator((context, layout) -> new ClassicsFooter(context));
+
     }
 }
