@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">UtilLibX</string>
     <string name="delete">删除</string>
     <string name="message_permission_rationale">请在设置中开启以下权限,以便你使用软件的功能:\n\n%1$s</string>
     <string name="message_permission_always_failed">请在设置中开启以下权限,以便你使用软件的功能:\n\n%1$s</string>
