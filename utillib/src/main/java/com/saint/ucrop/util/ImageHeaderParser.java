@@ -33,13 +33,13 @@ package com.saint.ucrop.util;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.exifinterface.media.ExifInterface;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
-
-import androidx.exifinterface.media.ExifInterface;
 
 /**
  * A class for parsing the exif orientation from an image header.
@@ -378,6 +378,7 @@ public class ImageHeaderParser {
 
     public static void copyExif(ExifInterface originalExif, int width, int height, String imageOutputPath) {
         String[] attributes = new String[]{
+                ExifInterface.TAG_F_NUMBER,
                 ExifInterface.TAG_DATETIME,
                 ExifInterface.TAG_DATETIME_DIGITIZED,
                 ExifInterface.TAG_EXPOSURE_TIME,
@@ -392,21 +393,22 @@ public class ImageHeaderParser {
                 ExifInterface.TAG_GPS_LONGITUDE_REF,
                 ExifInterface.TAG_GPS_PROCESSING_METHOD,
                 ExifInterface.TAG_GPS_TIMESTAMP,
+                ExifInterface.TAG_PHOTOGRAPHIC_SENSITIVITY,
                 ExifInterface.TAG_MAKE,
                 ExifInterface.TAG_MODEL,
                 ExifInterface.TAG_SUBSEC_TIME,
+                ExifInterface.TAG_SUBSEC_TIME_DIGITIZED,
+                ExifInterface.TAG_SUBSEC_TIME_ORIGINAL,
                 ExifInterface.TAG_WHITE_BALANCE
         };
 
         try {
             ExifInterface newExif = new ExifInterface(imageOutputPath);
             String value;
-            if (originalExif != null) {
-                for (String attribute : attributes) {
-                    value = originalExif.getAttribute(attribute);
-                    if (!TextUtils.isEmpty(value)) {
-                        newExif.setAttribute(attribute, value);
-                    }
+            for (String attribute : attributes) {
+                value = originalExif.getAttribute(attribute);
+                if (!TextUtils.isEmpty(value)) {
+                    newExif.setAttribute(attribute, value);
                 }
             }
             newExif.setAttribute(ExifInterface.TAG_IMAGE_WIDTH, String.valueOf(width));

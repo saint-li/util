@@ -1,7 +1,11 @@
 package com.saint.utillib.act
 
+//import javafx.scene.Cursor.cursor
 import android.app.Activity
 import android.content.Intent
+import android.database.Cursor
+import android.net.Uri
+import android.provider.MediaStore
 import com.saint.pictureselector.Constant
 import com.saint.pictureselector.PictureSelector
 import com.saint.util.GlideApp
@@ -13,6 +17,7 @@ import com.saint.util.util.toast.AppToast
 import com.saint.utillib.R
 import kotlinx.android.synthetic.main.act_pic_test.*
 import java.io.File
+
 
 class PicTestAct : BaseAct() {
     var picPath = ""
@@ -52,14 +57,37 @@ class PicTestAct : BaseAct() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == PictureSelector.SELECT_REQUEST_CODE) {
             if (data != null) {
-                picPath = data.getStringExtra(PictureSelector.PICTURE_PATH)
-                tv_crop.text = "图片路径： $picPath"
-                GlideApp.with(this)
-                    .load(File(picPath))
-                    .into(iv_crop)
+                AppLog.e("Uri： " + data.data)
+
+                val uri = data.data
+                if (uri != null) {
+                    GlideApp.with(this)
+                        .load(uri)
+                        .into(iv_crop)
+                    tv_crop.text = "图片路径： $uri"
+                } else {
+                    GlideApp.with(this)
+                        .load(File(picPath))
+                        .into(iv_crop)
+                }
+
             }
         }
     }
+
+    // 通过Uri查找图片名称，然后输出图片到Sd卡指定位置，将图片路径返回
+//    private fun getPathByUri(uri: Uri): String? {
+//        val resolver = this.contentResolver
+//        var fileName = System.currentTimeMillis().toString()
+//        val cursor: Cursor? = resolver.query(uri, null, null, null, null)
+//        if (cursor != null && cursor.count > 0) {
+//            cursor.moveToFirst()
+//            fileName =
+//                cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME))
+//            cursor.close()
+//        }
+//        return CopyUriToSd.Companion.getInstance().copyUriToExternalFilesDir(this, uri, fileName)
+//    }
 
     override fun finish() {
         deleteSingleFile(picPath)

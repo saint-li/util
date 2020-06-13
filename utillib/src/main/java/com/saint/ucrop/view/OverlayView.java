@@ -13,13 +13,17 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.IntDef;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+
 
 import com.saint.ucrop.callback.OverlayViewChangeListener;
 import com.saint.ucrop.util.RectUtils;
 import com.saint.util.R;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
@@ -28,16 +32,24 @@ import com.saint.util.R;
  * This must have LAYER_TYPE_SOFTWARE to draw itself properly.
  */
 public class OverlayView extends View {
-    public static final boolean DEFAULT_DRAG_FRAME = true;
+
+    public static final int FREESTYLE_CROP_MODE_DISABLE = 0;
+    public static final int FREESTYLE_CROP_MODE_ENABLE = 1;
+    public static final int FREESTYLE_CROP_MODE_ENABLE_WITH_PASS_THROUGH = 2;
+
     public static final boolean DEFAULT_SHOW_CROP_FRAME = true;
     public static final boolean DEFAULT_SHOW_CROP_GRID = true;
     public static final boolean DEFAULT_CIRCLE_DIMMED_LAYER = false;
-    public static final boolean DEFAULT_FREESTYLE_CROP_ENABLED = false;
+    public static final int DEFAULT_FREESTYLE_CROP_MODE = FREESTYLE_CROP_MODE_DISABLE;
     public static final int DEFAULT_CROP_GRID_ROW_COUNT = 2;
     public static final int DEFAULT_CROP_GRID_COLUMN_COUNT = 2;
-    private boolean mIsDragFrame = DEFAULT_DRAG_FRAME;
+
     private final RectF mCropViewRect = new RectF();
     private final RectF mTempRect = new RectF();
+
+    protected int mThisWidth, mThisHeight;
+    protected float[] mCropGridCorners;
+    protected float[] mCropGridCenter;
 
     private int mCropGridRowCount, mCropGridColumnCount;
     private float mTargetAspectRatio;
@@ -50,12 +62,8 @@ public class OverlayView extends View {
     private Paint mCropGridPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mCropFramePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint mCropFrameCornersPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
-    protected int mThisWidth, mThisHeight;
-
-    private boolean mIsFreestyleCropEnabled = DEFAULT_FREESTYLE_CROP_ENABLED;
-    protected float[] mCropGridCorners;
-    protected float[] mCropGridCenter;
+    @FreestyleMode
+    private int mFreestyleCropMode = DEFAULT_FREESTYLE_CROP_MODE;
     private float mPreviousTouchX = -1, mPreviousTouchY = -1;
     private int mCurrentTouchCornerIndex = -1;
     private int mTouchPointThreshold;
@@ -98,20 +106,30 @@ public class OverlayView extends View {
         return mCropViewRect;
     }
 
+    @Deprecated
+    /***
+     * Please use the new method {@link #getFreestyleCropMode() getFreestyleCropMode} method as we have more than 1 freestyle crop mode.
+     */
     public boolean isFreestyleCropEnabled() {
-        return mIsFreestyleCropEnabled;
+        return mFreestyleCropMode == FREESTYLE_CROP_MODE_ENABLE;
     }
 
+    @Deprecated
+    /***
+     * Please use the new method {@link #setFreestyleCropMode setFreestyleCropMode} method as we have more than 1 freestyle crop mode.
+     */
     public void setFreestyleCropEnabled(boolean freestyleCropEnabled) {
-        mIsFreestyleCropEnabled = freestyleCropEnabled;
+        mFreestyleCropMode = freestyleCropEnabled ? FREESTYLE_CROP_MODE_ENABLE : FREESTYLE_CROP_MODE_DISABLE;
     }
 
-    public boolean ismIsDragFrame() {
-        return mIsDragFrame;
+    @FreestyleMode
+    public int getFreestyleCropMode() {
+        return mFreestyleCropMode;
     }
 
-    public void setDragFrame(boolean mIsDragFrame) {
-        this.mIsDragFrame = mIsDragFrame;
+    public void setFreestyleCropMode(@FreestyleMode int mFreestyleCropMode) {
+        this.mFreestyleCropMode = mFreestyleCropMode;
+        postInvalidate();
     }
 
     /**
@@ -197,6 +215,13 @@ public class OverlayView extends View {
     }
 
     /**
+     * Setter for crop grid corner color
+     */
+    public void setCropGridCornerColor(@ColorInt int color) {
+        mCropFrameCornersPaint.setColor(color);
+    }
+
+    /**
      * This method sets aspect ratio for crop bounds.
      *
      * @param targetAspectRatio - aspect ratio for image crop (e.g. 1.77(7) for 16:9)
@@ -246,8 +271,7 @@ public class OverlayView extends View {
     }
 
     protected void init() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2 &&
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
             setLayerType(LAYER_TYPE_SOFTWARE, null);
         }
     }
@@ -282,18 +306,24 @@ public class OverlayView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (mCropViewRect.isEmpty() || !mIsFreestyleCropEnabled) return false;
+        if (mCropViewRect.isEmpty() || mFreestyleCropMode == FREESTYLE_CROP_MODE_DISABLE) {
+            return false;
+        }
 
         float x = event.getX();
         float y = event.getY();
 
         if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_DOWN) {
-            if (mPreviousTouchX < 0) {
+            mCurrentTouchCornerIndex = getCurrentTouchIndex(x, y);
+            boolean shouldHandle = mCurrentTouchCornerIndex != -1;
+            if (!shouldHandle) {
+                mPreviousTouchX = -1;
+                mPreviousTouchY = -1;
+            } else if (mPreviousTouchX < 0) {
                 mPreviousTouchX = x;
                 mPreviousTouchY = y;
             }
-            mCurrentTouchCornerIndex = getCurrentTouchIndex(x, y);
-            return mCurrentTouchCornerIndex != -1;
+            return shouldHandle;
         }
 
         if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_MOVE) {
@@ -338,28 +368,16 @@ public class OverlayView extends View {
         switch (mCurrentTouchCornerIndex) {
             // resize rectangle
             case 0:
-                // 是否可拖动裁剪框
-                if (mIsDragFrame) {
-                    mTempRect.set(touchX, touchY, mCropViewRect.right, mCropViewRect.bottom);
-                }
+                mTempRect.set(touchX, touchY, mCropViewRect.right, mCropViewRect.bottom);
                 break;
             case 1:
-                // 是否可拖动裁剪框
-                if (mIsDragFrame) {
-                    mTempRect.set(mCropViewRect.left, touchY, touchX, mCropViewRect.bottom);
-                }
+                mTempRect.set(mCropViewRect.left, touchY, touchX, mCropViewRect.bottom);
                 break;
             case 2:
-                // 是否可拖动裁剪框
-                if (mIsDragFrame) {
-                    mTempRect.set(mCropViewRect.left, mCropViewRect.top, touchX, touchY);
-                }
+                mTempRect.set(mCropViewRect.left, mCropViewRect.top, touchX, touchY);
                 break;
             case 3:
-                // 是否可拖动裁剪框
-                if (mIsDragFrame) {
-                    mTempRect.set(touchX, mCropViewRect.top, mCropViewRect.right, touchY);
-                }
+                mTempRect.set(touchX, mCropViewRect.top, mCropViewRect.right, touchY);
                 break;
             // move rectangle
             case 4:
@@ -408,7 +426,8 @@ public class OverlayView extends View {
                 closestPointIndex = i / 2;
             }
         }
-        if (closestPointIndex < 0 && mCropViewRect.contains(touchX, touchY)) {
+
+        if (mFreestyleCropMode == FREESTYLE_CROP_MODE_ENABLE && closestPointIndex < 0 && mCropViewRect.contains(touchX, touchY)) {
             return 4;
         }
 
@@ -488,7 +507,7 @@ public class OverlayView extends View {
             canvas.drawRect(mCropViewRect, mCropFramePaint);
         }
 
-        if (mIsFreestyleCropEnabled) {
+        if (mFreestyleCropMode != FREESTYLE_CROP_MODE_DISABLE) {
             canvas.save();
 
             mTempRect.set(mCropViewRect);
@@ -534,6 +553,7 @@ public class OverlayView extends View {
                 getResources().getDimensionPixelSize(R.dimen.ucrop_default_crop_frame_stoke_width));
         int cropFrameColor = a.getColor(R.styleable.ucrop_UCropView_ucrop_frame_color,
                 getResources().getColor(R.color.ucrop_color_default_crop_frame));
+
         mCropFramePaint.setStrokeWidth(cropFrameStrokeSize);
         mCropFramePaint.setColor(cropFrameColor);
         mCropFramePaint.setStyle(Paint.Style.STROKE);
@@ -557,6 +577,12 @@ public class OverlayView extends View {
 
         mCropGridRowCount = a.getInt(R.styleable.ucrop_UCropView_ucrop_grid_row_count, DEFAULT_CROP_GRID_ROW_COUNT);
         mCropGridColumnCount = a.getInt(R.styleable.ucrop_UCropView_ucrop_grid_column_count, DEFAULT_CROP_GRID_COLUMN_COUNT);
+    }
+
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({FREESTYLE_CROP_MODE_DISABLE, FREESTYLE_CROP_MODE_ENABLE, FREESTYLE_CROP_MODE_ENABLE_WITH_PASS_THROUGH})
+    public @interface FreestyleMode {
     }
 
 }

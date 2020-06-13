@@ -1,10 +1,13 @@
 package com.saint.ucrop;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 
@@ -14,11 +17,12 @@ import androidx.annotation.FloatRange;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 
 import com.saint.ucrop.model.AspectRatio;
 import com.saint.util.BuildConfig;
+import com.saint.util.UtilConfig;
+import com.saint.util.util.AppUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,8 +37,9 @@ public class UCrop {
 
     public static final int REQUEST_CROP = 69;
     public static final int RESULT_ERROR = 96;
+    public static final int MIN_SIZE = 10;
 
-    private static final String EXTRA_PREFIX = BuildConfig.APPLICATION_ID;
+    private static final String EXTRA_PREFIX = UtilConfig.getApp().getPackageName();
 
     public static final String EXTRA_INPUT_URI = EXTRA_PREFIX + ".InputUri";
     public static final String EXTRA_OUTPUT_URI = EXTRA_PREFIX + ".OutputUri";
@@ -95,12 +100,20 @@ public class UCrop {
     }
 
     /**
-     * Set maximum size for result cropped image.
+     * Set maximum size for result cropped image. Maximum size cannot be less then {@value MIN_SIZE}
      *
      * @param width  max cropped image width
      * @param height max cropped image height
      */
-    public UCrop withMaxResultSize(@IntRange(from = 100) int width, @IntRange(from = 100) int height) {
+    public UCrop withMaxResultSize(@IntRange(from = MIN_SIZE) int width, @IntRange(from = MIN_SIZE) int height) {
+        if (width < MIN_SIZE) {
+            width = MIN_SIZE;
+        }
+
+        if (height < MIN_SIZE) {
+            height = MIN_SIZE;
+        }
+
         mCropOptionsBundle.putInt(EXTRA_MAX_SIZE_X, width);
         mCropOptionsBundle.putInt(EXTRA_MAX_SIZE_Y, height);
         return this;
@@ -140,12 +153,32 @@ public class UCrop {
     }
 
     /**
+     * Send the crop Intent from a support library Fragment
+     *
+     * @param fragment Fragment to receive result
+     */
+    public void start(@NonNull Context context, @NonNull androidx.fragment.app.Fragment fragment) {
+        start(context, fragment, REQUEST_CROP);
+    }
+
+    /**
      * Send the crop Intent with a custom request code
      *
      * @param fragment    Fragment to receive result
      * @param requestCode requestCode for result
      */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void start(@NonNull Context context, @NonNull Fragment fragment, int requestCode) {
+        fragment.startActivityForResult(getIntent(context), requestCode);
+    }
+
+    /**
+     * Send the crop Intent with a custom request code
+     *
+     * @param fragment    Fragment to receive result
+     * @param requestCode requestCode for result
+     */
+    public void start(@NonNull Context context, @NonNull androidx.fragment.app.Fragment fragment, int requestCode) {
         fragment.startActivityForResult(getIntent(context), requestCode);
     }
 
@@ -158,6 +191,20 @@ public class UCrop {
         mCropIntent.setClass(context, UCropActivity.class);
         mCropIntent.putExtras(mCropOptionsBundle);
         return mCropIntent;
+    }
+
+    /**
+     * Get Fragment {@link UCropFragment}
+     *
+     * @return Fragment of {@link UCropFragment}
+     */
+    public UCropFragment getFragment() {
+        return UCropFragment.newInstance(mCropOptionsBundle);
+    }
+
+    public UCropFragment getFragment(Bundle bundle) {
+        mCropOptionsBundle = bundle;
+        return getFragment();
     }
 
     /**
@@ -236,11 +283,12 @@ public class UCrop {
         public static final String EXTRA_CROP_GRID_ROW_COUNT = EXTRA_PREFIX + ".CropGridRowCount";
         public static final String EXTRA_CROP_GRID_COLUMN_COUNT = EXTRA_PREFIX + ".CropGridColumnCount";
         public static final String EXTRA_CROP_GRID_COLOR = EXTRA_PREFIX + ".CropGridColor";
+        public static final String EXTRA_CROP_GRID_CORNER_COLOR = EXTRA_PREFIX + ".CropGridCornerColor";
         public static final String EXTRA_CROP_GRID_STROKE_WIDTH = EXTRA_PREFIX + ".CropGridStrokeWidth";
 
         public static final String EXTRA_TOOL_BAR_COLOR = EXTRA_PREFIX + ".ToolbarColor";
         public static final String EXTRA_STATUS_BAR_COLOR = EXTRA_PREFIX + ".StatusBarColor";
-        public static final String EXTRA_UCROP_COLOR_WIDGET_ACTIVE = EXTRA_PREFIX + ".UcropColorWidgetActive";
+        public static final String EXTRA_UCROP_COLOR_CONTROLS_WIDGET_ACTIVE = EXTRA_PREFIX + ".UcropColorControlsWidgetActive";
 
         public static final String EXTRA_UCROP_WIDGET_COLOR_TOOLBAR = EXTRA_PREFIX + ".UcropToolbarWidgetColor";
         public static final String EXTRA_UCROP_TITLE_TEXT_TOOLBAR = EXTRA_PREFIX + ".UcropToolbarTitleText";
@@ -252,19 +300,11 @@ public class UCrop {
         public static final String EXTRA_HIDE_BOTTOM_CONTROLS = EXTRA_PREFIX + ".HideBottomControls";
         public static final String EXTRA_FREE_STYLE_CROP = EXTRA_PREFIX + ".FreeStyleCrop";
 
-        public static final String EXTRA_CUT_CROP = EXTRA_PREFIX + ".cuts";
-
-        public static final String EXTRA_FREE_STATUS_FONT = EXTRA_PREFIX + ".StatusFont";
-
         public static final String EXTRA_ASPECT_RATIO_SELECTED_BY_DEFAULT = EXTRA_PREFIX + ".AspectRatioSelectedByDefault";
         public static final String EXTRA_ASPECT_RATIO_OPTIONS = EXTRA_PREFIX + ".AspectRatioOptions";
 
         public static final String EXTRA_UCROP_ROOT_VIEW_BACKGROUND_COLOR = EXTRA_PREFIX + ".UcropRootViewBackgroundColor";
 
-        public static final String EXTRA_ROTATE = EXTRA_PREFIX + ".rotate";
-        public static final String EXTRA_SCALE = EXTRA_PREFIX + ".scale";
-
-        public static final String EXTRA_DRAG_CROP_FRAME = EXTRA_PREFIX + ".DragCropFrame";
 
         private final Bundle mOptionBundle;
 
@@ -314,7 +354,7 @@ public class UCrop {
          *
          * @param durationMillis - duration in milliseconds
          */
-        public void setImageToCropBoundsAnimDuration(@IntRange(from = 100) int durationMillis) {
+        public void setImageToCropBoundsAnimDuration(@IntRange(from = MIN_SIZE) int durationMillis) {
             mOptionBundle.putInt(EXTRA_IMAGE_TO_CROP_BOUNDS_ANIM_DURATION, durationMillis);
         }
 
@@ -323,7 +363,7 @@ public class UCrop {
          *
          * @param maxBitmapSize - size in pixels
          */
-        public void setMaxBitmapSize(@IntRange(from = 100) int maxBitmapSize) {
+        public void setMaxBitmapSize(@IntRange(from = MIN_SIZE) int maxBitmapSize) {
             mOptionBundle.putInt(EXTRA_MAX_BITMAP_SIZE, maxBitmapSize);
         }
 
@@ -370,21 +410,6 @@ public class UCrop {
         }
 
         /**
-         * @param isDragFrame - 是否可拖动裁剪框
-         */
-        public void setDragFrameEnabled(boolean isDragFrame) {
-            mOptionBundle.putBoolean(EXTRA_DRAG_CROP_FRAME, isDragFrame);
-        }
-
-        public void setScaleEnabled(boolean scaleEnabled) {
-            mOptionBundle.putBoolean(EXTRA_SCALE, scaleEnabled);
-        }
-
-        public void setRotateEnabled(boolean rotateEnabled) {
-            mOptionBundle.putBoolean(EXTRA_ROTATE, rotateEnabled);
-        }
-
-        /**
          * @param count - crop grid rows count.
          */
         public void setCropGridRowCount(@IntRange(from = 0) int count) {
@@ -403,6 +428,13 @@ public class UCrop {
          */
         public void setCropGridColor(@ColorInt int color) {
             mOptionBundle.putInt(EXTRA_CROP_GRID_COLOR, color);
+        }
+
+        /**
+         * @param color - desired color of crop grid/guidelines corner
+         */
+        public void setCropGridCornerColor(@ColorInt int color) {
+            mOptionBundle.putInt(EXTRA_CROP_GRID_CORNER_COLOR, color);
         }
 
         /**
@@ -427,10 +459,10 @@ public class UCrop {
         }
 
         /**
-         * @param color - desired resolved color of the active and selected widget (default is orange) and progress wheel middle line
+         * @param color - desired resolved color of the active and selected widget and progress wheel middle line (default is white)
          */
-        public void setActiveWidgetColor(@ColorInt int color) {
-            mOptionBundle.putInt(EXTRA_UCROP_COLOR_WIDGET_ACTIVE, color);
+        public void setActiveControlsWidgetColor(@ColorInt int color) {
+            mOptionBundle.putInt(EXTRA_UCROP_COLOR_CONTROLS_WIDGET_ACTIVE, color);
         }
 
         /**
@@ -476,24 +508,10 @@ public class UCrop {
         }
 
         /**
-         * @param -set cuts path
-         */
-        public void setCutListData(ArrayList<String> list) {
-            mOptionBundle.putStringArrayList(EXTRA_CUT_CROP, list);
-        }
-
-        /**
          * @param enabled - set to true to let user resize crop bounds (disabled by default)
          */
         public void setFreeStyleCropEnabled(boolean enabled) {
             mOptionBundle.putBoolean(EXTRA_FREE_STYLE_CROP, enabled);
-        }
-
-        /**
-         * @param statusFont - Set status bar black
-         */
-        public void setStatusFont(boolean statusFont) {
-            mOptionBundle.putBoolean(EXTRA_FREE_STATUS_FONT, statusFont);
         }
 
         /**
@@ -546,7 +564,7 @@ public class UCrop {
          * @param width  max cropped image width
          * @param height max cropped image height
          */
-        public void withMaxResultSize(int width, int height) {
+        public void withMaxResultSize(@IntRange(from = MIN_SIZE) int width, @IntRange(from = MIN_SIZE) int height) {
             mOptionBundle.putInt(EXTRA_MAX_SIZE_X, width);
             mOptionBundle.putInt(EXTRA_MAX_SIZE_Y, height);
         }

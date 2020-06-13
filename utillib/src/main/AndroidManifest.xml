@@ -29,10 +29,9 @@
 
 
         <activity android:name="com.saint.ucrop.UCropActivity" />
-        <activity android:name="com.saint.ucrop.PictureMultiCuttingActivity" />
 
         <provider
-            android:name="androidx.core.content.FileProvider"
+            android:name=".util.CstFileProvider"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">

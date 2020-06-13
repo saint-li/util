@@ -14,6 +14,7 @@ import android.util.Log;
 import javax.microedition.khronos.egl.EGL10;
 
 /**
+ * Created by Oleksii Shliama [https://github.com/shliama] on 9/8/16.
  */
 public class EglUtils {
 

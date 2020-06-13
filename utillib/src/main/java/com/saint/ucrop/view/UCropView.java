@@ -16,7 +16,7 @@ import com.saint.util.R;
 
 public class UCropView extends FrameLayout {
 
-    private final GestureCropImageView mGestureCropImageView;
+    private GestureCropImageView mGestureCropImageView;
     private final OverlayView mViewOverlay;
 
     public UCropView(Context context, AttributeSet attrs) {
@@ -27,8 +27,8 @@ public class UCropView extends FrameLayout {
         super(context, attrs, defStyleAttr);
 
         LayoutInflater.from(context).inflate(R.layout.ucrop_view, this, true);
-        mGestureCropImageView = (GestureCropImageView) findViewById(R.id.image_view_crop);
-        mViewOverlay = (OverlayView) findViewById(R.id.view_overlay);
+        mGestureCropImageView = findViewById(R.id.image_view_crop);
+        mViewOverlay = findViewById(R.id.view_overlay);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ucrop_UCropView);
         mViewOverlay.processStyledAttributes(a);
@@ -36,6 +36,10 @@ public class UCropView extends FrameLayout {
         a.recycle();
 
 
+        setListenersToViews();
+    }
+
+    private void setListenersToViews() {
         mGestureCropImageView.setCropBoundsChangeListener(new CropBoundsChangeListener() {
             @Override
             public void onCropAspectRatioChanged(float cropRatio) {
@@ -65,4 +69,15 @@ public class UCropView extends FrameLayout {
         return mViewOverlay;
     }
 
+    /**
+     * Method for reset state for UCropImageView such as rotation, scale, translation.
+     * Be careful: this method recreate UCropImageView instance and reattach it to layout.
+     */
+    public void resetCropImageView() {
+        removeView(mGestureCropImageView);
+        mGestureCropImageView = new GestureCropImageView(getContext());
+        setListenersToViews();
+        mGestureCropImageView.setCropRect(getOverlayView().getCropViewRect());
+        addView(mGestureCropImageView, 0);
+    }
 }

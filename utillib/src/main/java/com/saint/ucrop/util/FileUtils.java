@@ -37,12 +37,17 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.Locale;
 
+/**
+ * @author Peli
+ * @author paulburke (ipaulpro)
+ * @version 2013-12-11
+ */
 public class FileUtils {
 
     /**
      * TAG for log messages.
      */
-    static final String TAG = "FileUtils";
+    private static final String TAG = "FileUtils";
 
     private FileUtils() {
     }
@@ -143,8 +148,7 @@ public class FileUtils {
                 final String type = split[0];
 
                 if ("primary".equalsIgnoreCase(type)) {
-                    return context
-                            .getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/" + split[1];
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
                 }
 
                 // TODO handle non-primary volumes
@@ -153,10 +157,17 @@ public class FileUtils {
             else if (isDownloadsDocument(uri)) {
 
                 final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                if (!TextUtils.isEmpty(id)) {
+                    try {
+                        final Uri contentUri = ContentUris.withAppendedId(
+                                Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                        return getDataColumn(context, contentUri, null, null);
+                    } catch (NumberFormatException e) {
+                        Log.i(TAG, e.getMessage());
+                        return null;
+                    }
+                }
 
-                return getDataColumn(context, contentUri, null, null);
             }
             // MediaProvider
             else if (isMediaDocument(uri)) {
@@ -223,75 +234,4 @@ public class FileUtils {
         }
     }
 
-    public static boolean isGif(String path) {
-        String imageType = createImageType(path);
-        switch (imageType) {
-            case "image/gif":
-            case "image/GIF":
-                return true;
-        }
-        return false;
-    }
-
-    public static boolean isWebp(String path) {
-        String imageType = createImageType(path);
-        switch (imageType) {
-            case "image/webp":
-            case "image/WEBP":
-                return true;
-        }
-        return false;
-    }
-
-    public static boolean isEnable(String path) {
-        try {
-            if (isGif(path) || isWebp(path)) {
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public static String createImageType(String path) {
-        try {
-            if (!TextUtils.isEmpty(path)) {
-                File file = new File(path);
-                String fileName = file.getName();
-                int last = fileName.lastIndexOf(".") + 1;
-                String temp = fileName.substring(last, fileName.length());
-                return "image/" + temp;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "image/jpeg";
-        }
-        return "image/jpeg";
-    }
-
-    /**
-     * 是否是网络图片
-     *
-     * @param path
-     * @return
-     */
-    public static boolean isHttp(String path) {
-        if (!TextUtils.isEmpty(path)) {
-            if (path.startsWith("http")
-                    || path.startsWith("https")) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static String getDirName(String filePath) {
-        if (TextUtils.isEmpty(filePath)) {
-            return filePath;
-        } else {
-            int lastSep = filePath.lastIndexOf(File.separator);
-            return lastSep == -1 ? "" : filePath.substring(0, lastSep + 1);
-        }
-    }
 }

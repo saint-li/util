@@ -11,12 +11,11 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
-
 
 import com.saint.ucrop.model.AspectRatio;
 import com.saint.ucrop.view.CropImageView;
@@ -27,8 +26,9 @@ import java.util.Locale;
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
  */
-public class AspectRatioTextView extends TextView {
+public class AspectRatioTextView extends AppCompatTextView {
 
+    private final float MARGIN_MULTIPLIER = 1.5f;
     private final Rect mCanvasClipBounds = new Rect();
     private Paint mDotPaint;
     private int mDotSize;
@@ -45,15 +45,9 @@ public class AspectRatioTextView extends TextView {
         this(context, attrs, 0);
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public AspectRatioTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ucrop_AspectRatioTextView);
-        init(a);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public AspectRatioTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ucrop_AspectRatioTextView);
         init(a);
     }
@@ -95,8 +89,11 @@ public class AspectRatioTextView extends TextView {
 
         if (isSelected()) {
             canvas.getClipBounds(mCanvasClipBounds);
-            canvas.drawCircle((mCanvasClipBounds.right - mCanvasClipBounds.left) / 2.0f, mCanvasClipBounds.bottom - mDotSize,
-                    mDotSize / 2, mDotPaint);
+
+            float x = (mCanvasClipBounds.right - mCanvasClipBounds.left) / 2.0f;
+            float y = (mCanvasClipBounds.bottom - mCanvasClipBounds.top / 2f) - mDotSize * MARGIN_MULTIPLIER;
+
+            canvas.drawCircle(x, y, mDotSize / 2f, mDotPaint);
         }
     }
 

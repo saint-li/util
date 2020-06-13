@@ -11,6 +11,8 @@ import com.saint.utillib.act.PicTestAct
 import com.saint.utillib.gloading.GLoadingAct
 import com.saint.utillib.fragkotlin.KotlinTestAct
 import com.saint.utillib.time.TimeTestAct
+import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -28,7 +30,18 @@ class MainActivity : BaseAct(), OnItemCLick {
     }
 
     override fun initView() {
+        smart_refresh_layout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
+            override fun onLoadMore(refreshLayout: RefreshLayout) {
+                initData()
+                refreshLayout.finishLoadMore()
+            }
 
+            override fun onRefresh(refreshLayout: RefreshLayout) {
+                initData()
+                refreshLayout.finishRefresh()
+            }
+
+        })
     }
 
     override fun initData() {

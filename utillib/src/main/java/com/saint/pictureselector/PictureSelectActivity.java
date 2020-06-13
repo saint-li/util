@@ -1,21 +1,18 @@
 package com.saint.pictureselector;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.text.TextUtils;
+import android.net.Uri;
+import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
-import com.saint.ucrop.UCrop;
 import com.saint.util.R;
 import com.saint.util.base.BaseAct;
-import com.saint.util.util.AppLog;
 
 public class PictureSelectActivity extends BaseAct {
 
@@ -45,6 +42,7 @@ public class PictureSelectActivity extends BaseAct {
         mCropHeight = getIntent().getIntExtra(CROP_HEIGHT, 200);
         mRatioWidth = getIntent().getIntExtra(RATIO_WIDTH, 1);
         mRatioHeight = getIntent().getIntExtra(RATIO_HEIGHT, 1);
+        initPhotoError();
 
         //请求应用需要的所有权限
         boolean checkPermissionFirst = PermissionUtils.checkPermissionFirst(this, PERMISSION_CODE_FIRST,
@@ -52,6 +50,13 @@ public class PictureSelectActivity extends BaseAct {
         if (checkPermissionFirst) {
             selectPicture();
         }
+    }
+
+    private void initPhotoError() {
+        // android 7.0系统解决拍照的问题
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
     }
 
     /**
@@ -91,17 +96,14 @@ public class PictureSelectActivity extends BaseAct {
      */
     public void selectPicture() {
         mSelectPictureDialog = new PictureSelectDialog(this, R.style.ActionSheetDialogStyle);
-        mSelectPictureDialog.setOnItemClickListener(new PictureSelectDialog.OnItemClickListener() {
-            @Override
-            public void onItemClick(int type) {
-                if (type == Constant.CAMERA) {
-                    PictureSelectUtils.getByCamera(PictureSelectActivity.this);
-                } else if (type == Constant.ALBUM) {
-                    PictureSelectUtils.getByAlbum(PictureSelectActivity.this);
-                } else if (type == Constant.CANCEL) {
-                    finish();
-                    PictureSelectActivity.this.overridePendingTransition(0, R.anim.activity_out);//activity延迟150毫秒退出，为了执行完Dialog退出的动画
-                }
+        mSelectPictureDialog.setOnItemClickListener(type -> {
+            if (type == Constant.CAMERA) {
+                PictureSelectUtils.getByCamera(PictureSelectActivity.this);
+            } else if (type == Constant.ALBUM) {
+                PictureSelectUtils.getByAlbum(PictureSelectActivity.this);
+            } else if (type == Constant.CANCEL) {
+                finish();
+                PictureSelectActivity.this.overridePendingTransition(0, R.anim.activity_out);//activity延迟150毫秒退出，为了执行完Dialog退出的动画
             }
         });
     }
@@ -116,16 +118,11 @@ public class PictureSelectActivity extends BaseAct {
                 finish();
             }
         }
-        String picturePath;
-        if (requestCode == UCrop.REQUEST_CROP) {
-            AppLog.e("裁剪图片：Uri " + UCrop.getOutput(data));
-            picturePath = UCrop.getOutput(data).getPath();
-        } else {
-            picturePath = PictureSelectUtils.onActivityResult(this, requestCode, resultCode, data, mCropEnabled, mCropWidth, mCropHeight, mRatioWidth, mRatioHeight);
-        }
-        if (!TextUtils.isEmpty(picturePath)) {
+        Uri picturePath = PictureSelectUtils.onActivityResult(this, requestCode, resultCode, data, mCropEnabled, mCropWidth, mCropHeight, mRatioWidth, mRatioHeight);
+        if (picturePath != null) {
             Intent intent = new Intent();
             intent.putExtra(PictureSelector.PICTURE_PATH, picturePath);
+            intent.setData(PictureSelectUtils.getCropPictureTempUri());
             setResult(RESULT_OK, intent);
             finish();
         }

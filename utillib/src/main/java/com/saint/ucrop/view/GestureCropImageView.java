@@ -8,6 +8,7 @@ import android.view.ScaleGestureDetector;
 
 import com.saint.ucrop.util.RotationGestureDetector;
 
+
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
  */
