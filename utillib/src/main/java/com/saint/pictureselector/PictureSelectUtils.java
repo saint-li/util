@@ -85,7 +85,7 @@ public class PictureSelectUtils {
 
     public static String getCstDir() {
         FileUtils.createOrExistsDir(Constant.DIR_ROOT);
-        return Constant.DIR_ROOT;
+        return Constant.DIR_ROOT + "/";
     }
 
     /**

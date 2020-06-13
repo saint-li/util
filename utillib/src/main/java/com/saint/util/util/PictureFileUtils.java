@@ -14,14 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PictureFileUtils {
-    private static String DEFAULT_CACHE_DIR = "picture_cache";
-
-    public static final String POSTFIX = ".JPEG";
-    public static final String POST_VIDEO = ".mp4";
-    public static final String APP_NAME = "TuDingPic";
-    public static final String CAMERA_PATH = "/" + APP_NAME + "/CameraImage/";
-    public static final String CROP_PATH = "/" + APP_NAME + "/CropImage/";
-
 
     private PictureFileUtils() {
     }
@@ -395,5 +387,60 @@ public class PictureFileUtils {
             return sd.canWrite();
         } else
             return false;
+    }
+
+
+    /** storage location: sdcard/Android/data/packagename
+     * 存储图像至沙盒
+     * @param context
+     * @param fileName
+     * @param image
+     * @param environmentType
+     * @param dirName
+     *
+     */
+    public static void saveImage2SandBox(Context context, String fileName, byte[] image, String environmentType, String dirName) {
+        File standardDirectory;
+        String dirPath;
+
+        if (TextUtils.isEmpty(fileName) || 0 == image.length) {
+            AppLog.e("saveImage2SandBox: fileName is null or image is null!");
+            return;
+        }
+
+        if (!TextUtils.isEmpty(environmentType)) {
+            standardDirectory = context.getExternalFilesDir(environmentType);
+        } else {
+            standardDirectory = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        }
+
+        if (!TextUtils.isEmpty(dirName)) {
+            dirPath = standardDirectory + "/" + dirName;
+        } else {
+            dirPath = String.valueOf(standardDirectory);
+        }
+
+        File imageFileDirctory = new File(dirPath);
+        if (!imageFileDirctory.exists()) {
+            if (!imageFileDirctory.mkdir()) {
+                AppLog.e("saveImage2SandBox: mkdir failed! Directory: " + dirPath);
+                return;
+            }
+        }
+
+//        if (queryImageFromSandBox(context, fileName, environmentType, dirName)) {
+//            Log.e(TAG, "saveImage2SandBox: The file with the same name already exists！");
+//            return;
+//        }
+
+        try {
+            File imageFile = new File(dirPath + "/" + fileName);
+            FileOutputStream fileOutputStream = new FileOutputStream(imageFile);
+            fileOutputStream.write(image);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

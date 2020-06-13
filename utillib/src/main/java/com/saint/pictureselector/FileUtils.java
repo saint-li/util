@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -21,23 +22,26 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static com.saint.util.util.PictureFileUtils.createFile;
+//import static com.saint.util.util.PictureFileUtils.createFile;
 
 public final class FileUtils {
 
     /**
      * 得到SD卡根目录，SD卡不可用则获取内部存储的根目录
      */
-    public static File getRootPath() {
-        File path = null;
-        if (sdCardIsAvailable()) {
-            path = Environment.getExternalStorageDirectory(); //SD卡根目录    /storage/emulated/0
-        } else {
-            path = Environment.getDataDirectory();//内部存储的根目录    /data
-        }
+    public static String getRootPath() {
+//        String path = null;
+//        if (sdCardIsAvailable()) {
 
-//        path = ContextCompat.getExternalFilesDirs(UtilConfig.getApp(), null)[0].getAbsoluteFile();
-        return path;
+//        } else {
+//            path = Environment.getDataDirectory();//内部存储的根目录    /data
+//        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//            path = ContextCompat.getExternalFilesDirs(UtilConfig.getApp(), null)[0].getAbsolutePath();
+//        } else {
+            return Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + Environment.DIRECTORY_DCIM; //SD卡根目录    /storage/emulated/0
+//        }
+//        return path;
     }
 
     /**
@@ -99,20 +103,20 @@ public final class FileUtils {
         return true;
     }
 
-    public static File saveBitmapFile(Context context, Bitmap bitmap) {
-        try {
-            File file = createFile(context, System.currentTimeMillis() + ".jpg");
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-            bos.flush();
-            bos.close();
-            return file;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("图片选择工具包：", "保存文件异常：" + e.getMessage());
-            return null;
-        }
-    }
+//    public static File saveBitmapFile(Context context, Bitmap bitmap) {
+//        try {
+//            File file = createFile(context, System.currentTimeMillis() + ".jpg");
+//            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+//            bos.flush();
+//            bos.close();
+//            return file;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            Log.e("图片选择工具包：", "保存文件异常：" + e.getMessage());
+//            return null;
+//        }
+//    }
 
 
     /**
@@ -139,16 +143,15 @@ public final class FileUtils {
         String selection = queryPathKey + "=? and " + MediaStore.Images.Media.DISPLAY_NAME + "=?";
         Cursor cursor = context.getContentResolver()
                 .query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                new String[]{MediaStore.Images.Media._ID, queryPathKey, MediaStore.Images.Media.MIME_TYPE, MediaStore.Images.Media.DISPLAY_NAME},
-                selection,
-                new String[]{filePath, fileName},
-                null);
+                        new String[]{MediaStore.Images.Media._ID, queryPathKey, MediaStore.Images.Media.MIME_TYPE, MediaStore.Images.Media.DISPLAY_NAME},
+                        selection,
+                        new String[]{filePath, fileName},
+                        null);
 
         return cursor;
     }
 
     /**
-     *
      * @param context
      * @param filePath relative path in Q, such as: "DCIM/" or "DCIM/dir_name/"
      *                 absolute path before Q
