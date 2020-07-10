@@ -30,7 +30,7 @@
         <activity android:name=".fragkotlin.KotlinTestAct" />
         <activity android:name=".time.TimeTestAct" />
         <activity android:name=".gloading.GLoadingAct" />
-        <activity android:name=".act.PicTestAct" />
+<!--        <activity android:name=".act.PicTestAct" />-->
     </application>
 
 </manifest>

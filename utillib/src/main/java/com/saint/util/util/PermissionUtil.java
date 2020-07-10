@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
 import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+
 import com.saint.util.R;
 import com.saint.util.UtilConfig;
 import com.saint.util.listener.RequestPermissionBack;
@@ -16,12 +18,13 @@ import com.saint.util.other.RuntimeRationale;
 import com.saint.util.util.toast.AppToast;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
+import com.yanzhenjie.permission.runtime.PermissionDef;
 
 import java.util.List;
 
 public class PermissionUtil {
 
-    public static void request(Context context, @NonNull RequestPermissionBack back, String... permissions) {
+    public static void request(Context context, @NonNull RequestPermissionBack back, @NonNull @PermissionDef String... permissions) {
         AndPermission.with(context)
                 .runtime()
                 .permission(permissions)
@@ -31,7 +34,7 @@ public class PermissionUtil {
                 .start();
     }
 
-    public static void request(Activity activity, @NonNull RequestPermissionBack back, String... permissions) {
+    public static void request(Activity activity, @NonNull RequestPermissionBack back, @NonNull @PermissionDef String... permissions) {
         AndPermission.with(activity)
                 .runtime()
                 .permission(permissions)
@@ -41,7 +44,7 @@ public class PermissionUtil {
                 .start();
     }
 
-    public static void request(Fragment fragment, @NonNull RequestPermissionBack back, String... permissions) {
+    public static void request(Fragment fragment, @NonNull RequestPermissionBack back, @NonNull @PermissionDef String... permissions) {
         AndPermission.with(fragment)
                 .runtime()
                 .permission(permissions)

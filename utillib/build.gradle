@@ -4,8 +4,7 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: 'com.github.dcendents.android-maven'
-group = 'com.saint.lib'
+//group = 'com.saint.lib'
 
 android {
     compileSdkVersion 29
@@ -72,18 +71,18 @@ dependencies {
 }
 
 //生成jar包 并修改jar包名字
-task makeJar(type: Copy) {
-    //删除存在的jar包
-    delete 'build/libs/utillib.jar'
-    //设置拷贝的文件
-    from('build/intermediates/bundles/release')
-    //打进jar包后的文件目录
-    into('build/libs/')
-    //include,exclude 参数设置过滤
-    include('classes.jar')
-    //重命名
-    rename('classes.jar', 'utillib.jar')
-}
+//task makeJar(type: Copy) {
+//    //删除存在的jar包
+//    delete 'build/libs/utillib.jar'
+//    //设置拷贝的文件
+//    from('build/intermediates/bundles/release')
+//    //打进jar包后的文件目录
+//    into('build/libs/')
+//    //include,exclude 参数设置过滤
+//    include('classes.jar')
+//    //重命名
+//    rename('classes.jar', 'utillib.jar')
+//}
 
 
-makeJar.dependsOn(build)
+//makeJar.dependsOn(build)

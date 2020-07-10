@@ -26,10 +26,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.zxing.Result;
-import com.saint.ucrop.UCrop;
 import com.saint.util.R;
-import com.saint.util.util.AppLog;
-import com.saint.util.util.PictureFileUtils;
 import com.saint.util.util.toast.AppToast;
 import com.saint.zxinglibrary.bean.ZxingConfig;
 import com.saint.zxinglibrary.camera.CameraManager;
@@ -334,18 +331,20 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
         if (id == R.id.flashLightLayout) {
             /*切换闪光灯*/
             cameraManager.switchFlashLight(handler);
-        } else if (id == R.id.albumIv) {
-            /*打开相册*/
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT)
-                    .setType("image/*")
-                    .addCategory(Intent.CATEGORY_OPENABLE);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                String[] mimeTypes = {"image/jpeg", "image/png"};
-                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-            }
-            startActivityForResult(intent, Constant.REQUEST_IMAGE);
-        } else if (id == R.id.backIv) {
+        }
+//        else if (id == R.id.albumIv) {
+//            /*打开相册*/
+//            Intent intent = new Intent(Intent.ACTION_GET_CONTENT)
+//                    .setType("image/*")
+//                    .addCategory(Intent.CATEGORY_OPENABLE);
+//
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//                String[] mimeTypes = {"image/jpeg", "image/png"};
+//                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+//            }
+//            startActivityForResult(intent, Constant.REQUEST_IMAGE);
+//        }
+        else if (id == R.id.backIv) {
             finish();
         }
     }
@@ -355,48 +354,49 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == Constant.REQUEST_IMAGE && resultCode == RESULT_OK) {
-            Uri selectedUri = data.getData();
-            if (selectedUri != null) {
-                startCrop(selectedUri);
-            } else {
-                AppToast.tShort("无法检索选定的图像");
-            }
-        } else if (requestCode == UCrop.REQUEST_CROP && resultCode == RESULT_OK) {
-            final Uri resultUri = UCrop.getOutput(data);
-            String path = ImageUtil.getImageAbsolutePath(this, resultUri);
-            new DecodeImgThread(path, new DecodeImgCallback() {
-                @Override
-                public void onImageDecodeSuccess(Result result) {
-                    handleDecode(result);
-                }
-
-                @Override
-                public void onImageDecodeFailed() {
-                    Toast.makeText(CaptureActivity.this, R.string.scan_failed_tip, Toast.LENGTH_SHORT).show();
-                }
-            }).run();
-//            startCrop(path);
-
-        }
+//        if (requestCode == Constant.REQUEST_IMAGE && resultCode == RESULT_OK) {
+//            Uri selectedUri = data.getData();
+//            if (selectedUri != null) {
+//                startCrop(selectedUri);
+//            } else {
+//                AppToast.tShort("无法检索选定的图像");
+//            }
+//        }
+//        else if (requestCode == UCrop.REQUEST_CROP && resultCode == RESULT_OK) {
+//            final Uri resultUri = UCrop.getOutput(data);
+//            String path = ImageUtil.getImageAbsolutePath(this, resultUri);
+//            new DecodeImgThread(path, new DecodeImgCallback() {
+//                @Override
+//                public void onImageDecodeSuccess(Result result) {
+//                    handleDecode(result);
+//                }
+//
+//                @Override
+//                public void onImageDecodeFailed() {
+//                    Toast.makeText(CaptureActivity.this, R.string.scan_failed_tip, Toast.LENGTH_SHORT).show();
+//                }
+//            }).run();
+////            startCrop(path);
+//
+//        }
     }
 
-    private void startCrop(@NonNull Uri uri) {
-        String destinationFileName = System.currentTimeMillis() + ".png";
-
-        UCrop uCrop = UCrop.of(uri, Uri.fromFile(new File(getCacheDir(), destinationFileName)));
-
-        UCrop.Options options = new UCrop.Options();
-
-        options.setCompressionFormat(Bitmap.CompressFormat.PNG);
-        options.setCompressionQuality(80);
-
-        options.setHideBottomControls(true);
-        options.setFreeStyleCropEnabled(true);
-        uCrop.withOptions(options);
-        uCrop.start(CaptureActivity.this);
-
-    }
+//    private void startCrop(@NonNull Uri uri) {
+//        String destinationFileName = System.currentTimeMillis() + ".png";
+//
+//        UCrop uCrop = UCrop.of(uri, Uri.fromFile(new File(getCacheDir(), destinationFileName)));
+//
+//        UCrop.Options options = new UCrop.Options();
+//
+//        options.setCompressionFormat(Bitmap.CompressFormat.PNG);
+//        options.setCompressionQuality(80);
+//
+//        options.setHideBottomControls(true);
+//        options.setFreeStyleCropEnabled(true);
+//        uCrop.withOptions(options);
+//        uCrop.start(CaptureActivity.this);
+//
+//    }
 
 
 }
