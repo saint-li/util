@@ -68,6 +68,8 @@ dependencies {
     implementation files('libs/core-3.3.3.jar')
     //图片裁剪
 //    implementation project(path: ':ucrop')
+    //工具类
+    implementation 'com.blankj:utilcodex:1.29.0'
 }
 
 //生成jar包 并修改jar包名字

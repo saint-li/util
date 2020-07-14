@@ -56,13 +56,13 @@ public class ToastAct extends BaseAct implements OnItemCLick {
                 AppToast.tShort("芒果");
                 break;
             case 2:
-                AppToast.darkAtTop("橘子");
+                AppToast.showAtTop("橘子");
                 break;
             case 3:
-                AppToast.darkInCenter("香蕉");
+                AppToast.showInCenter("香蕉");
                 break;
             case 4:
-                AppToast.darkAtLocation("荔枝", Gravity.LEFT | Gravity.TOP, 10, 90);
+                AppToast.showAtLocation("荔枝", Gravity.LEFT | Gravity.TOP, 10, 90);
                 break;
             case 5:
                 AppUtil.copyString("荔枝");

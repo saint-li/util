@@ -2,20 +2,13 @@ package com.saint.util;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
-import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-
+import com.blankj.utilcode.util.Utils;
 import com.saint.util.lifecycle.ActivityCallback;
 import com.saint.util.lifecycle.IToastCallback;
 import com.saint.util.util.AppUtil;
+import com.saint.util.util.toast.AppToast;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.umeng.commonsdk.UMConfigure;
@@ -32,6 +25,8 @@ public class UtilConfig {
         }
         if (!AppUtil.isMainProcess(app)) return;
         UtilConfig.app = app;
+        Utils.init(app);
+        AppToast.resetToast();
 //        AppToast.init(app, new ToastAliPayStyle(app));
         //友盟
         /**
