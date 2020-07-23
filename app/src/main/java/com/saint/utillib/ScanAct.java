@@ -12,7 +12,8 @@ import com.saint.util.util.PermissionUtil;
 import com.saint.util.util.toast.AppToast;
 import com.saint.widget.DrawableClickEditText;
 import com.saint.zxinglibrary.android.CaptureActivity;
-import com.saint.zxinglibrary.common.Constant;
+import com.saint.zxinglibrary.bean.ZxingConfig;
+import com.saint.zxinglibrary.common.ScanConstant;
 import com.yanzhenjie.permission.runtime.Permission;
 
 import java.util.List;
@@ -51,6 +52,9 @@ public class ScanAct extends BaseAct {
             @Override
             public void onSuccess(List<String> permissions) {
                 Intent intent = new Intent(act, CaptureActivity.class);
+                ZxingConfig config = new ZxingConfig();
+                config.setBind(true);
+                intent.putExtra(ScanConstant.INTENT_ZXING_CONFIG, config);
                 startActivityForResult(intent, REQUEST_CODE_SCAN);
             }
 
@@ -67,7 +71,7 @@ public class ScanAct extends BaseAct {
         // 扫描二维码/条码回传
         if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
             if (data != null) {
-                String content = data.getStringExtra(Constant.CODED_CONTENT);
+                String content = data.getStringExtra(ScanConstant.CODED_CONTENT);
                 if (!AppUtil.isStringNull(content)) {
                     clickEditText.setText(content);
                     clickEditText.setSelection(Objects.requireNonNull(clickEditText.getText()).length());

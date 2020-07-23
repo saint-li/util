@@ -28,7 +28,7 @@ import com.google.zxing.ReaderException;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.saint.zxinglibrary.android.CaptureActivity;
-import com.saint.zxinglibrary.common.Constant;
+import com.saint.zxinglibrary.common.ScanConstant;
 
 import java.util.Map;
 
@@ -52,11 +52,11 @@ public final class DecodeHandler extends Handler {
             return;
         }
         switch (message.what) {
-            case Constant.DECODE:
+            case ScanConstant.DECODE:
 
                 decode((byte[]) message.obj, message.arg1, message.arg2);
                 break;
-            case Constant.QUIT:
+            case ScanConstant.QUIT:
                 running = false;
                 Looper.myLooper().quit();
                 break;
@@ -106,12 +106,12 @@ public final class DecodeHandler extends Handler {
 
             if (handler != null) {
                 Message message = Message.obtain(handler,
-                        Constant.DECODE_SUCCEEDED, rawResult);
+                        ScanConstant.DECODE_SUCCEEDED, rawResult);
                 message.sendToTarget();
             }
         } else {
             if (handler != null) {
-                Message message = Message.obtain(handler, Constant.DECODE_FAILED);
+                Message message = Message.obtain(handler, ScanConstant.DECODE_FAILED);
                 message.sendToTarget();
             }
         }

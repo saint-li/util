@@ -29,7 +29,7 @@ import com.google.zxing.PlanarYUVLuminanceSource;
 import com.saint.util.R;
 import com.saint.zxinglibrary.android.CaptureActivityHandler;
 import com.saint.zxinglibrary.bean.ZxingConfig;
-import com.saint.zxinglibrary.common.Constant;
+import com.saint.zxinglibrary.common.ScanConstant;
 
 import java.io.IOException;
 
@@ -178,13 +178,13 @@ public final class CameraManager {
             /*关闭闪光灯*/
             parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
 
-            msg.what = Constant.FLASH_CLOSE;
+            msg.what = ScanConstant.FLASH_CLOSE;
 
 
         } else {
             /*打开闪光灯*/
             parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-            msg.what = Constant.FLASH_OPEN;
+            msg.what = ScanConstant.FLASH_OPEN;
         }
         camera.setParameters(parameters);
         handler.sendMessage(msg);

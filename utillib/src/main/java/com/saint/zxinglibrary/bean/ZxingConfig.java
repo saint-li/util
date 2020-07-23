@@ -32,6 +32,8 @@ public class ZxingConfig implements Serializable {
     private boolean isDecodeBarCode = true;
     /*是否全屏扫描*/
     private boolean isFullScreenScan = true;
+    /*是否绑定设备*/
+    private boolean isBind = false;
 
     /*四个角的颜色*/
     @ColorRes
@@ -123,5 +125,13 @@ public class ZxingConfig implements Serializable {
 
     public void setShowAlbum(boolean showAlbum) {
         isShowAlbum = showAlbum;
+    }
+
+    public boolean isBind() {
+        return isBind;
+    }
+
+    public void setBind(boolean bind) {
+        isBind = bind;
     }
 }

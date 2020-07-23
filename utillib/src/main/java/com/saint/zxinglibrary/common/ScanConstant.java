@@ -6,7 +6,7 @@ package com.saint.zxinglibrary.common;
  * zxing常量
  */
 
-public class Constant {
+public class ScanConstant {
     public static final int DECODE = 1;
     public static final int DECODE_FAILED = 2;
     public static final int DECODE_SUCCEEDED = 3;

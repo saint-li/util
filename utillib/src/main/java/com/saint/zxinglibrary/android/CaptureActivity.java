@@ -4,9 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.FeatureInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,9 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -27,16 +23,11 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.zxing.Result;
 import com.saint.util.R;
-import com.saint.util.util.toast.AppToast;
 import com.saint.zxinglibrary.bean.ZxingConfig;
 import com.saint.zxinglibrary.camera.CameraManager;
-import com.saint.zxinglibrary.common.Constant;
-import com.saint.zxinglibrary.decode.DecodeImgCallback;
-import com.saint.zxinglibrary.decode.DecodeImgThread;
-import com.saint.zxinglibrary.decode.ImageUtil;
+import com.saint.zxinglibrary.common.ScanConstant;
 import com.saint.zxinglibrary.view.ViewfinderView;
 
-import java.io.File;
 import java.io.IOException;
 
 
@@ -100,7 +91,7 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
 
         /*先获取配置信息*/
         try {
-            config = (ZxingConfig) getIntent().getExtras().get(Constant.INTENT_ZXING_CONFIG);
+            config = (ZxingConfig) getIntent().getExtras().get(ScanConstant.INTENT_ZXING_CONFIG);
         } catch (Exception e) {
 
             Log.i("config", e.toString());
@@ -186,7 +177,7 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
      */
     public void switchFlashImg(int flashState) {
 
-        if (flashState == Constant.FLASH_OPEN) {
+        if (flashState == ScanConstant.FLASH_OPEN) {
             flashLightIv.setImageResource(R.drawable.ic_open);
             flashLightTv.setText(R.string.close_flash);
         } else {
@@ -206,7 +197,7 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
         beepManager.playBeepSoundAndVibrate();
 
         Intent intent = getIntent();
-        intent.putExtra(Constant.CODED_CONTENT, rawResult.getText());
+        intent.putExtra(ScanConstant.CODED_CONTENT, rawResult.getText());
         setResult(RESULT_OK, intent);
         this.finish();
 
@@ -258,7 +249,7 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
             cameraManager.openDriver(surfaceHolder);
             // 创建一个handler来打开预览，并抛出一个运行时异常
             if (handler == null) {
-                handler = new CaptureActivityHandler(this, cameraManager);
+                handler = new CaptureActivityHandler(this, cameraManager, config.isBind());
             }
         } catch (IOException ioe) {
             Log.w(TAG, ioe);
