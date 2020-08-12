@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -22,13 +24,22 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.google.zxing.Result;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.listener.OnResultCallbackListener;
 import com.saint.util.R;
+import com.saint.util.util.GlideEG;
 import com.saint.zxinglibrary.bean.ZxingConfig;
 import com.saint.zxinglibrary.camera.CameraManager;
 import com.saint.zxinglibrary.common.ScanConstant;
+import com.saint.zxinglibrary.decode.DecodeImgCallback;
+import com.saint.zxinglibrary.decode.DecodeImgThread;
 import com.saint.zxinglibrary.view.ViewfinderView;
 
 import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -322,8 +333,7 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
         if (id == R.id.flashLightLayout) {
             /*切换闪光灯*/
             cameraManager.switchFlashLight(handler);
-        }
-//        else if (id == R.id.albumIv) {
+        } else if (id == R.id.albumIv) {
 //            /*打开相册*/
 //            Intent intent = new Intent(Intent.ACTION_GET_CONTENT)
 //                    .setType("image/*")
@@ -334,10 +344,64 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
 //                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
 //            }
 //            startActivityForResult(intent, Constant.REQUEST_IMAGE);
-//        }
-        else if (id == R.id.backIv) {
+            selectImg();
+        } else if (id == R.id.backIv) {
             finish();
         }
+    }
+
+    private void selectImg() {
+        PictureSelector.create(this)
+                .openGallery(PictureMimeType.ofImage()) // 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+                .imageEngine(GlideEG.createGlideEngine()) // 外部传入图片加载引擎，必传项
+                .selectionMode(PictureConfig.SINGLE) // 多选 or 单选
+                .isSingleDirectReturn(true) // 单选模式下是否直接返回，PictureConfig.SINGLE模式下有效
+                .isCamera(false) // 是否显示拍照按钮
+                .isZoomAnim(true) // 图片列表点击 缩放效果 默认true
+                .isEnableCrop(true) // 是否裁剪
+                .isCompress(true) // 是否压缩
+                .withAspectRatio(1, 1) // 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
+                .freeStyleCropEnabled(true)
+                .cutOutQuality(90) // 裁剪输出质量 默认100
+                .compressQuality(20)
+                .minimumCompressSize(150) // 小于多少kb的图片不压缩
+                .forResult(new OnResultCallbackListener<LocalMedia>() {
+                    @Override
+                    public void onResult(List<LocalMedia> result) {
+                        if (result != null && result.size() > 0) {
+                            LocalMedia localMedia = result.get(0);
+                            String path = "";
+                            if (localMedia.isCut() && !localMedia.isCompressed()) {
+                                // 裁剪过
+                                path = localMedia.getCutPath();
+                            } else if (localMedia.isCompressed()) {
+                                // 压缩过,或者裁剪同时压缩过,以最终压缩过图片为准
+                                path = localMedia.getCompressPath();
+                            } else if (!TextUtils.isEmpty(localMedia.getAndroidQToPath())) {
+                                path = localMedia.getAndroidQToPath();
+                            } else {
+                                // 原图
+                                path = localMedia.getPath();
+                            }
+                            new DecodeImgThread(path, new DecodeImgCallback() {
+                                @Override
+                                public void onImageDecodeSuccess(Result result) {
+                                    handleDecode(result);
+                                }
+
+                                @Override
+                                public void onImageDecodeFailed() {
+                                    Toast.makeText(CaptureActivity.this, R.string.scan_failed_tip, Toast.LENGTH_SHORT).show();
+                                }
+                            }).run();
+                        }
+                    }
+
+                    @Override
+                    public void onCancel() {
+
+                    }
+                });
     }
 
 

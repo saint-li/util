@@ -70,6 +70,8 @@ dependencies {
 //    implementation project(path: ':ucrop')
     //工具类
     implementation 'com.blankj:utilcodex:1.29.0'
+    //图片视频选择
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.5.8'
 }
 
 //生成jar包 并修改jar包名字
