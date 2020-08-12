@@ -116,10 +116,10 @@ public abstract class BaseAct extends AppCompatActivity {
                 if (imm != null) {
                     assert v != null;
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                    getWindow().getDecorView().setClickable(true);
-                    getWindow().getDecorView().setFocusable(true);
-                    getWindow().getDecorView().setFocusableInTouchMode(true);
-                    getWindow().getDecorView().requestFocusFromTouch();
+//                    getWindow().getDecorView().setClickable(true);
+//                    getWindow().getDecorView().setFocusable(true);
+//                    getWindow().getDecorView().setFocusableInTouchMode(true);
+                    getWindow().getDecorView().requestFocus();
                 }
             }
             return super.dispatchTouchEvent(ev);
