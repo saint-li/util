@@ -75,13 +75,21 @@ class MainActivity : BaseAct(), OnItemCLick {
                 }
             }
             8 -> {
+                if (AppUtil.isInstall("com.xuwuji.tudingparent")) {
+                    val intent = Intent(Intent.ACTION_VIEW,Uri.parse("tudingparent://pushaction"))
+                    startActivity(intent)
+                } else {
+                    AppToast.tShort("未安装兔盯儿App")
+                }
+            }
+            9 -> {
                 if (clearCache(this)) {
                     AppToast.tShort("清除缓存成功")
                     adapter?.notifyDataSetChanged()
                 }
 
             }
-            9 -> {
+            10 -> {
 //                showAct(PicTestAct::class.java)
             }
         }
