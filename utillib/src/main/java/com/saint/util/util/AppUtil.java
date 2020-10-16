@@ -392,7 +392,7 @@ public class AppUtil {
 
     public static boolean isActivityDestroyed(Activity activity) {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 ?
-                activity.isDestroyed() : !ActivityUtil.getInstance().isInStack(activity);
+                activity.isDestroyed() : !ActivityUtil.INSTANCE.isInStack(activity);
     }
 
     public static void popKeyboardWhenDialogShow(Dialog dialog) {

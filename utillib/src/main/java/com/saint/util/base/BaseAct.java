@@ -34,7 +34,7 @@ public abstract class BaseAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         if (setTransparent())
             AppUtil.setAlphaTitle(this);
-        ActivityUtil.getInstance().addActivity(this);
+        ActivityUtil.INSTANCE.addActivity(this);
         AppUtil.setAndroidNativeLightStatusBar(this, true);
         act = this;
         setContentView(setLayout());
@@ -98,7 +98,7 @@ public abstract class BaseAct extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        ActivityUtil.getInstance().removeActivity(this);
+        ActivityUtil.INSTANCE.removeActivity(this);
         super.onDestroy();
     }
 

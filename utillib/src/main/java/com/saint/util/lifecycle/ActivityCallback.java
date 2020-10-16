@@ -45,7 +45,7 @@ public class ActivityCallback implements Application.ActivityLifecycleCallbacks 
         mVisibleCounter--;
 
         if (mVisibleCounter == 0) {
-            onAppBackground(ActivityUtil.getInstance().count() == 1 && activity.isFinishing());
+            onAppBackground(ActivityUtil.INSTANCE.count() == 1 && activity.isFinishing());
         }
     }
 
