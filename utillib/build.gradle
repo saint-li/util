@@ -51,10 +51,10 @@ dependencies {
     api 'com.yanzhenjie:permission:2.0.3'
     //网络
     api 'com.lzy.net:okgo:3.0.4'
-    api 'com.google.code.gson:gson:2.8.5'
+    api 'com.google.code.gson:gson:2.8.6'
     //图片加载
-    api 'com.github.bumptech.glide:glide:4.10.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+    api 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     //glide不支持androidx处理
     implementation 'com.android.support:support-annotations:28.0.0'
     annotationProcessor "com.android.support:support-annotations:28.0.0"
