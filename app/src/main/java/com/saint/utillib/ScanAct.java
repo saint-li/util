@@ -76,7 +76,7 @@ public class ScanAct extends BaseAct {
                     clickEditText.setText(content);
                     clickEditText.setSelection(Objects.requireNonNull(clickEditText.getText()).length());
                 } else {
-                    AppToast.tShort("扫描失败,请重试或手动输入");
+                    AppToast.INSTANCE.tShort("扫描失败,请重试或手动输入");
                 }
             }
         }

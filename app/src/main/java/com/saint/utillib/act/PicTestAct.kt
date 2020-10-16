@@ -38,17 +38,17 @@
 //        }
 //        btn_delete_pic.setOnClickListener {
 //            if (deleteSingleFile(picPath)) {
-//                AppToast.tShort("图片删除成功$picPath")
+//                AppToast.INSTANCE.tShort("图片删除成功$picPath")
 //                picPath = ""
 //            } else {
-//                AppToast.tShort("图片删除失败$picPath")
+//                AppToast.INSTANCE.tShort("图片删除失败$picPath")
 //            }
 //        }
 //        btn_delete_pic_dir.setOnClickListener {
 //            if (deleteDir(File(Constant.DIR_ROOT))) {
-//                AppToast.tShort("图片目录成功${Constant.DIR_ROOT}")
+//                AppToast.INSTANCE.tShort("图片目录成功${Constant.DIR_ROOT}")
 //            } else {
-//                AppToast.tShort("图片目录失败${Constant.DIR_ROOT}")
+//                AppToast.INSTANCE.tShort("图片目录失败${Constant.DIR_ROOT}")
 //            }
 //        }
 //    }

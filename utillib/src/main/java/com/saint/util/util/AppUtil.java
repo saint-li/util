@@ -536,7 +536,7 @@ public class AppUtil {
             ClipboardManager clipboardManager = (ClipboardManager) UtilConfig.getApp().getSystemService(CLIPBOARD_SERVICE);
             ClipData clipData = ClipData.newPlainText("text", str);
             clipboardManager.setPrimaryClip(clipData);
-            AppToast.tShort(R.string.copy_succeed);
+            AppToast.INSTANCE.tShort(R.string.copy_succeed);
         }
     }
 

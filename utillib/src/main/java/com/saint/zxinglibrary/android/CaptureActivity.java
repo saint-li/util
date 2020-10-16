@@ -414,7 +414,7 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
 //            if (selectedUri != null) {
 //                startCrop(selectedUri);
 //            } else {
-//                AppToast.tShort("无法检索选定的图像");
+//                AppToast.INSTANCE.tShort("无法检索选定的图像");
 //            }
 //        }
 //        else if (requestCode == UCrop.REQUEST_CROP && resultCode == RESULT_OK) {

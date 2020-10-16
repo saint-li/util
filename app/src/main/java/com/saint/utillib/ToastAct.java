@@ -50,19 +50,19 @@ public class ToastAct extends BaseAct implements OnItemCLick {
     public void onItemClick(int position) {
         switch (position) {
             case 0:
-                AppToast.tShort("苹果");
+                  AppToast.INSTANCE.tShort("苹果");
                 break;
             case 1:
-                AppToast.tShort("芒果");
+                  AppToast.INSTANCE.tShort("芒果");
                 break;
             case 2:
-                AppToast.showAtTop("橘子");
+                  AppToast.INSTANCE.showAtTop("橘子");
                 break;
             case 3:
-                AppToast.showInCenter("香蕉");
+                  AppToast.INSTANCE.showInCenter("香蕉");
                 break;
             case 4:
-                AppToast.showAtLocation("荔枝", Gravity.LEFT | Gravity.TOP, 10, 90);
+                  AppToast.INSTANCE.showAtLocation("荔枝", Gravity.LEFT | Gravity.TOP, 10, 90);
                 break;
             case 5:
                 AppUtil.copyString("荔枝");

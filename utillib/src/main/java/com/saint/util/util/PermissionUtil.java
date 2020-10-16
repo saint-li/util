@@ -72,7 +72,7 @@ public class PermissionUtil {
                     context.startActivityForResult(intent, requestCode);
                 })
                 .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                    AppToast.tLong(R.string.no_permission_tips);
+                    AppToast.INSTANCE.tLong(R.string.no_permission_tips);
                 })
                 .show();
     }
@@ -94,7 +94,7 @@ public class PermissionUtil {
                     UtilConfig.getApp().startActivity(intent);
                 })
                 .setNegativeButton("取消", (dialog12, which) -> {
-                    AppToast.tShort("取消获取权限");
+                    AppToast.INSTANCE.tShort("取消获取权限");
                 })
                 .create();
         dialog.show();
