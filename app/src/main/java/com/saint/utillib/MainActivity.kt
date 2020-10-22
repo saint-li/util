@@ -26,7 +26,7 @@ class MainActivity : BaseAct(), OnItemCLick {
 
     override fun initTitleView() {
         mActionBar = findViewById(R.id.my_action_bar)
-        mActionBar.setTitle(R.string.app_name)
+        mActionBar.setTitle("阿斯顿发地方阿斯蒂芬阿斯蒂芬阿斯蒂芬阿斯蒂芬阿斯蒂芬阿斯蒂芬阿斯蒂芬")
     }
 
     override fun initView() {
@@ -76,7 +76,7 @@ class MainActivity : BaseAct(), OnItemCLick {
             }
             8 -> {
                 if (AppUtil.isInstall("com.xuwuji.tudingparent")) {
-                    val intent = Intent(Intent.ACTION_VIEW,Uri.parse("tudingparent://pushaction"))
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("tudingparent://pushaction"))
                     startActivity(intent)
                 } else {
                     AppToast.tShort("未安装兔盯儿App")

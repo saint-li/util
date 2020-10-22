@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.saint.util.http.OkUtil;
 import com.saint.widget.MyActionBar;
 
 public abstract class BaseFrag extends Fragment {
@@ -87,6 +88,12 @@ public abstract class BaseFrag extends Fragment {
      * 数据处理
      */
     protected void handleMessage(Message msg) {
+    }
+
+    @Override
+    public void onDestroyView() {
+        OkUtil.instance().cancelTag(this);
+        super.onDestroyView();
     }
 
     public <T extends View> T findView(int resId) {
