@@ -48,21 +48,21 @@ public class ScanAct extends BaseAct {
 
     //扫码
     public void scan(View v) {
-        PermissionUtil.request(act, new RequestPermissionBack() {
-            @Override
-            public void onSuccess(List<String> permissions) {
+//        PermissionUtil.request(act, new RequestPermissionBack() {
+//            @Override
+//            public void onSuccess(List<String> permissions) {
                 Intent intent = new Intent(act, CaptureActivity.class);
                 ZxingConfig config = new ZxingConfig();
                 config.setBind(false);
                 intent.putExtra(ScanConstant.INTENT_ZXING_CONFIG, config);
                 startActivityForResult(intent, REQUEST_CODE_SCAN);
-            }
-
-            @Override
-            public void onFailed(List<String> permissions) {
-                PermissionUtil.showSettingDialog(act, permissions, 1101);
-            }
-        }, Permission.CAMERA, Permission.READ_EXTERNAL_STORAGE);
+//            }
+//
+//            @Override
+//            public void onFailed(List<String> permissions) {
+//                PermissionUtil.showSettingDialog(act, permissions, 1101);
+//            }
+//        }, Permission.CAMERA, Permission.READ_EXTERNAL_STORAGE);
     }
 
     @Override

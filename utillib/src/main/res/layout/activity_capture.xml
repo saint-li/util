@@ -21,6 +21,12 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical">
 
+        <View
+            android:id="@+id/layout_status_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/viewfinder_mask" />
+
         <RelativeLayout
             android:id="@+id/headerLayout"
             android:layout_width="match_parent"
@@ -50,7 +56,7 @@
                 android:layout_alignParentEnd="true"
                 android:paddingStart="14dp"
                 android:paddingEnd="14dp"
-                android:src="@drawable/ic_photo" />
+                app:srcCompat="@drawable/ic_photo" />
 
 
         </RelativeLayout>
