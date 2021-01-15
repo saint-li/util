@@ -33,7 +33,7 @@ import kotlinx.android.synthetic.main.activity_capture.*
 import java.io.IOException
 
 class CaptureActivity : BaseAct(), View.OnClickListener, SurfaceHolder.Callback {
-    lateinit var config: ZxingConfig
+    var config: ZxingConfig? = null
 
     private var hasSurface = false
     private var inactivityTimer: InactivityTimer? = null
