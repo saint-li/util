@@ -2,6 +2,8 @@ package com.saint.util.base;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -220,4 +223,22 @@ public abstract class BaseAct extends AppCompatActivity {
         MobclickAgent.onPause(this);
     }
 
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.fontScale != 1) { //fontScale不为1，需要强制设置为1
+            getResources();
+        }
+    }
+
+    @Override
+    public Resources getResources() {
+        Resources resources = super.getResources();
+        if (resources.getConfiguration().fontScale != 1) { //fontScale不为1，需要强制设置为1
+            Configuration newConfig = new Configuration();
+            newConfig.setToDefaults();//设置成默认值，即fontScale为1
+            resources.updateConfiguration(newConfig, resources.getDisplayMetrics());
+        }
+        return resources;
+    }
 }
