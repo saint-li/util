@@ -50,7 +50,7 @@ public final class DecodeThread extends Thread {
         Vector<BarcodeFormat> decodeFormats = new Vector<BarcodeFormat>();
 
         /*是否解析有条形码（一维码）*/
-        if (activity.config.isDecodeBarCode()) {
+        if (activity.getConfig().isDecodeBarCode()) {
             decodeFormats.addAll(DecodeFormatManager.ONE_D_FORMATS);
         }
         decodeFormats.addAll(DecodeFormatManager.DATA_MATRIX_FORMATS);
