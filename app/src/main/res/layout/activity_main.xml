@@ -13,7 +13,7 @@
         android:background="@color/colorPrimary"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/smart_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0"
@@ -29,6 +29,6 @@
             app:spanCount="2" />
 
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,9 +7,9 @@ import com.saint.util.lifecycle.ActivityCallback;
 import com.saint.util.lifecycle.IToastCallback;
 import com.saint.util.util.AppUtil;
 import com.saint.util.util.toast.ToastUtils;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.scwang.smart.refresh.footer.ClassicsFooter;
+import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.umeng.commonsdk.UMConfigure;
 
 public class UtilConfig {

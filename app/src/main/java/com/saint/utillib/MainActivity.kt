@@ -11,8 +11,8 @@ import com.saint.util.util.toast.AppToast
 import com.saint.utillib.gloading.GLoadingAct
 import com.saint.utillib.fragkotlin.KotlinTestAct
 import com.saint.utillib.time.TimeTestAct
-import com.scwang.smartrefresh.layout.api.RefreshLayout
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
+import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 
