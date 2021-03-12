@@ -155,10 +155,10 @@
         <!-- tab -->
         <attr name="tl_tab_padding" />
 
-        <attr name="tl_tab_padding_top"  />
+        <attr name="tl_tab_padding_top" />
         <attr name="tl_tab_padding_left" />
         <attr name="tl_tab_padding_right" />
-        <attr name="tl_tab_padding_bottom"  />
+        <attr name="tl_tab_padding_bottom" />
         <attr name="tl_tab_space_equal" />
         <attr name="tl_tab_width" />
 
@@ -312,4 +312,30 @@
         <attr name="duration_max" />
     </declare-styleable>
     <!-- JCameraView  结束 -->
+
+    <!--睡眠质量分布-->
+    <declare-styleable name="SleepQualityView">
+        <!--线条宽度百分比-->
+        <!--        <attr name="sq_widthRatio" format="float" />-->
+        <!--   睡眠数据线条高度     -->
+        <attr name="sq_sleepHeight" format="dimension" />
+        <!--线条圆角百分比-->
+        <attr name="sq_vwidthRatio" format="float" />
+        <!--线条距离y轴的距离-->
+        <attr name="sq_marginYRatio" format="float" />
+        <!--x轴文字的大小百分比-->
+        <attr name="sq_xTextRatio" format="float" />
+        <!--y轴文字的大小百分比-->
+        <attr name="sq_yTextRatio" format="float" />
+        <!--画板右边距百分比-->
+        <attr name="sq_marginRightRatio" format="float" />
+        <!--画板左边距百分比-->
+        <attr name="sq_marginLeftRatio" format="float" />
+        <!--画板上边距百分比-->
+        <attr name="sq_marginTopRatio" format="float" />
+        <!--画板下边距百分比-->
+        <attr name="sq_marginBottomRatio" format="float" />
+        <!--进度动画持续时间-->
+        <attr name="sq_animationTime" format="integer" />
+    </declare-styleable>
 </resources>

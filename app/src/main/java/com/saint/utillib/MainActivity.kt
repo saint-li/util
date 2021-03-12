@@ -7,6 +7,7 @@ import com.saint.util.listener.OnItemCLick
 import com.saint.util.util.AppUtil
 import com.saint.util.util.clearCache
 import com.saint.util.util.toast.AppToast
+import com.saint.utillib.act.SleepViewAct
 //import com.saint.utillib.act.PicTestAct
 import com.saint.utillib.gloading.GLoadingAct
 import com.saint.utillib.fragkotlin.KotlinTestAct
@@ -91,6 +92,9 @@ class MainActivity : BaseAct(), OnItemCLick {
             }
             10 -> {
 //                showAct(PicTestAct::class.java)
+            }
+            11 -> {
+                showAct(SleepViewAct::class.java)
             }
         }
     }
