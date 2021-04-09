@@ -47,7 +47,7 @@ public abstract class BaseAct extends AppCompatActivity {
         initTitleView();
         initView();
         initListener();
-        initData();
+        initData(savedInstanceState);
     }
 
     protected boolean setTransparent() {
@@ -78,6 +78,14 @@ public abstract class BaseAct extends AppCompatActivity {
      * 初始化数据
      */
     protected abstract void initData();
+
+    /**
+     * 初始化数据携带存储数据
+     */
+
+    protected void initData(@Nullable Bundle savedInstanceState) {
+        initData();
+    }
 
     /**
      * 初始化监听

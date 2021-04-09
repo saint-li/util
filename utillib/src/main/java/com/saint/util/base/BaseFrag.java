@@ -37,8 +37,8 @@ public abstract class BaseFrag extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initTitleView();
         initView();
-        initData();
         initListener();
+        initData(savedInstanceState);
     }
 
     /**
@@ -76,6 +76,14 @@ public abstract class BaseFrag extends Fragment {
      * 初始化数据
      */
     protected abstract void initData();
+
+    /**
+     * 初始化数据携带存储数据
+     */
+
+    protected void initData(@Nullable Bundle savedInstanceState) {
+        initData();
+    }
 
     /**
      * 初始化监听
