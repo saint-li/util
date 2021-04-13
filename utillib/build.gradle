@@ -63,7 +63,7 @@ dependencies {
     api 'com.scwang.smart:refresh-header-classics:2.0.3'    //经典刷新头
     api 'com.scwang.smart:refresh-footer-classics:2.0.3'    //经典加载
     //图片压缩
-    api 'id.zelory:compressor:2.1.1'
+//    api 'id.zelory:compressor:2.1.1'
     //友盟
     api 'com.umeng.umsdk:analytics:8.0.0'
     api 'com.umeng.umsdk:common:2.0.0'
