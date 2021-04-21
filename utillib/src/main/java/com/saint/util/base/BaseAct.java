@@ -65,7 +65,9 @@ public abstract class BaseAct extends AppCompatActivity {
         return 0;
     }
 
-    protected abstract View setRootView();
+    protected View setRootView() {
+        return null;
+    }
 
     /**
      * 初始化标题栏
