@@ -41,7 +41,11 @@ public abstract class BaseAct extends AppCompatActivity {
         ActivityUtil.INSTANCE.addActivity(this);
         AppUtil.setAndroidNativeLightStatusBar(this, true);
         act = this;
-        setContentView(setLayout());
+        if (setRootView() != null) {
+            setContentView(setRootView());
+        } else {
+            setContentView(setLayout());
+        }
 //        setFitsSystemWindows();
         getIntentData();
         initTitleView();
@@ -57,7 +61,11 @@ public abstract class BaseAct extends AppCompatActivity {
     /**
      * 设置内容布局
      */
-    protected abstract int setLayout();
+    protected int setLayout() {
+        return 0;
+    }
+
+    protected abstract View setRootView();
 
     /**
      * 初始化标题栏
