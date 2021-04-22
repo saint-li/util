@@ -10,16 +10,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.viewbinding.ViewBinding;
 
 import com.saint.util.http.OkUtil;
 import com.saint.widget.MyActionBar;
 
-public abstract class BaseFrag<VB extends ViewBinding> extends Fragment {
+public abstract class BaseFrag extends Fragment {
     protected Fragment frag;
     protected MyActionBar mActionBar;
     protected View rootView;
-    protected VB binding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,10 +28,9 @@ public abstract class BaseFrag<VB extends ViewBinding> extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = createBinding();
-        if (binding != null) {
-            rootView = binding.getRoot();
-            return rootView;
+        if (setRootView() != null) {
+            rootView = setRootView();
+            return setRootView();
         }
         rootView = inflater.inflate(setLayout(), container, false);
         return rootView;
@@ -55,7 +52,7 @@ public abstract class BaseFrag<VB extends ViewBinding> extends Fragment {
         return 0;
     }
 
-    protected VB createBinding() {
+    protected View setRootView() {
         return null;
     }
 

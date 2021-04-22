@@ -16,7 +16,6 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewbinding.ViewBinding;
 
 import com.saint.util.http.OkUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -29,11 +28,10 @@ import com.saint.widget.MyActionBar;
  * Time:
  * ReadMe:
  */
-public abstract class BaseAct<VB extends ViewBinding> extends AppCompatActivity {
+public abstract class BaseAct extends AppCompatActivity {
     protected BaseAct act;
 
     protected MyActionBar mActionBar;
-    protected VB binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,9 +41,8 @@ public abstract class BaseAct<VB extends ViewBinding> extends AppCompatActivity 
         ActivityUtil.INSTANCE.addActivity(this);
         AppUtil.setAndroidNativeLightStatusBar(this, true);
         act = this;
-        binding = createBinding();
-        if (binding != null) {
-            setContentView(binding.getRoot());
+        if (setRootView() != null) {
+            setContentView(setRootView());
         } else {
             setContentView(setLayout());
         }
@@ -68,7 +65,7 @@ public abstract class BaseAct<VB extends ViewBinding> extends AppCompatActivity 
         return 0;
     }
 
-    protected VB createBinding() {
+    protected View setRootView() {
         return null;
     }
 
