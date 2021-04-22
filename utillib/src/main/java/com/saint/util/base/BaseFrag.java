@@ -10,14 +10,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewbinding.ViewBinding;
 
 import com.saint.util.http.OkUtil;
 import com.saint.widget.MyActionBar;
 
-public abstract class BaseFrag extends Fragment {
+public abstract class BaseFrag<VB extends ViewBinding> extends Fragment {
     protected Fragment frag;
     protected MyActionBar mActionBar;
     protected View rootView;
+    protected VB binding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,6 +30,11 @@ public abstract class BaseFrag extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = createBinding();
+        if (binding != null) {
+            rootView = binding.getRoot();
+            return rootView;
+        }
         rootView = inflater.inflate(setLayout(), container, false);
         return rootView;
     }
@@ -44,7 +51,13 @@ public abstract class BaseFrag extends Fragment {
     /**
      * 设置内容布局
      */
-    protected abstract int setLayout();
+    protected int setLayout() {
+        return 0;
+    }
+
+    protected VB createBinding() {
+        return null;
+    }
 
     /**
      * 初始化标题栏
