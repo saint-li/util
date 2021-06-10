@@ -1,7 +1,6 @@
 package com.saint.util.util;
 
 import com.google.gson.Gson;
-import com.umeng.analytics.MobclickAgent;
 import com.saint.util.UtilConfig;
 
 public class GsonUtil {
@@ -37,7 +36,6 @@ public class GsonUtil {
             }
             return t;
         } catch (Exception e) {
-            MobclickAgent.reportError(UtilConfig.getApp(), e.getMessage());
             AppLog.e("GsonUtil", "数据解析异常： " + e.getMessage());
             return null;
         }

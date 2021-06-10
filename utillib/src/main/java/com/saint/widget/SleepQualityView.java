@@ -57,7 +57,7 @@ public class SleepQualityView extends View {
 //    private String shallowString = "Shallow";
 //    private String deepString = "Deep";
     //动画
-    private int animationTime = 1000;//动画持续时间
+    private int animationTime = 0;//动画持续时间
 
     /**
      * 睡眠数据列表,规则如下

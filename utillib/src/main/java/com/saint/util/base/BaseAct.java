@@ -18,7 +18,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.saint.util.http.OkUtil;
-import com.umeng.analytics.MobclickAgent;
 import com.saint.util.util.ActivityUtil;
 import com.saint.util.util.AppUtil;
 import com.saint.widget.MyActionBar;
@@ -226,19 +225,6 @@ public abstract class BaseAct extends AppCompatActivity {
         Intent intent = new Intent(act, clazz);
         intent.putExtra(key, value);
         startActivityForResult(intent, requestCode);
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MobclickAgent.onResume(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MobclickAgent.onPause(this);
     }
 
     @Override
