@@ -16,7 +16,7 @@ public class UtilConfig {
 
     private static IToastCallback sToastCallback;
 
-    public static void init(Application app, String um_key, boolean debug) {
+    public static void init(Application app, boolean debug) {
         if (app == null) {
             throw new NullPointerException("初始化Util的application不可为null！");
         }
