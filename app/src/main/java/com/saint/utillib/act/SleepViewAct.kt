@@ -1,5 +1,6 @@
 package com.saint.utillib.act
 
+import android.os.Bundle
 import com.saint.util.base.BaseAct
 import com.saint.utillib.R
 
@@ -12,7 +13,7 @@ class SleepViewAct:BaseAct() {
         return R.layout.act_sleep_view
     }
 
-    override fun initData() {
+    override fun initData(savedInstanceState: Bundle?) {
 
     }
 }

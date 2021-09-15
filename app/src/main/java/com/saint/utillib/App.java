@@ -13,7 +13,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         if (AppUtil.isMainProcess(this)) {
-            UtilConfig.init(this, "", BuildConfig.DEBUG);
+            UtilConfig.init(this, BuildConfig.DEBUG);
             UtilConfig.setIsDebug(BuildConfig.DEBUG);
             //全局加载、空 视图
             GLoading.debug(BuildConfig.DEBUG);

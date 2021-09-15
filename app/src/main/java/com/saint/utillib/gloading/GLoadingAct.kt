@@ -1,5 +1,6 @@
 package com.saint.utillib.gloading
 
+import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -19,7 +20,7 @@ class GLoadingAct : BaseAct() {
         my_action_bar.setLeftListener { finish() }
     }
 
-    override fun initData() {
+    override fun initData(savedInstanceState: Bundle?) {
         frags.add(WrapRootViewFragment())
         frags.add(EmptyFrag())
         onTabSelect(1)

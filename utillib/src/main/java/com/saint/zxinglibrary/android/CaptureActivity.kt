@@ -3,6 +3,7 @@ package com.saint.zxinglibrary.android
 import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.SurfaceHolder
@@ -61,7 +62,7 @@ class CaptureActivity : BaseAct(), View.OnClickListener, SurfaceHolder.Callback 
 
     override fun setLayout(): Int = R.layout.activity_capture
 
-    override fun initData() {
+    override fun initData(savedInstanceState: Bundle?) {
         setStatusBarHeight(layout_status_view)
         viewfinder_view.setZxingConfig(config)
         preview_view.setOnClickListener(this)

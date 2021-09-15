@@ -1,6 +1,9 @@
 package com.saint.utillib.fragkotlin;
 
+import android.os.Bundle;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.saint.util.base.BaseFrag;
 import com.saint.utillib.R;
@@ -19,7 +22,7 @@ public class JavaFrag extends BaseFrag {
     }
 
     @Override
-    protected void initData() {
+    protected void initData(@Nullable Bundle savedInstanceState) {
         tvText.setText("***************");
     }
 }

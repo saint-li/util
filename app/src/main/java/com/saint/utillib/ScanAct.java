@@ -1,6 +1,7 @@
 package com.saint.utillib;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -42,7 +43,7 @@ public class ScanAct extends BaseAct {
     }
 
     @Override
-    protected void initData() {
+    protected void initData(@Nullable Bundle savedInstanceState) {
         clickEditText.setOnRightDrawableClick(this::scan);
     }
 

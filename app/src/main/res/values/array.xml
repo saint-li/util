@@ -14,6 +14,7 @@
         <item>清除缓存</item>
         <item>图片选择</item>
         <item>睡眠质量</item>
+        <item>ShapeableImageView</item>
     </string-array>
 
     <string-array name="test_toast_items">

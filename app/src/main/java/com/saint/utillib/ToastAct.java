@@ -1,5 +1,6 @@
 package com.saint.utillib;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.saint.util.base.BaseAct;
@@ -39,7 +41,7 @@ public class ToastAct extends BaseAct implements OnItemCLick {
     }
 
     @Override
-    protected void initData() {
+    protected void initData(@Nullable Bundle savedInstanceState) {
         ToastTestAdapter adapter = new ToastTestAdapter();
         recyclerView.setAdapter(adapter);
         adapter.addData(Arrays.asList(getResources().getStringArray(R.array.test_toast_items)), 1);

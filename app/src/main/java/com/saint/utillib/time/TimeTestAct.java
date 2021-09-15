@@ -1,7 +1,10 @@
 package com.saint.utillib.time;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.saint.util.base.BaseAct;
 import com.saint.util.util.TimeUtil;
@@ -26,7 +29,7 @@ public class TimeTestAct extends BaseAct {
     }
 
     @Override
-    protected void initData() {
+    protected void initData(@Nullable Bundle savedInstanceState) {
         long time = System.currentTimeMillis();
 
         StringBuilder sb = new StringBuilder();
@@ -110,7 +113,6 @@ public class TimeTestAct extends BaseAct {
 
         tvTime.setText(sb.toString());
     }
-
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static SimpleDateFormat sdfStr = new SimpleDateFormat("yyyyMMddHHmmssSSS");

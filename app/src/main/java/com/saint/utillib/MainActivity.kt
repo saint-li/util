@@ -2,11 +2,13 @@ package com.saint.utillib
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import com.saint.util.base.BaseAct
 import com.saint.util.listener.OnItemCLick
 import com.saint.util.util.AppUtil
 import com.saint.util.util.clearCache
 import com.saint.util.util.toast.AppToast
+import com.saint.utillib.act.SImageViewAct
 import com.saint.utillib.act.SleepViewAct
 //import com.saint.utillib.act.PicTestAct
 import com.saint.utillib.gloading.GLoadingAct
@@ -33,19 +35,17 @@ class MainActivity : BaseAct(), OnItemCLick {
     override fun initView() {
         smart_refresh_layout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
             override fun onLoadMore(refreshLayout: RefreshLayout) {
-                initData()
                 refreshLayout.finishLoadMore()
             }
 
             override fun onRefresh(refreshLayout: RefreshLayout) {
-                initData()
                 refreshLayout.finishRefresh()
             }
 
         })
     }
 
-    override fun initData() {
+    override fun initData(savedInstanceState: Bundle?) {
         adapter = MainAdapter(act)
         recycler_view.adapter = adapter
         adapter!!.setOnItemCLick(this)
@@ -96,6 +96,10 @@ class MainActivity : BaseAct(), OnItemCLick {
             11 -> {
                 showAct(SleepViewAct::class.java)
             }
+            12 -> {
+                showAct(SImageViewAct::class.java)
+            }
+
         }
     }
 
