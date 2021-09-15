@@ -81,20 +81,12 @@ public abstract class BaseAct extends AppCompatActivity {
     protected void initView() {
     }
 
-    ;
-
-    /**
-     * 初始化数据
-     */
-    protected abstract void initData();
 
     /**
      * 初始化数据携带存储数据
      */
 
-    protected void initData(@Nullable Bundle savedInstanceState) {
-        initData();
-    }
+    protected abstract void initData(@Nullable Bundle savedInstanceState);
 
     /**
      * 初始化监听
