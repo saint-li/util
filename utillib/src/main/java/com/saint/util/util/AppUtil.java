@@ -426,34 +426,6 @@ public class AppUtil {
             view.setBackgroundDrawable(drawable);
         }
     }
-
-    /**
-     * 包名判断是否为主进程
-     *
-     * @param
-     * @return
-     */
-    public static boolean isMainProcess(Context context) {
-        return context.getApplicationContext().getPackageName().equals(getCurrentProcessName(context));
-    }
-
-
-    /**
-     * 获取当前进程名
-     */
-    private static String getCurrentProcessName(Context context) {
-        int pid = android.os.Process.myPid();
-        String processName = "";
-        ActivityManager manager = (ActivityManager) context.getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-        if (manager != null)
-            for (ActivityManager.RunningAppProcessInfo process : manager.getRunningAppProcesses()) {
-                if (process.pid == pid) {
-                    processName = process.processName;
-                }
-            }
-        return processName;
-    }
-
     /**
      * check if the network connected or not
      *

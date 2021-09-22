@@ -20,7 +20,6 @@ public class UtilConfig {
         if (app == null) {
             throw new NullPointerException("初始化Util的application不可为null！");
         }
-        if (!AppUtil.isMainProcess(app)) return;
         UtilConfig.app = app;
         isDebug = debug;
         app.registerActivityLifecycleCallbacks(new ActivityCallback() {
