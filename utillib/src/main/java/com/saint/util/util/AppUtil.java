@@ -561,25 +561,59 @@ public class AppUtil {
         return false;
     }
 
-    public static boolean isNewVersionHigh(String newVersion) {
-
-        String[] newVStr = newVersion.split("\\.");
-        String[] oldVStr = getVersionName().split("\\.");
-
-        int maxSize = Math.max(newVStr.length, oldVStr.length);
-        for (int i = 0; i < maxSize; i++) {
-            if (i < newVStr.length
-                    && i < oldVStr.length
-                    && !TextUtils.isEmpty(newVStr[i])
-                    && !TextUtils.isEmpty(oldVStr[i])
-                    && Integer.parseInt(newVStr[i]) > Integer.parseInt(oldVStr[i])
-            ) {
-                return true;
-            } else if (i >= oldVStr.length) {
+    /**
+     * 判断版本更新
+     * versionName版本判断本身是有缺陷的，
+     * 必须保证三位格式示例：1.1.1
+     *
+     * @param localVersion 本地app 版本号
+     * @param newVersion   最新版本号
+     * @return true 需要更新 false 不用
+     */
+    public static boolean isNewVersionHigh(String localVersion, String newVersion) {
+        String[] localArray = localVersion.split("\\.");
+        String[] newArray = newVersion.split("\\.");
+        if (localArray.length < 3) {
+            int cha = 3 - localArray.length;
+            for (int i = 0; i < cha; i++) {
+                localVersion = localVersion + ".0";
+            }
+            localArray = localVersion.split("\\.");
+        }
+        if (newArray.length < 3) {
+            int cha = 3 - newArray.length;
+            for (int i = 0; i < cha; i++) {
+                newVersion = newVersion + ".0";
+            }
+            newArray = newVersion.split("\\.");
+        }
+        try {
+            //第一位大于，则需更新
+            if (Integer.parseInt(newArray[0]) > Integer.parseInt(localArray[0])) {
                 return true;
             }
+            //第一位小于，则不需更新
+            if (Integer.parseInt(newArray[0]) < Integer.parseInt(localArray[0])) {
+                return false;
+            }
+            //第一位相等，则进行下一位判断
+            //第二位大于，则需更新
+            if (Integer.parseInt(newArray[1]) > Integer.parseInt(localArray[1])) {
+                return true;
+            }
+            //第二位小于，则不需更新
+            if (Integer.parseInt(newArray[1]) < Integer.parseInt(localArray[1])) {
+                return false;
+            }
+            //第二位相等，则进行下一位判断
+            //第三位大于，则需更新，否则不更新
+            return Integer.parseInt(newArray[2]) > Integer.parseInt(localArray[2]);
+            //第三位小于或等于，则不需更新
+//            if (Integer.parseInt(newArray[2]) <= Integer.parseInt(localArray[2])) {
+//            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
         return false;
     }
 }
