@@ -5,76 +5,99 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
-import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.RequiresPermission;
 import androidx.fragment.app.Fragment;
 
-import com.saint.util.R;
+import com.hjq.permissions.OnPermissionCallback;
+import com.hjq.permissions.XXPermissions;
 import com.saint.util.UtilConfig;
 import com.saint.util.listener.RequestPermissionBack;
-import com.saint.util.other.RuntimeRationale;
 import com.saint.util.util.toast.AppToast;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.runtime.Permission;
-import com.yanzhenjie.permission.runtime.PermissionDef;
 
 import java.util.List;
 
 public class PermissionUtil {
 
-    public static void request(Context context, @NonNull RequestPermissionBack back, @NonNull @PermissionDef String... permissions) {
-        AndPermission.with(context)
-                .runtime()
+    public static void request(Context context, @NonNull RequestPermissionBack back, @NonNull @RequiresPermission String... permissions) {
+        XXPermissions.with(context)
                 .permission(permissions)
-                .rationale(new RuntimeRationale())
-                .onGranted(back::onSuccess)
-                .onDenied(back::onFailed)
-                .start();
+                .request(new OnPermissionCallback() {
+                    @Override
+                    public void onGranted(List<String> permissions, boolean all) {
+                        back.onSuccess(permissions, all);
+                    }
+
+                    @Override
+                    public void onDenied(List<String> permissions, boolean never) {
+                        back.onFailed(permissions, never);
+                    }
+                });
     }
 
-    public static void request(Activity activity, @NonNull RequestPermissionBack back, @NonNull @PermissionDef String... permissions) {
-        AndPermission.with(activity)
-                .runtime()
+    public static void request(Activity activity, @NonNull RequestPermissionBack back, @NonNull @RequiresPermission String... permissions) {
+        XXPermissions.with(activity)
                 .permission(permissions)
-                .rationale(new RuntimeRationale())
-                .onGranted(back::onSuccess)
-                .onDenied(back::onFailed)
-                .start();
+                .request(new OnPermissionCallback() {
+                    @Override
+                    public void onGranted(List<String> permissions, boolean all) {
+                        back.onSuccess(permissions, all);
+                    }
+
+                    @Override
+                    public void onDenied(List<String> permissions, boolean never) {
+                        back.onFailed(permissions, never);
+                    }
+                });
     }
 
-    public static void request(Fragment fragment, @NonNull RequestPermissionBack back, @NonNull @PermissionDef String... permissions) {
-        AndPermission.with(fragment)
-                .runtime()
+    public static void request(Fragment fragment, @NonNull RequestPermissionBack back, @NonNull @RequiresPermission String... permissions) {
+        XXPermissions.with(fragment)
                 .permission(permissions)
-                .rationale(new RuntimeRationale())
-                .onGranted(back::onSuccess)
-                .onDenied(back::onFailed)
-                .start();
+                .request(new OnPermissionCallback() {
+                    @Override
+                    public void onGranted(List<String> permissions, boolean all) {
+                        back.onSuccess(permissions, all);
+                    }
+
+                    @Override
+                    public void onDenied(List<String> permissions, boolean never) {
+                        back.onFailed(permissions, never);
+                    }
+                });
     }
 
     /**
-     * Display setting dialog.
+     * 判断一个或多个权限是否全部授予了
+     *
+     * @param context
+     * @param permissions
+     * @return
      */
-    public static void showSettingDialog(Activity context, List<String> permissions, int requestCode) {
-        List<String> permissionNames = Permission.transformText(context, permissions);
-        String message = context.getString(R.string.message_permission_always_failed,
-                TextUtils.join("\n", permissionNames));
+    public static boolean hasPermissions(Context context, @NonNull @RequiresPermission String... permissions) {
+        return XXPermissions.isGranted(context, permissions);
+    }
 
-        new AlertDialog.Builder(context).setCancelable(false)
-                .setTitle(R.string.tips)
-                .setMessage(message)
-                .setPositiveButton(R.string.setting, (dialog, which) -> {
-                    Uri packageURI = Uri.parse("package:" + context.getPackageName());
-                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivityForResult(intent, requestCode);
-                })
-                .setNegativeButton(R.string.cancel, (dialog, which) -> {
-                    AppToast.INSTANCE.tLong(R.string.no_permission_tips);
-                })
-                .show();
+    /**
+     * 获取没有授予的权限
+     *
+     * @param context
+     * @param permissions
+     * @return
+     */
+    public static List<String> getDenied(Context context, @NonNull @RequiresPermission String... permissions) {
+        return XXPermissions.getDenied(context, permissions);
+    }
+
+    /**
+     * 判断某个权限是否为特殊权限
+     *
+     * @param permission
+     * @return
+     */
+    public static boolean isSpecial(@NonNull @RequiresPermission String permission) {
+        return XXPermissions.isSpecial(permission);
     }
 
     /**
