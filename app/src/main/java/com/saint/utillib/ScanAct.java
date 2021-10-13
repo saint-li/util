@@ -7,17 +7,13 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import com.saint.util.base.BaseAct;
-import com.saint.util.listener.RequestPermissionBack;
 import com.saint.util.util.AppUtil;
-import com.saint.util.util.PermissionUtil;
 import com.saint.util.util.toast.AppToast;
 import com.saint.widget.DrawableClickEditText;
 import com.saint.zxinglibrary.android.CaptureActivity;
 import com.saint.zxinglibrary.bean.ZxingConfig;
 import com.saint.zxinglibrary.common.ScanConstant;
-import com.yanzhenjie.permission.runtime.Permission;
 
-import java.util.List;
 import java.util.Objects;
 
 public class ScanAct extends BaseAct {
@@ -43,7 +39,7 @@ public class ScanAct extends BaseAct {
     }
 
     @Override
-    protected void initData(@Nullable Bundle savedInstanceState) {
+    protected void initData(Bundle savedInstanceState) {
         clickEditText.setOnRightDrawableClick(this::scan);
     }
 
@@ -52,11 +48,11 @@ public class ScanAct extends BaseAct {
 //        PermissionUtil.request(act, new RequestPermissionBack() {
 //            @Override
 //            public void onSuccess(List<String> permissions) {
-                Intent intent = new Intent(act, CaptureActivity.class);
-                ZxingConfig config = new ZxingConfig();
-                config.setBind(false);
-                intent.putExtra(ScanConstant.INTENT_ZXING_CONFIG, config);
-                startActivityForResult(intent, REQUEST_CODE_SCAN);
+        Intent intent = new Intent(act, CaptureActivity.class);
+        ZxingConfig config = new ZxingConfig();
+        config.setBind(false);
+        intent.putExtra(ScanConstant.INTENT_ZXING_CONFIG, config);
+        startActivityForResult(intent, REQUEST_CODE_SCAN);
 //            }
 //
 //            @Override

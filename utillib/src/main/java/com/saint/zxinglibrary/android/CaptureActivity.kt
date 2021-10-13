@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import com.google.zxing.Result
+import com.hjq.permissions.Permission
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
@@ -19,6 +20,7 @@ import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.listener.OnResultCallbackListener
 import com.saint.util.R
 import com.saint.util.base.BaseAct
+import com.saint.util.databinding.ActivityCaptureBinding
 import com.saint.util.listener.RequestPermissionBack
 import com.saint.util.util.AppUtil
 import com.saint.util.util.GlideEG
@@ -29,11 +31,10 @@ import com.saint.zxinglibrary.common.ScanConstant
 import com.saint.zxinglibrary.decode.DecodeImgCallback
 import com.saint.zxinglibrary.decode.DecodeImgThread
 import com.saint.zxinglibrary.view.ViewfinderView
-import com.yanzhenjie.permission.runtime.Permission
-import kotlinx.android.synthetic.main.activity_capture.*
 import java.io.IOException
 
 class CaptureActivity : BaseAct(), View.OnClickListener, SurfaceHolder.Callback {
+    private lateinit var binding: ActivityCaptureBinding
     var config: ZxingConfig? = null
 
     private var hasSurface = false
@@ -60,25 +61,28 @@ class CaptureActivity : BaseAct(), View.OnClickListener, SurfaceHolder.Callback 
         }
     }
 
-    override fun setLayout(): Int = R.layout.activity_capture
+    override fun setRootView(): View {
+        binding = ActivityCaptureBinding.inflate(layoutInflater)
+        return binding.root;
+    }
 
     override fun initData(savedInstanceState: Bundle?) {
-        setStatusBarHeight(layout_status_view)
-        viewfinder_view.setZxingConfig(config)
-        preview_view.setOnClickListener(this)
-        backIv.setOnClickListener(this)
-        flashLightLayout.setOnClickListener(this)
-        albumIv.setOnClickListener(this)
+        setStatusBarHeight(binding.layoutStatusView)
+        binding.viewfinderView.setZxingConfig(config)
+        binding.previewView.setOnClickListener(this)
+        binding.backIv.setOnClickListener(this)
+        binding.flashLightLayout.setOnClickListener(this)
+        binding.albumIv.setOnClickListener(this)
 
-        switchVisibility(bottomLayout, config!!.isShowbottomLayout)
-        switchVisibility(flashLightLayout, config!!.isShowFlashLight)
-        switchVisibility(albumIv, config!!.isShowAlbum);
+        switchVisibility(binding.bottomLayout, config!!.isShowbottomLayout)
+        switchVisibility(binding.flashLightLayout, config!!.isShowFlashLight)
+        switchVisibility(binding.albumIv, config!!.isShowAlbum);
 
         /*有闪光灯就显示手电筒按钮  否则不显示*/
         if (isSupportCameraLedFlash(packageManager)) {
-            flashLightLayout.visibility = View.VISIBLE
+            binding.flashLightLayout.visibility = View.VISIBLE
         } else {
-            flashLightLayout.visibility = View.GONE
+            binding.flashLightLayout.visibility = View.GONE
         }
 
         hasSurface = false
@@ -93,9 +97,9 @@ class CaptureActivity : BaseAct(), View.OnClickListener, SurfaceHolder.Callback 
     override fun onResume() {
         super.onResume()
         cameraManager = CameraManager(application, config)
-        viewfinder_view.setCameraManager(cameraManager)
+        binding.viewfinderView.setCameraManager(cameraManager)
         handler = null
-        surfaceHolder = preview_view.getHolder()
+        surfaceHolder = binding.previewView.getHolder()
         if (hasSurface) {
             initCamera(surfaceHolder)
         } else {
@@ -112,7 +116,7 @@ class CaptureActivity : BaseAct(), View.OnClickListener, SurfaceHolder.Callback 
             return
         }
         PermissionUtil.request(this, object : RequestPermissionBack {
-            override fun onSuccess(permissions: List<String>) {
+            override fun onSuccess(permissions: List<String>, all: Boolean) {
                 try {
                     // 打开Camera硬件设备
                     cameraManager!!.openDriver(surfaceHolder)
@@ -131,8 +135,8 @@ class CaptureActivity : BaseAct(), View.OnClickListener, SurfaceHolder.Callback 
                 }
             }
 
-            override fun onFailed(permissions: List<String>) {}
-        }, Permission.CAMERA, Permission.READ_EXTERNAL_STORAGE)
+            override fun onFailed(permissions: List<String>, never: Boolean) {}
+        }, Permission.CAMERA)
     }
 
     private fun displayFrameworkBugMessageAndExit() {
@@ -161,16 +165,16 @@ class CaptureActivity : BaseAct(), View.OnClickListener, SurfaceHolder.Callback 
 
     override fun onDestroy() {
         inactivityTimer!!.shutdown()
-        viewfinder_view.stopAnimator()
+        binding.viewfinderView.stopAnimator()
         super.onDestroy()
     }
 
     fun getViewfinderView(): ViewfinderView {
-        return viewfinder_view;
+        return binding.viewfinderView;
     }
 
     fun drawViewfinder() {
-        viewfinder_view.drawViewfinder();
+        binding.viewfinderView.drawViewfinder();
     }
 
 
@@ -290,11 +294,11 @@ class CaptureActivity : BaseAct(), View.OnClickListener, SurfaceHolder.Callback 
      */
     fun switchFlashImg(flashState: Int) {
         if (flashState == ScanConstant.FLASH_OPEN) {
-            flashLightIv.setImageResource(R.drawable.ic_open)
-            flashLightTv.setText(R.string.close_flash)
+            binding.flashLightIv.setImageResource(R.drawable.ic_open)
+            binding.flashLightTv.setText(R.string.close_flash)
         } else {
-            flashLightIv.setImageResource(R.drawable.ic_close)
-            flashLightTv.setText(R.string.open_flash)
+            binding.flashLightIv.setImageResource(R.drawable.ic_close)
+            binding.flashLightTv.setText(R.string.open_flash)
         }
     }
 

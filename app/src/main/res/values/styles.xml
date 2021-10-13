@@ -8,10 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="cstActionBarBg" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:background">@drawable/action_bar_bg</item>
-    </style>
-
     <style name="RoundStyle">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10%</item>

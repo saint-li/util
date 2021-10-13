@@ -52,7 +52,7 @@ dependencies {
 
     api 'androidx.recyclerview:recyclerview:1.1.0'
     //权限申请
-    api 'com.yanzhenjie:permission:2.0.3'
+    implementation 'com.github.getActivity:XXPermissions:12.5'
     //网络
     api 'com.lzy.net:okgo:3.0.4'
     api 'com.google.code.gson:gson:2.8.6'
