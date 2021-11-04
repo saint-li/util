@@ -67,29 +67,23 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.exifinterface:exifinterface:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.exifinterface:exifinterface:1.3.3'
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
 
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test:runner:1.3.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     //
-    api 'com.google.android.material:material:1.2.1'
+    api 'com.google.android.material:material:1.4.0'
 
-    api 'androidx.recyclerview:recyclerview:1.1.0'
+    api 'androidx.recyclerview:recyclerview:1.2.1'
     //权限申请
     implementation 'com.github.getActivity:XXPermissions:12.5'
     //网络
     api 'com.lzy.net:okgo:3.0.4'
     api 'com.google.code.gson:gson:2.8.6'
-    //图片加载
-    api 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
-    //glide不支持androidx处理
-    implementation 'com.android.support:support-annotations:28.0.0'
-    annotationProcessor "com.android.support:support-annotations:28.0.0"
     //下拉刷新，上拉加载
 //    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
     api 'com.scwang.smart:refresh-layout-kernel:2.0.3'      //核心必须依赖
@@ -99,8 +93,6 @@ dependencies {
     api 'id.zelory:compressor:2.1.1'
     //扫码识别
     implementation files('libs/core-3.3.3.jar')
-    //图片裁剪
-//    implementation project(path: ':ucrop')
     //工具类
     implementation 'com.blankj:utilcodex:1.29.0'
     //图片视频选择

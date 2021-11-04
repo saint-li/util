@@ -10,21 +10,11 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.saint.widget.GLoading;
 
 
 /**
  * demo for wrap fragment
- *
- * You can wrap a BaseFragment like {@link BaseActivity}
- *
- * @author billy.qi
- * @since 19/3/21 17:23
  */
 public class WrapRootViewFragment extends Fragment {
     private GLoading.Holder holder;
@@ -48,22 +38,22 @@ public class WrapRootViewFragment extends Fragment {
 
     private void loadImage(String picUrl) {
         holder.showLoading();
-        Glide.with(this)
-                .load(picUrl)
-                .listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        holder.showLoadFailed();
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        holder.showLoadSuccess();
-                        return false;
-                    }
-                })
-                .into(imageView);
+//        Glide.with(this)
+//                .load(picUrl)
+//                .listener(new RequestListener<Drawable>() {
+//                    @Override
+//                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+//                        holder.showLoadFailed();
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+//                        holder.showLoadSuccess();
+//                        return false;
+//                    }
+//                })
+//                .into(imageView);
     }
 
 }
