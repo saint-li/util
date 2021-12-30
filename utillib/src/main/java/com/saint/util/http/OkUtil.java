@@ -22,7 +22,7 @@ import java.util.logging.Level;
  * ReadMe:
  */
 public class OkUtil {
-    private static final long CONNECT_TIME_OUT = 20000;
+    private static final long CONNECT_TIME_OUT = 30000;
     private static final long WRITE_TIME_OUT = 20000;
     private static final long READ_TIME_OUT = 20000;
     private static final String TAG = "HTTP_TU";
