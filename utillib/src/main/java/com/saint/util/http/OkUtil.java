@@ -22,11 +22,10 @@ import java.util.logging.Level;
  * ReadMe:
  */
 public class OkUtil {
-    private static final long CONNECT_TIME_OUT = 30000;
-    private static final long WRITE_TIME_OUT = 20000;
-    private static final long READ_TIME_OUT = 20000;
-    private static final String TAG = "HTTP_TU";
-
+    private static long connectTimeOut = 30;
+    private static long writeTimeOut = 20;
+    private static long readTimeOut = 20;
+    private final String TAG = "OK_UTIL";
 
     private OkGo mOkGo;
     private static OkUtil okUtil;
@@ -48,6 +47,27 @@ public class OkUtil {
         return okUtil;
     }
 
+    /**
+     *
+     * @param connectSecond 网络连接超时时间 单位：秒
+     * @param writeSecond 写数据超时时间 单位：秒
+     * @param readSecond 读取超时时间 单位：秒
+     * @return
+     */
+    public static OkUtil instance(int connectSecond, int writeSecond, int readSecond) {
+        if (okUtil == null) {
+            synchronized (OkUtil.class) {
+                if (okUtil == null) {
+                    connectTimeOut = connectSecond;
+                    writeTimeOut = writeSecond;
+                    readTimeOut = readSecond;
+                    okUtil = new OkUtil();
+                }
+            }
+        }
+        return okUtil;
+    }
+
     public OkGo getOkGo() {
         return mOkGo;
     }
@@ -60,9 +80,9 @@ public class OkUtil {
         loggingInterceptor.setColorLevel(Level.WARNING);
         mBuilder.addInterceptor(loggingInterceptor);
         //配置超时时间
-        mBuilder.connectTimeout(CONNECT_TIME_OUT, TimeUnit.MILLISECONDS);
-        mBuilder.readTimeout(READ_TIME_OUT, TimeUnit.MILLISECONDS);
-        mBuilder.writeTimeout(WRITE_TIME_OUT, TimeUnit.MILLISECONDS);
+        mBuilder.connectTimeout(connectTimeOut, TimeUnit.SECONDS);
+        mBuilder.readTimeout(readTimeOut, TimeUnit.SECONDS);
+        mBuilder.writeTimeout(writeTimeOut, TimeUnit.SECONDS);
 
         //配置Https
         //方法一：信任所有证书,不安全有风险
