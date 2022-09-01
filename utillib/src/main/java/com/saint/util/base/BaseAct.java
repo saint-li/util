@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.saint.util.UtilConfig;
 import com.saint.util.http.OkUtil;
 import com.saint.util.util.ActivityUtil;
 import com.saint.util.util.AppUtil;
@@ -239,5 +240,16 @@ public abstract class BaseAct extends AppCompatActivity {
             resources.updateConfiguration(newConfig, resources.getDisplayMetrics());
         }
         return resources;
+    }
+
+    public int getStatusBarHeight() {
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        int height = 0;
+        try {
+            height = getResources().getDimensionPixelSize(resourceId);
+        } catch (Resources.NotFoundException e) {
+            height = AppUtil.dpToPx(24);
+        }
+        return height;
     }
 }
