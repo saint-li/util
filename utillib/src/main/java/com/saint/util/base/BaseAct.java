@@ -35,8 +35,9 @@ public abstract class BaseAct extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (setTransparent())
+        if (setTransparent()) {
             AppUtil.setAlphaTitle(this);
+        }
         ActivityUtil.INSTANCE.addActivity(this);
         AppUtil.setAndroidNativeLightStatusBar(this, true);
         act = this;
@@ -222,7 +223,8 @@ public abstract class BaseAct extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (newConfig.fontScale != 1) { //fontScale不为1，需要强制设置为1
+        //fontScale不为1，需要强制设置为1
+        if (newConfig.fontScale != 1) {
             getResources();
         }
     }
@@ -230,7 +232,8 @@ public abstract class BaseAct extends AppCompatActivity {
     @Override
     public Resources getResources() {
         Resources resources = super.getResources();
-        if (resources.getConfiguration().fontScale != 1) { //fontScale不为1，需要强制设置为1
+        //fontScale不为1，需要强制设置为1
+        if (resources.getConfiguration().fontScale != 1) {
             Configuration newConfig = new Configuration();
             newConfig.setToDefaults();//设置成默认值，即fontScale为1
             resources.updateConfiguration(newConfig, resources.getDisplayMetrics());
