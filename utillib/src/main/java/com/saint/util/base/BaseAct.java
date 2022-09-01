@@ -252,4 +252,8 @@ public abstract class BaseAct extends AppCompatActivity {
         }
         return height;
     }
+
+    public int getDimen(int dimenResId) {
+        return (int) getResources().getDimension(dimenResId);
+    }
 }
