@@ -265,9 +265,9 @@ public class AppUtil {
     }
 
     /**
-     * 获取版本号
+     * 获取版本名称
      *
-     * @return 版本号
+     * @return 版本名称
      */
     public static String getVersionName() {
 
@@ -281,8 +281,47 @@ public class AppUtil {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-
         return "";
+    }
+
+    /**
+     * 获取版本号
+     *
+     * @return 版本号
+     */
+    public static int getVersionCode() {
+
+        //获取包管理器
+        PackageManager pm = UtilConfig.getApp().getPackageManager();
+        //获取包信息
+        try {
+            PackageInfo packageInfo = pm.getPackageInfo(UtilConfig.getApp().getPackageName(), 0);
+            //返回版本号
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    /**
+     * 获取版本号
+     *
+     * @return 版本号
+     */
+    public static PackageInfo getPackageInfo() {
+
+        //获取包管理器
+        PackageManager pm = UtilConfig.getApp().getPackageManager();
+        //获取包信息
+        try {
+            PackageInfo packageInfo = pm.getPackageInfo(UtilConfig.getApp().getPackageName(), 0);
+            //返回版本号
+            return packageInfo;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
 
     }
 
