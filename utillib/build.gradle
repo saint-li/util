@@ -77,6 +77,8 @@ dependencies {
     implementation 'com.blankj:utilcodex:1.29.0'
     //图片视频选择
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.5.9'
+    // 吐司框架：https://github.com/getActivity/Toaster
+    implementation 'com.github.getActivity:Toaster:12.5'
 }
 
 //生成jar包 并修改jar包名字

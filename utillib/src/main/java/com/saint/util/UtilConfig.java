@@ -3,6 +3,7 @@ package com.saint.util;
 import android.app.Activity;
 import android.app.Application;
 
+import com.hjq.toast.Toaster;
 import com.saint.util.lifecycle.ActivityCallback;
 import com.saint.util.lifecycle.IToastCallback;
 import com.saint.util.util.AppUtil;
@@ -23,6 +24,7 @@ public class UtilConfig {
         if (!AppUtil.isMainProcess(app)) return;
         UtilConfig.app = app;
         isDebug = debug;
+        Toaster.init(app);
         app.registerActivityLifecycleCallbacks(new ActivityCallback() {
 
             @Override

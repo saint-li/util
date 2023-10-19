@@ -1,7 +1,7 @@
 package com.saint.util.util.toast
 
 import android.view.Gravity
-import android.widget.Toast
+import com.hjq.toast.Toaster
 import com.saint.util.UtilConfig
 import com.saint.util.util.AppUtil
 
@@ -11,64 +11,62 @@ import com.saint.util.util.AppUtil
 object AppToast {
 
     init {
-        ToastUtils.init(UtilConfig.getApp())
+        if (!Toaster.isInit()) {
+            Toaster.init(UtilConfig.getApp())
+        }
     }
 
     fun show(content: CharSequence?) {
-        ToastUtils.show(content)
+        Toaster.show(content)
     }
 
     fun show(contentRes: Int) {
-        ToastUtils.show(contentRes)
+        Toaster.show(contentRes)
     }
 
     fun tShort(content: CharSequence?) {
-        ToastUtils.getToast().duration = Toast.LENGTH_SHORT
-        ToastUtils.show(content)
+        Toaster.showShort(content)
     }
 
     fun tShort(contentRes: Int) {
-        ToastUtils.getToast().duration = Toast.LENGTH_SHORT
-        ToastUtils.show(contentRes)
+        Toaster.showShort(contentRes)
     }
 
     fun tLong(content: CharSequence?) {
-        ToastUtils.getToast().duration = Toast.LENGTH_LONG
-        ToastUtils.show(content)
+        Toaster.showLong(content)
     }
 
     fun tLong(contentRes: Int) {
-        ToastUtils.getToast().duration = Toast.LENGTH_LONG
-        ToastUtils.show(contentRes)
+        Toaster.showLong(contentRes)
     }
 
     fun showAtTop(msg: CharSequence?) {
-        ToastUtils.setGravity(Gravity.TOP, 0, 0)
-        ToastUtils.show(msg)
+        Toaster.setGravity(Gravity.TOP, 0, 0)
+        Toaster.show(msg)
     }
 
     fun showAtTop(msg: Int) {
-        ToastUtils.setGravity(Gravity.TOP, 0, 0)
-        ToastUtils.show(msg)
+        Toaster.setGravity(Gravity.TOP, 0, 0)
+        Toaster.show(msg)
     }
 
     fun showInCenter(msg: CharSequence?) {
-        ToastUtils.setGravity(Gravity.CENTER, 0, 0)
-        ToastUtils.show(msg)
+        Toaster.setGravity(Gravity.CENTER, 0, 0)
+        Toaster.show(msg)
     }
 
     fun showInCenter(msg: Int) {
-        ToastUtils.setGravity(Gravity.CENTER, 0, 0)
-        ToastUtils.show(msg)
+        Toaster.setGravity(Gravity.CENTER, 0, 0)
+        Toaster.show(msg)
     }
 
     fun showAtLocation(msg: CharSequence?, gravity: Int, xOffsetDp: Float, yOffsetDp: Float) {
-        ToastUtils.setGravity(gravity, AppUtil.dpToPx(xOffsetDp), AppUtil.dpToPx(yOffsetDp))
-        ToastUtils.show(msg)
+        Toaster.setGravity(gravity, AppUtil.dpToPx(xOffsetDp), AppUtil.dpToPx(yOffsetDp))
+        Toaster.show(msg)
     }
 
     fun showAtLocation(msg: Int, gravity: Int, xOffsetDp: Float, yOffsetDp: Float) {
-        ToastUtils.setGravity(gravity, AppUtil.dpToPx(xOffsetDp), AppUtil.dpToPx(yOffsetDp))
-        ToastUtils.show(msg)
+        Toaster.setGravity(gravity, AppUtil.dpToPx(xOffsetDp), AppUtil.dpToPx(yOffsetDp))
+        Toaster.show(msg)
     }
 }
