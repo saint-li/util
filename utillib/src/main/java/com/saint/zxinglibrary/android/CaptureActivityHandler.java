@@ -78,7 +78,7 @@ public final class CaptureActivityHandler extends Handler {
                 // 解码成功
                 Result result = (Result) message.obj;
                 Log.e("SCAN___", "IsBind:" + isBindDevice + "解码结果： " + result.getText());
-                if (result != null && isBindDevice && result.getText().length() == 15 && TextUtils.isDigitsOnly(result.getText())) {
+                if (result != null && isBindDevice && TextUtils.isDigitsOnly(result.getText()) && (result.getText().length() == 10 || result.getText().length() == 15)) {
                     state = State.SUCCESS;
                     activity.handleDecode((Result) message.obj);
                 } else if (result != null && !isBindDevice) {
@@ -86,8 +86,7 @@ public final class CaptureActivityHandler extends Handler {
                     activity.handleDecode((Result) message.obj);
                 } else {
                     state = State.PREVIEW;
-                    cameraManager.requestPreviewFrame(decodeThread.getHandler(),
-                            ScanConstant.DECODE);
+                    cameraManager.requestPreviewFrame(decodeThread.getHandler(), ScanConstant.DECODE);
                 }
                 break;
             case ScanConstant.DECODE_FAILED:
