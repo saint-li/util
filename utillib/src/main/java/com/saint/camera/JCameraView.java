@@ -24,6 +24,7 @@ import android.widget.VideoView;
 import androidx.annotation.RequiresApi;
 
 
+import com.blankj.utilcode.util.ScreenUtils;
 import com.saint.camera.listener.CaptureListener;
 import com.saint.camera.listener.ClickListener;
 import com.saint.camera.listener.ErrorListener;
@@ -31,7 +32,6 @@ import com.saint.camera.listener.JCameraListener;
 import com.saint.camera.listener.TypeListener;
 import com.saint.camera.state.CameraMachine;
 import com.saint.camera.util.FileUtil;
-import com.saint.camera.util.ScreenUtils;
 import com.saint.camera.view.CameraView;
 import com.saint.util.R;
 import com.saint.util.util.AppLog;
@@ -145,7 +145,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
     }
 
     private void initData() {
-        layout_width = ScreenUtils.getScreenWidth(mContext);
+        layout_width = ScreenUtils.getScreenWidth();
         //缩放梯度
         zoomGradient = (int) (layout_width / 16f);
         AppLog.i("zoom = " + zoomGradient);

@@ -7,16 +7,12 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.saint.util.GlideApp;
 import com.saint.util.R;
 import com.saint.util.UtilConfig;
 
@@ -48,25 +44,25 @@ public class GlideUtils {
 //    }
 
     public static void loadIMg(Context context, String imgUrl, ImageView imageView) {
-        GlideApp.with(context).load(imgUrl)
+        Glide.with(context).load(imgUrl)
 //                .apply(option)
                 .into(imageView);
     }
 
     public static void loadIMg(Activity act, String imgUrl, ImageView imageView) {
-        GlideApp.with(act).load(imgUrl)
+        Glide.with(act).load(imgUrl)
 //                .apply(option)
                 .into(imageView);
     }
 
     public static void loadIMg(Activity act, String imgUrl, ImageView imageView, RequestOptions option) {
-        GlideApp.with(act).load(imgUrl)
+        Glide.with(act).load(imgUrl)
                 .apply(option)
                 .into(imageView);
     }
 
     public static void loadIMg(Fragment frag, String imgUrl, ImageView imageView, RequestOptions option) {
-        GlideApp.with(frag).load(imgUrl)
+        Glide.with(frag).load(imgUrl)
                 .apply(option)
                 .into(imageView);
     }
@@ -93,7 +89,7 @@ public class GlideUtils {
 //    }
 
     public static void loadHead(Context context, String url, ImageView iv) {
-        GlideApp.with(context)
+        Glide.with(context)
                 .load(url)
                 .apply(option)
                 .circleCrop()
@@ -101,7 +97,7 @@ public class GlideUtils {
     }
 
     public static void loadHead(Fragment context, String url, ImageView iv) {
-        GlideApp.with(context)
+        Glide.with(context)
                 .load(url)
                 .apply(option)
                 .circleCrop()
@@ -109,56 +105,56 @@ public class GlideUtils {
     }
 
     public static void loadRound(Context context, String url, ImageView iv) {
-        GlideApp.with(context)
+        Glide.with(context)
                 .load(url + "-80x80.jpg")
                 .apply(options)
                 .into(iv);
     }
 
     public static void loadRound(Activity context, String url, ImageView iv) {
-        GlideApp.with(context)
+        Glide.with(context)
                 .load(url + "-80x80.jpg")
                 .apply(options)
                 .into(iv);
     }
 
     public static void loadRound(Fragment context, String url, ImageView iv) {
-        GlideApp.with(context)
+        Glide.with(context)
                 .load(url + "-80x80.jpg")
                 .apply(options)
                 .into(iv);
     }
 
     public static void loadRound(Fragment context, RequestOptions options, String url, ImageView iv) {
-        GlideApp.with(context)
+        Glide.with(context)
                 .load(url)
                 .apply(options)
                 .into(iv);
     }
 
     public static void loadImg(Context context, RequestOptions options, String url, ImageView iv) {
-        GlideApp.with(context)
+        Glide.with(context)
                 .load(url)
                 .apply(options)
                 .into(iv);
     }
 
     public static void loadRound(Fragment context, RequestOptions options, int drawableResId, ImageView iv) {
-        GlideApp.with(context)
+        Glide.with(context)
                 .load(drawableResId)
                 .apply(options)
                 .into(iv);
     }
 
     public static void loadRound(Context context, RequestOptions options, int drawableResId, ImageView iv) {
-        GlideApp.with(context)
+        Glide.with(context)
                 .load(drawableResId)
                 .apply(options)
                 .into(iv);
     }
 
     public static void loadBitmap(Fragment context, String avatar, RequestOptions option, SimpleTarget<Bitmap> target) {
-        GlideApp.with(context)
+        Glide.with(context)
                 .asBitmap()
                 .apply(option)
                 .load(avatar)
@@ -166,7 +162,7 @@ public class GlideUtils {
     }
 
     public static void loadBitmap(Context context, String avatar, RequestOptions option, SimpleTarget<Bitmap> target) {
-        GlideApp.with(context)
+        Glide.with(context)
                 .asBitmap()
                 .apply(option)
                 .load(avatar)
@@ -174,7 +170,7 @@ public class GlideUtils {
     }
 
     public static void loadDrawable(Context context, Uri uri, SimpleTarget<Drawable> simpleTarget) {
-        GlideApp.with(context)
+        Glide.with(context)
                 .load(uri)
                 .into(simpleTarget);
     }

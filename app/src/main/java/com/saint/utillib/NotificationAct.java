@@ -1,5 +1,6 @@
 package com.saint.utillib;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -17,9 +18,15 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
+import com.blankj.utilcode.util.NotificationUtils;
+import com.blankj.utilcode.util.Utils;
 import com.saint.util.base.BaseAct;
+import com.saint.util.listener.RequestPermissionBack;
+import com.saint.util.util.PermissionUtil;
+import com.saint.util.util.toast.AppToast;
 
 import java.io.File;
+import java.util.List;
 
 public class NotificationAct extends BaseAct {
     private Button btnSendNotifi;
@@ -47,6 +54,7 @@ public class NotificationAct extends BaseAct {
         btnSendNotifi.setOnClickListener(this::sendNotifi);
     }
 
+//    @RequiresApi(api = Build.VERSION_CODES.M)
     private void sendNotifi(View view) {
 
 
@@ -71,22 +79,45 @@ public class NotificationAct extends BaseAct {
 ////                .setDefaults(NotificationCompat.DEFAULT_ALL)  //使用默认效果， 会根据手机当前环境播放铃声， 是否振动
 //        ;
 //        manager.notify(1, builder.build());
+//
+//        NotificationCompat.Builder status = new NotificationCompat.Builder(this, "channelid1");
+//        status.setAutoCancel(true)
+//                .setWhen(System.currentTimeMillis())
+//                .setSmallIcon(R.drawable.return_icon)
+//                //.setOnlyAlertOnce(true)
+//                .setContentTitle(getString(R.string.app_name))
+//                .setContentText("通知内容")
+//                .setVibrate(new long[]{0, 500, 1000})
+//                .setDefaults(Notification.DEFAULT_LIGHTS)
+//                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getPackageName() + "/" + R.raw.ding))
+////                .setContentIntent(pendingIntent)
+////                .setContent(views);
+//        ;
+//        NotificationManager mNotificationManager =
+//                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//        mNotificationManager.notify(100, status.build());
 
-        NotificationCompat.Builder status = new NotificationCompat.Builder(this, "channelid1");
-        status.setAutoCancel(true)
-                .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.return_icon)
-                //.setOnlyAlertOnce(true)
-                .setContentTitle(getString(R.string.app_name))
-                .setContentText("通知内容")
-                .setVibrate(new long[]{0, 500, 1000})
-                .setDefaults(Notification.DEFAULT_LIGHTS)
-                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getPackageName() + "/" + R.raw.ding))
-//                .setContentIntent(pendingIntent)
-//                .setContent(views);
-        ;
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        mNotificationManager.notify(100, status.build());
+
+        if (NotificationUtils.areNotificationsEnabled()) {
+            NotificationUtils.notify(1000, builder ->
+                    builder.setSmallIcon(R.mipmap.ic_launcher)
+                            .setContentTitle("通知标题")
+                            .setContentText("通知内容")
+//                            .setContentIntent(Pen)
+                            .setAutoCancel(true));
+        } else {
+            AppToast.INSTANCE.tLong("请开启APP通知权限");
+            PermissionUtil.request(this, new RequestPermissionBack() {
+                @Override
+                public void onSuccess(List<String> permissions, boolean all) {
+
+                }
+
+                @Override
+                public void onFailed(List<String> permissions, boolean never) {
+
+                }
+            }, Manifest.permission.POST_NOTIFICATIONS);
+        }
     }
 }

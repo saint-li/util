@@ -10,7 +10,8 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import com.saint.util.GlideApp;
+
+import com.bumptech.glide.Glide;
 import com.saint.util.R;
 
 
@@ -46,7 +47,7 @@ public class LoadingDialog {
 //                animation.setInterpolator(new LinearInterpolator());
 //                spaceshipImage.startAnimation(animation); // 使用ImageView显示动画
 
-                GlideApp.with(context)
+                Glide.with(context)
                         .asGif()
                         .load(R.drawable.loading)
                         .into(spaceshipImage);

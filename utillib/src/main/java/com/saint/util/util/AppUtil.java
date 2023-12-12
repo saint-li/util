@@ -34,6 +34,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
+import com.blankj.utilcode.util.ScreenUtils;
 import com.saint.util.R;
 import com.saint.util.UtilConfig;
 import com.saint.util.util.toast.AppToast;
@@ -152,18 +153,6 @@ public class AppUtil {
 
     public static boolean isStringNull(String s) {
         return s == null || s.length() == 0 || s.trim().length() == 0;
-    }
-
-    public static int getScreenHeight() {
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        ((WindowManager) UtilConfig.getApp().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(outMetrics);
-        return outMetrics.heightPixels;
-    }
-
-    public static int getScreenWidth() {
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        ((WindowManager) UtilConfig.getApp().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(outMetrics);
-        return outMetrics.widthPixels;
     }
 
     //原生状态栏修改
@@ -303,6 +292,7 @@ public class AppUtil {
         }
         return 0;
     }
+
     /**
      * 获取版本号
      *
@@ -337,42 +327,6 @@ public class AppUtil {
         act.startActivity(intent);
     }
 
-    /**
-     * 判断是否是全面屏
-     */
-    private volatile static boolean mHasCheckAllScreen;
-    private volatile static boolean mIsAllScreenDevice;
-
-    public static boolean isAllScreenDevice(Context context) {
-        if (mHasCheckAllScreen) {
-            return mIsAllScreenDevice;
-        }
-        mHasCheckAllScreen = true;
-        mIsAllScreenDevice = false;
-        // 低于 API 21的，都不会是全面屏。。。
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return false;
-        }
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        if (windowManager != null) {
-            Display display = windowManager.getDefaultDisplay();
-            Point point = new Point();
-            display.getRealSize(point);
-            float width, height;
-            if (point.x < point.y) {
-                width = point.x;
-                height = point.y;
-            } else {
-                width = point.y;
-                height = point.x;
-            }
-            if (height / width >= 1.97f) {
-                mIsAllScreenDevice = true;
-            }
-        }
-        return mIsAllScreenDevice;
-    }
-
     public static int dpToPx(float dp) {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, UtilConfig.getApp().getResources().getDisplayMetrics()));
     }
@@ -398,11 +352,6 @@ public class AppUtil {
     public static boolean isEmpty(CharSequence c) {
         return TextUtils.isEmpty(c) || c.toString().trim().isEmpty();
     }
-
-    public static int screenWidth() {
-        return UtilConfig.getApp().getResources().getDisplayMetrics().widthPixels;
-    }
-
 
     public static int getStatusBarHeight() {
         int resourceId = UtilConfig.getApp().getResources().getIdentifier("status_bar_height", "dimen", "android");

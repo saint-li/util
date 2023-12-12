@@ -50,7 +50,7 @@ public class ScanAct extends BaseAct {
 //            public void onSuccess(List<String> permissions) {
         Intent intent = new Intent(act, CaptureActivity.class);
         ZxingConfig config = new ZxingConfig();
-        config.setBind(false);
+        config.setBind(true);
         intent.putExtra(ScanConstant.INTENT_ZXING_CONFIG, config);
         startActivityForResult(intent, REQUEST_CODE_SCAN);
 //            }

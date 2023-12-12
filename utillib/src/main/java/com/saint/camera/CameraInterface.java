@@ -24,6 +24,7 @@ import android.view.SurfaceHolder;
 import android.widget.ImageView;
 
 
+import com.blankj.utilcode.util.ScreenUtils;
 import com.saint.camera.listener.ErrorListener;
 import com.saint.camera.util.AngleUtil;
 import com.saint.camera.util.CameraParamUtil;
@@ -31,7 +32,6 @@ import com.saint.camera.util.CheckPermission;
 import com.saint.camera.util.DeviceUtil;
 import com.saint.camera.util.FileUtil;
 import com.saint.util.util.AppLog;
-import com.saint.camera.util.ScreenUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -718,8 +718,8 @@ public class CameraInterface implements Camera.PreviewCallback {
     private static Rect calculateTapArea(float x, float y, float coefficient, Context context) {
         float focusAreaSize = 300;
         int areaSize = Float.valueOf(focusAreaSize * coefficient).intValue();
-        int centerX = (int) (x / ScreenUtils.getScreenWidth(context) * 2000 - 1000);
-        int centerY = (int) (y / ScreenUtils.getScreenHeight(context) * 2000 - 1000);
+        int centerX = (int) (x / ScreenUtils.getScreenWidth() * 2000 - 1000);
+        int centerY = (int) (y / ScreenUtils.getScreenHeight() * 2000 - 1000);
         int left = clamp(centerX - areaSize / 2, -1000, 1000);
         int top = clamp(centerY - areaSize / 2, -1000, 1000);
         RectF rectF = new RectF(left, top, left + areaSize, top + areaSize);
