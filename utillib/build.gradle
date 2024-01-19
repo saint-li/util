@@ -54,9 +54,9 @@ dependencies {
     //权限申请 https://github.com/getActivity/XXPermissions
     implementation 'com.github.getActivity:XXPermissions:18.5'
     //网络请求  https://github.com/jeasonlzy/okhttp-OkGo
-    api 'com.lzy.net:okgo:3.0.4'
+    api 'com.github.saint-li:okgo:T1.0.1'
     //json解析 https://github.com/google/gson
-    api 'com.google.code.gson:gson:2.9.0'
+    api 'com.google.code.gson:gson:2.9.1'
     //图片加载 https://github.com/bumptech/glide
     api 'com.github.bumptech.glide:glide:4.16.0'
 //    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
