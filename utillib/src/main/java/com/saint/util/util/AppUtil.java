@@ -35,6 +35,7 @@ import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
 import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.saint.util.R;
 import com.saint.util.UtilConfig;
 import com.saint.util.util.toast.AppToast;
@@ -316,12 +317,16 @@ public class AppUtil {
     }
 
     /**
-     * 拨打电话（直接拨打电话）
+     * 拨打电话（直接拨打电话）-- 改为跳转拨号界面
      *
      * @param phoneNum 电话号码
      */
     public static void callPhone(Activity act, String phoneNum) {
-        Intent intent = new Intent(Intent.ACTION_CALL);
+        if (StringUtils.isTrimEmpty(phoneNum)) {
+            AppToast.INSTANCE.tShort("电话号码不能为空");
+            return;
+        }
+        Intent intent = new Intent(Intent.ACTION_DIAL);
         Uri data = Uri.parse("tel:" + phoneNum);
         intent.setData(data);
         act.startActivity(intent);
