@@ -8,24 +8,20 @@ import com.saint.util.listener.OnItemCLick
 import com.saint.util.util.AppUtil
 import com.saint.util.util.clearCache
 import com.saint.util.util.toast.AppToast
+import com.saint.utillib.act.BaseBindingAct
 import com.saint.utillib.act.SImageViewAct
 import com.saint.utillib.act.SleepViewAct
-//import com.saint.utillib.act.PicTestAct
+import com.saint.utillib.databinding.ActivityMainBinding
 import com.saint.utillib.gloading.GLoadingAct
 import com.saint.utillib.fragkotlin.KotlinTestAct
 import com.saint.utillib.time.TimeTestAct
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
-import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : BaseAct(), OnItemCLick {
+class MainActivity : BaseBindingAct<ActivityMainBinding>(), OnItemCLick {
 
     var adapter: MainAdapter? = null
-
-    override fun setLayout(): Int {
-        return R.layout.activity_main
-    }
 
     override fun initTitleView() {
         mActionBar = findViewById(R.id.my_action_bar)
@@ -33,7 +29,7 @@ class MainActivity : BaseAct(), OnItemCLick {
     }
 
     override fun initView() {
-        smart_refresh_layout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
+        binding.smartRefreshLayout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
             override fun onLoadMore(refreshLayout: RefreshLayout) {
                 refreshLayout.finishLoadMore()
             }
@@ -47,7 +43,7 @@ class MainActivity : BaseAct(), OnItemCLick {
 
     override fun initData(savedInstanceState: Bundle?) {
         adapter = MainAdapter(act)
-        recycler_view.adapter = adapter
+        binding.recyclerView.adapter = adapter
         adapter!!.setOnItemCLick(this)
     }
 

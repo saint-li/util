@@ -11,5 +11,4 @@ abstract class BaseBindingAct<VB : ViewBinding> : BaseAct() {
         binding = inflateBindingWithGeneric(layoutInflater)
         return binding.root
     }
-
 }
