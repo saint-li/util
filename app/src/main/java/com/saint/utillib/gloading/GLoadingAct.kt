@@ -6,18 +6,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.saint.util.base.BaseAct
 import com.saint.utillib.R
-import kotlinx.android.synthetic.main.act_toast.*
+import com.saint.utillib.act.BaseBindingAct
+import com.saint.utillib.databinding.ActLoadingBinding
 
-class GLoadingAct : BaseAct() {
+class GLoadingAct : BaseBindingAct<ActLoadingBinding>() {
     private val frags = ArrayList<Fragment>()
 
-    override fun setLayout(): Int {
-        return R.layout.act_loading
-    }
-
     override fun initTitleView() {
-        my_action_bar.setTitle("GLoading测试")
-        my_action_bar.setLeftListener { finish() }
+        binding.myActionBar.setTitle("GLoading测试")
+        binding.myActionBar.setLeftListener { finish() }
     }
 
     override fun initData(savedInstanceState: Bundle?) {
