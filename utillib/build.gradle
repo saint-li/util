@@ -12,6 +12,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -30,13 +32,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = '1.8' // 或者其他与Java版本对应的值，如'11'
-    }
     viewBinding {
         enabled = true
     }
-    namespace 'com.saint.util'
 }
 
 dependencies {

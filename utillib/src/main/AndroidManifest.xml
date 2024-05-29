@@ -1,4 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.saint.util">
     <application>
         <activity
             android:name="com.saint.zxinglibrary.android.CaptureActivity"
