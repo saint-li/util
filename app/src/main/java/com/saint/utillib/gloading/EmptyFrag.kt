@@ -8,6 +8,7 @@ import com.saint.widget.GLoading
 
 class EmptyFrag : BaseFrag() {
     private var holder: GLoading.Holder? = null
+
     override fun setLayout(): Int {
         return R.layout.frag_gloading_empty
     }

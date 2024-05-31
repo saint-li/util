@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Environment
 import java.io.File
 import java.math.BigDecimal
+import java.math.RoundingMode
 
 
 fun clearCache(context: Context): Boolean {
@@ -74,5 +75,5 @@ fun getFormatSize(size: Long): String {
 }
 
 fun getBigDecimalSize(size: Double): String {
-    return BigDecimal(size).setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString()
+    return BigDecimal(size).setScale(2, RoundingMode.HALF_UP).toPlainString()
 }
