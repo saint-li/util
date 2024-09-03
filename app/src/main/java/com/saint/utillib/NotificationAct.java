@@ -21,21 +21,18 @@ import androidx.core.app.NotificationCompat;
 import com.blankj.utilcode.util.NotificationUtils;
 import com.blankj.utilcode.util.Utils;
 import com.saint.util.base.BaseAct;
+import com.saint.util.binding.BaseBindingAct;
 import com.saint.util.listener.RequestPermissionBack;
 import com.saint.util.util.PermissionUtil;
 import com.saint.util.util.toast.AppToast;
+import com.saint.utillib.databinding.ActNotificationBinding;
 
 import java.io.File;
 import java.util.List;
 
-public class NotificationAct extends BaseAct {
+public class NotificationAct extends BaseBindingAct<ActNotificationBinding> {
     private Button btnSendNotifi;
     NotificationManager manager;
-
-    @Override
-    protected int setLayout() {
-        return R.layout.act_notification;
-    }
 
     @Override
     protected void initTitleView() {

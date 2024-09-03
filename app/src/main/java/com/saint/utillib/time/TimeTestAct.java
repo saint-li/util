@@ -7,21 +7,18 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.saint.util.base.BaseAct;
+import com.saint.util.binding.BaseBindingAct;
 import com.saint.util.util.TimeUtil;
 import com.saint.utillib.R;
+import com.saint.utillib.databinding.ActTimeTestBinding;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TimeTestAct extends BaseAct {
+public class TimeTestAct extends BaseBindingAct<ActTimeTestBinding> {
     TextView tvTime;
-
-    @Override
-    protected int setLayout() {
-        return R.layout.act_time_test;
-    }
 
     @Override
     protected void initView() {

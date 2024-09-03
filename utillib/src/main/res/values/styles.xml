@@ -142,4 +142,27 @@
     </style>
 
     <!-- UCrop 结束 -->
+
+    <!-- 骨架屏样式 -->
+    <style name="SkeletonView">
+        <item name="android:layout_width">@dimen/dp_60</item>
+        <item name="android:layout_height">@dimen/dp_18</item>
+        <item name="android:background">@drawable/shape_skeleton_bg</item>
+    </style>
+    <!-- 骨架屏样式 -->
+    <style name="SkeletonCircleView" parent="SkeletonView">
+        <item name="android:background">@drawable/shape_skeleton_bg_circle</item>
+    </style>
+    <!-- 骨架屏样式 -->
+    <style name="SkeletonRoundView" parent="SkeletonView">
+        <item name="android:background">@drawable/shape_skeleton_bg_corners_12</item>
+    </style>
+
+
+    <!-- 横线 -->
+    <style name="horizontalLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_1</item>
+        <item name="android:background">@color/colorLine</item>
+    </style>
 </resources>

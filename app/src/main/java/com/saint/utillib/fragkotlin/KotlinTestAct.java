@@ -5,13 +5,11 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 import com.saint.util.base.BaseAct;
+import com.saint.util.binding.BaseBindingAct;
 import com.saint.utillib.R;
+import com.saint.utillib.databinding.ActKotlinTestBinding;
 
-public class KotlinTestAct extends BaseAct {
-    @Override
-    protected int setLayout() {
-        return R.layout.act_kotlin_test;
-    }
+public class KotlinTestAct extends BaseBindingAct<ActKotlinTestBinding> {
 
     @Override
     protected void initData(@Nullable Bundle savedInstanceState) {

@@ -16,8 +16,6 @@ import com.saint.widget.MyActionBar;
 
 public abstract class BaseFrag extends Fragment {
     protected Fragment frag;
-    protected MyActionBar mActionBar;
-    protected View rootView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,19 +26,12 @@ public abstract class BaseFrag extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (setRootView() != null) {
-            rootView = setRootView();
-            return setRootView();
-        }
-        rootView = inflater.inflate(setLayout(), container, false);
-        return rootView;
+        return setRootView();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initTitleView();
-        initView();
         initListener();
         initData(savedInstanceState);
     }
@@ -48,45 +39,14 @@ public abstract class BaseFrag extends Fragment {
     /**
      * 设置内容布局
      */
-    protected int setLayout() {
-        return 0;
-    }
-
     protected View setRootView() {
         return null;
     }
 
     /**
-     * 初始化标题栏
-     */
-    protected void initTitleView() {
-    }
-
-    protected int setTitleId() {
-        return 0;
-    }
-
-    protected void setTitle(int strRes) {
-        if (mActionBar != null) mActionBar.setTitle(strRes);
-    }
-
-    protected void setTitle(String strRes) {
-        if (mActionBar != null) mActionBar.setTitle(strRes);
-    }
-
-    /**
-     * 初始化布局
-     */
-    protected void initView() {
-    }
-
-    ;
-
-    /**
      * 初始化数据
      */
     protected abstract void initData(@Nullable Bundle savedInstanceState);
-
 
     /**
      * 初始化监听
@@ -106,11 +66,6 @@ public abstract class BaseFrag extends Fragment {
         OkUtil.instance().cancelTag(this);
         super.onDestroyView();
     }
-
-    public <T extends View> T findView(int resId) {
-        return (T) rootView.findViewById(resId);
-    }
-
 
     public void showAct(Class clazz) {
         startActivity(new Intent(getContext(), clazz));

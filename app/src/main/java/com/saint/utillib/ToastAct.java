@@ -14,19 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.saint.util.base.BaseAct;
 import com.saint.util.base.BaseRecyclerAdapter;
 import com.saint.util.base.BaseViewHolder;
+import com.saint.util.binding.BaseBindingAct;
 import com.saint.util.listener.OnItemCLick;
 import com.saint.util.util.AppUtil;
 import com.saint.util.util.toast.AppToast;
+import com.saint.utillib.databinding.ActToastBinding;
 
 import java.util.Arrays;
 
-public class ToastAct extends BaseAct implements OnItemCLick {
+public class ToastAct extends BaseBindingAct<ActToastBinding> implements OnItemCLick {
     private RecyclerView recyclerView;
-
-    @Override
-    protected int setLayout() {
-        return R.layout.act_toast;
-    }
 
     @Override
     protected void initTitleView() {

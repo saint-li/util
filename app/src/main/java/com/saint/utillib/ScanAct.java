@@ -7,8 +7,10 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import com.saint.util.base.BaseAct;
+import com.saint.util.binding.BaseBindingAct;
 import com.saint.util.util.AppUtil;
 import com.saint.util.util.toast.AppToast;
+import com.saint.utillib.databinding.ActScanBinding;
 import com.saint.widget.DrawableClickEditText;
 import com.saint.zxinglibrary.android.CaptureActivity;
 import com.saint.zxinglibrary.bean.ZxingConfig;
@@ -16,15 +18,9 @@ import com.saint.zxinglibrary.common.ScanConstant;
 
 import java.util.Objects;
 
-public class ScanAct extends BaseAct {
+public class ScanAct extends BaseBindingAct<ActScanBinding> {
     private final int REQUEST_CODE_SCAN = 111;
     private DrawableClickEditText clickEditText;
-
-
-    @Override
-    protected int setLayout() {
-        return R.layout.act_scan;
-    }
 
     @Override
     protected void initTitleView() {

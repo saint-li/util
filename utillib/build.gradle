@@ -76,6 +76,11 @@ dependencies {
     api 'com.blankj:utilcodex:1.31.1'
     // 吐司框架：https://github.com/getActivity/Toaster
     implementation 'com.github.getActivity:Toaster:12.6'
+    //Adapter框架
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
+    //骨架屏
+    api 'com.ethanhua:skeleton:1.1.2'
+    api 'io.supercharge:shimmerlayout:2.1.0'
 }
 
 //生成jar包 并修改jar包名字
