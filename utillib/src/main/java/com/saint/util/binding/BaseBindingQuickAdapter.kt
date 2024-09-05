@@ -23,4 +23,12 @@ abstract class BaseBindingQuickAdapter<T, VB : ViewBinding>(private val inflate:
         @Suppress("UNCHECKED_CAST")
         fun <VB : ViewBinding> getViewBinding() = binding as VB
     }
+
+    fun pageData(data: List<T>,page:Int){
+        if (page == 1) {
+            setList(data)
+        } else {
+            addData(data)
+        }
+    }
 }
