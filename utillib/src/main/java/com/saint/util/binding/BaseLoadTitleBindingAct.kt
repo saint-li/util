@@ -74,7 +74,7 @@ abstract class BaseLoadTitleBindingAct<VB : ViewBinding> : BaseAct() {
         if (toolbar != null) toolbar.setTitle(title)
     }
 
-    protected fun setLeftIcon(@DrawableRes ivLeft: Int) {
+    protected open fun setLeftIcon(@DrawableRes ivLeft: Int) {
         val toolbar = loadHelper.getAdapter<ToolbarAdapter>(ViewType.TITLE)
         if (toolbar != null) toolbar.setIvLeft(ivLeft)
     }
