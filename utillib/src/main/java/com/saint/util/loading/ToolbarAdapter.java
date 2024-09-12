@@ -1,5 +1,6 @@
 package com.saint.util.loading;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -28,20 +29,21 @@ public class ToolbarAdapter extends LoadingHelper.Adapter<ToolbarAdapter.ViewHol
     private View.OnClickListener onBack;
     private View.OnClickListener onRight;
     private int colorBar;
-    private int ivLeft = R.drawable.return_icon, ivRight, tvRightStr;
+    private @DrawableRes int ivLeft = R.drawable.return_icon, ivRight;
+    private @StringRes int tvRightStr;
 
     public ToolbarAdapter(String title, View.OnClickListener onBack) {
         this.title = title;
         this.onBack = onBack;
     }
 
-    public ToolbarAdapter(String title, @IdRes int ivLeft, View.OnClickListener onBack) {
+    public ToolbarAdapter(String title, @DrawableRes int ivLeft, View.OnClickListener onBack) {
         this.title = title;
         this.onBack = onBack;
         this.ivLeft = ivLeft;
     }
 
-    public ToolbarAdapter(String title, @IdRes int ivLeft,
+    public ToolbarAdapter(String title, @DrawableRes int ivLeft,
                           View.OnClickListener onBack,
                           @DrawableRes int ivRight, View.OnClickListener onRight) {
         this.title = title;
@@ -78,6 +80,11 @@ public class ToolbarAdapter extends LoadingHelper.Adapter<ToolbarAdapter.ViewHol
 
     public void setTitle(String title) {
         this.title = title;
+        notifyDataSetChanged();
+    }
+
+    public void setIvLeft(@DrawableRes int ivLeft) {
+        this.ivLeft = ivLeft;
         notifyDataSetChanged();
     }
 

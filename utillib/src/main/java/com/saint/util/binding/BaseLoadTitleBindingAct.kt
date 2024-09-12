@@ -74,18 +74,17 @@ abstract class BaseLoadTitleBindingAct<VB : ViewBinding> : BaseAct() {
         if (toolbar != null) toolbar.setTitle(title)
     }
 
-    protected fun setRightListener(
-        @DrawableRes ivRight: Int,
-        onRight: View.OnClickListener? = null
-    ) {
+    protected fun setLeftIcon(@DrawableRes ivLeft: Int) {
+        val toolbar = loadHelper.getAdapter<ToolbarAdapter>(ViewType.TITLE)
+        if (toolbar != null) toolbar.setIvLeft(ivLeft)
+    }
+
+    protected fun setRightListener(@DrawableRes ivRight: Int, onRight: View.OnClickListener? = null) {
         val toolbar = loadHelper.getAdapter<ToolbarAdapter>(ViewType.TITLE)
         if (toolbar != null) toolbar.setRightListener(ivRight, onRight)
     }
 
-    protected fun setRightTextListener(
-        @StringRes tvRightStr: Int,
-        onRight: View.OnClickListener? = null
-    ) {
+    protected fun setRightTextListener(@StringRes tvRightStr: Int, onRight: View.OnClickListener? = null) {
         val toolbar = loadHelper.getAdapter<ToolbarAdapter>(ViewType.TITLE)
         if (toolbar != null) toolbar.setRightTextListener(tvRightStr, onRight)
     }
