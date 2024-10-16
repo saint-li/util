@@ -55,7 +55,7 @@ dependencies {
 
     api 'androidx.recyclerview:recyclerview:1.3.0'
     //权限申请 https://github.com/getActivity/XXPermissions
-    implementation 'com.github.getActivity:XXPermissions:20.0'
+    implementation 'com.github.getActivity:XXPermissions:18.68'
     //网络请求  https://github.com/jeasonlzy/okhttp-OkGo
     api 'com.github.saint-li:okgo:T1.0.1'
     //json解析 https://github.com/google/gson
