@@ -10,9 +10,9 @@ import com.saint.util.base.BaseAct;
 import com.saint.util.util.AppUtil;
 import com.saint.util.util.toast.AppToast;
 import com.saint.widget.DrawableClickEditText;
-import com.saint.zxinglibrary.android.CaptureActivity;
-import com.saint.zxinglibrary.bean.ZxingConfig;
-import com.saint.zxinglibrary.common.ScanConstant;
+//import com.saint.zxinglibrary.android.CaptureActivity;
+//import com.saint.zxinglibrary.bean.ZxingConfig;
+//import com.saint.zxinglibrary.common.ScanConstant;
 
 import java.util.Objects;
 
@@ -48,11 +48,11 @@ public class ScanAct extends BaseAct {
 //        PermissionUtil.request(act, new RequestPermissionBack() {
 //            @Override
 //            public void onSuccess(List<String> permissions) {
-        Intent intent = new Intent(act, CaptureActivity.class);
-        ZxingConfig config = new ZxingConfig();
-        config.setBind(true);
-        intent.putExtra(ScanConstant.INTENT_ZXING_CONFIG, config);
-        startActivityForResult(intent, REQUEST_CODE_SCAN);
+//        Intent intent = new Intent(act, CaptureActivity.class);
+//        ZxingConfig config = new ZxingConfig();
+//        config.setBind(true);
+//        intent.putExtra(ScanConstant.INTENT_ZXING_CONFIG, config);
+//        startActivityForResult(intent, REQUEST_CODE_SCAN);
 //            }
 //
 //            @Override
@@ -68,13 +68,13 @@ public class ScanAct extends BaseAct {
         // 扫描二维码/条码回传
         if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
             if (data != null) {
-                String content = data.getStringExtra(ScanConstant.CODED_CONTENT);
-                if (!AppUtil.isStringNull(content)) {
-                    clickEditText.setText(content);
-                    clickEditText.setSelection(Objects.requireNonNull(clickEditText.getText()).length());
-                } else {
-                    AppToast.INSTANCE.tShort("扫描失败,请重试或手动输入");
-                }
+//                String content = data.getStringExtra(ScanConstant.CODED_CONTENT);
+//                if (!AppUtil.isStringNull(content)) {
+//                    clickEditText.setText(content);
+//                    clickEditText.setSelection(Objects.requireNonNull(clickEditText.getText()).length());
+//                } else {
+//                    AppToast.INSTANCE.tShort("扫描失败,请重试或手动输入");
+//                }
             }
         }
     }
