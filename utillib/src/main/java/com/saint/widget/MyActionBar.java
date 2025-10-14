@@ -64,7 +64,7 @@ public class MyActionBar extends LinearLayout {
         Context context = getContext();
         if (context instanceof Activity) {
             ivLeft.setVisibility(VISIBLE);
-            ivLeft.setOnClickListener(view -> ((Activity) context).finish());
+            ivLeft.setOnClickListener(view -> ((Activity) context).onBackPressed());
         }
     }
 
