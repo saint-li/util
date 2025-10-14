@@ -1,5 +1,6 @@
 package com.saint.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -60,6 +61,11 @@ public class MyActionBar extends LinearLayout {
         tvRight = contentView.findViewById(R.id.tv_right);
         setStatusBarHeight();
 //        setTitleBarBG(R.color.bgActionBar);
+        Context context = getContext();
+        if (context instanceof Activity) {
+            ivLeft.setVisibility(VISIBLE);
+            ivLeft.setOnClickListener(view -> ((Activity) context).finish());
+        }
     }
 
     /**

@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android'
 //group = 'com.saint.lib'
 
 android {
-    compileSdkVersion 34
+    compileSdkVersion 36
 
     defaultConfig {
         minSdkVersion 19

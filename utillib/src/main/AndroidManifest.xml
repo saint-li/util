@@ -1,12 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.saint.util">
     <application>
-        <activity
-            android:name="com.saint.zxinglibrary.android.CaptureActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
         <provider
             android:name=".util.CstFileProvider"
             android:authorities="${applicationId}.fileProvider"

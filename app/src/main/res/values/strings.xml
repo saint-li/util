@@ -8,5 +8,6 @@
     <string name="load_failed_no_network">哎呀，网络丢失了!点击重试</string>
     <string name="original">原图</string>
     <string name="crop">压缩后</string>
+    <string name="test_guwen">明亮的月光洒在床前的窗户纸上，好像地上泛起了一层霜。\n我禁不住抬起头来，看那天窗外空中的一轮明月，不由得低头沉思，想起远方的家乡。\n\n韵译\n皎洁月光洒满床，恰似朦胧一片霜。\n仰首只见月一轮，低头教人倍思乡。\n\n</string>
 
 </resources>

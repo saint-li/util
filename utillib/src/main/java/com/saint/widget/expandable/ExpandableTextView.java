@@ -160,7 +160,7 @@ public class ExpandableTextView extends AppCompatTextView {
      */
     private int mExpandTextColor;
     /**
-     * 展开文字的颜色
+     * @文字的颜色
      */
     private int mMentionTextColor;
 

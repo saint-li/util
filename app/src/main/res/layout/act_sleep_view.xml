@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorF8">
+    android:background="@color/colorF8"
+    android:orientation="vertical">
 
     <com.saint.widget.SleepQualityView
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_150"
         android:layout_marginTop="@dimen/dp_80"
         android:background="@color/white" />
+
+    <com.saint.widget.expandable.ExpandableTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/test_guwen"
+        app:ep_contract_color="#FEC502"
+        app:ep_contract_text="收起"
+        app:ep_expand_color="#FEC502"
+        app:ep_max_line="2"
+        app:ep_need_always_showright="true"
+        app:ep_need_contract="true" />
 
 </LinearLayout>
