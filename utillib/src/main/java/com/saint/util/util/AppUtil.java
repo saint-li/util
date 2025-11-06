@@ -336,6 +336,10 @@ public class AppUtil {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, UtilConfig.getApp().getResources().getDisplayMetrics()));
     }
 
+    public static int dpToPx(Context context, float dp) {
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics()));
+    }
+
     @ColorInt
     public static int getColorFromRes(@ColorRes int colorRes) {
         return ContextCompat.getColor(UtilConfig.getApp(), colorRes);

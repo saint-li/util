@@ -2,6 +2,7 @@ package com.saint.widget;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -15,10 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorRes;
-import androidx.annotation.IdRes;
 import androidx.core.content.ContextCompat;
 
-import com.saint.util.UtilConfig;
 import com.saint.util.R;
 import com.saint.util.util.AppUtil;
 
@@ -73,7 +72,7 @@ public class MyActionBar extends LinearLayout {
      */
     public void setStatusBarHeight() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-        int height = AppUtil.getStatusBarHeight();
+        int height = getStatusBarHeight();
         ViewGroup.LayoutParams params = vStatusBar.getLayoutParams();
         params.height = height;
         vStatusBar.setLayoutParams(params);
@@ -84,7 +83,6 @@ public class MyActionBar extends LinearLayout {
      */
     public void setStatusBarHeight(int height) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
-//        int height = AppUtil.getStatusBarHeight();
         ViewGroup.LayoutParams params = vStatusBar.getLayoutParams();
         params.height = height;
         vStatusBar.setLayoutParams(params);
@@ -136,7 +134,7 @@ public class MyActionBar extends LinearLayout {
 
     public void setTitleColor(@ColorRes int color) {
         if (tvTitle != null) {
-            tvTitle.setTextColor(AppUtil.getColor(color));
+            tvTitle.setTextColor(ContextCompat.getColor(getContext(), color));
         }
     }
 
@@ -155,7 +153,7 @@ public class MyActionBar extends LinearLayout {
      * @param resId 标题资源ID
      */
     public void setTitle(int resId) {
-        String strTitle = AppUtil.getString(resId);
+        String strTitle = getContext().getString(resId);
         setTitle(strTitle);
     }
 
@@ -236,4 +234,15 @@ public class MyActionBar extends LinearLayout {
         }
     }
 
+    private int getStatusBarHeight() {
+        int resourceId = getContext().getResources().getIdentifier("status_bar_height", "dimen", "android");
+        int height = 0;
+        try {
+            height = getContext().getResources().getDimensionPixelSize(resourceId);
+        } catch (Resources.NotFoundException e) {
+            height = AppUtil.dpToPx(getContext(), 24);
+        }
+
+        return height;
+    }
 }
