@@ -3,6 +3,9 @@ package com.saint.util.util;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+
+import androidx.annotation.RawRes;
+
 import com.saint.util.R;
 
 /*
@@ -15,10 +18,17 @@ public class MediaPlayerUtil {
     private static int globalCount = 0;
 
     /*
-     * 播放接单声音
+     * 播放声音
      */
     public static void playSound(Context context) {
         play(context, R.raw.ding, 1);
+    }
+
+    /*
+     * 播放声音
+     */
+    public static void playSound(Context context, @RawRes int rawResId) {
+        play(context, rawResId, 1);
     }
 
 
