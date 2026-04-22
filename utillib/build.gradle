@@ -88,18 +88,44 @@ dependencies {
 }
 
 //生成jar包 并修改jar包名字
-//task makeJar(type: Copy) {
-//    //删除存在的jar包
-//    delete 'build/libs/utillib.jar'
-//    //设置拷贝的文件
-//    from('build/intermediates/bundles/release')
-//    //打进jar包后的文件目录
-//    into('build/libs/')
-//    //include,exclude 参数设置过滤
-//    include('classes.jar')
-//    //重命名
-//    rename('classes.jar', 'utillib.jar')
-//}
+//在较新版本的 Android Gradle Plugin (AGP) 中，`build/intermediates/bundles/release` 路径已不再使用，编译后的类文件通常位于 `build/intermediates/aar_main_jar/release` 或类似路径，且直接生成 Jar 包对于 Android Library 来说往往不是最佳实践（因为会丢失资源文件）。
+//
+//不过，如果确实需要生成包含 classes 的 jar 包，针对 AGP 7.0+ 和 8.0+，中间件路径发生了变化。更稳健的方式是使用 `Jar` 任务类型而不是 `Copy`，并指定正确的类文件来源。
+//
+//考虑到兼容性和现代 AGP 的结构，以下是更新后的代码。它尝试从常见的中间件目录获取 classes.jar（如果是 AGP 4.x+，通常在 `intermediates/runtime_library_classes_jar` 或 `aar_main_jar` 中）。为了保持简单并尽量兼容，这里使用更通用的 `Jar` 任务配置，并修正了依赖关系。
+//
+//注意：由于 Android Library 最终产物是 AAR，单纯提取 JAR 会导致资源丢失。如果必须生成 JAR，以下代码适配了较新的目录结构。
 
+// 生成 Jar 包任务
+task makeJar(type: Jar) {
+    // 设置 Jar 包名称
+    archiveBaseName.set('utillib')
+    archiveVersion.set('')
+    archiveExtension.set('jar')
+    
+    // 指定包含的文件，通常只需要 classes
+    from android.sourceSets.main.java.srcDirs
+    
+    // 如果需要包含编译后的 class 文件而不是源码，可以使用以下方式（适配新版 AGP）
+    // 注意：不同版本 AGP 输出路径可能不同，以下是一种常见方式
+    def buildDir = layout.buildDirectory.get().asFile
+    def releaseClassDir = new File(buildDir, "intermediates/javac/release/classes")
+    if (releaseClassDir.exists()) {
+        from releaseClassDir
+    } else {
+        // 兼容旧版本或不同配置
+        from android.sourceSets.main.java.srcDirs
+    }
+    
+    // 排除不需要文件
+    exclude '**/R.class'
+    exclude '**/R$*.class'
+    exclude '**/BuildConfig.class'
+}
 
-//makeJar.dependsOn(build)
+// 确保在构建完成后执行
+//makeJar.dependsOn(assembleRelease)
+
+afterEvaluate {
+    makeJar.dependsOn(assembleRelease)
+}
