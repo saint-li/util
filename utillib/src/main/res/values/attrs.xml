@@ -338,4 +338,23 @@
         <!--进度动画持续时间-->
         <attr name="sq_animationTime" format="integer" />
     </declare-styleable>
+
+
+    <declare-styleable name="BloodPressureView">
+        <attr name="leftColor" format="color" />
+        <attr name="rightColor" format="color" />
+        <attr name="leftText" format="string" />
+        <attr name="rightText" format="string" />
+        <attr name="textSize" format="dimension" />
+        <attr name="barHeight" format="dimension" />
+        <attr name="circleRadius" format="dimension" />
+        <attr name="cutSize" format="dimension" />
+        <attr name="circlePadding" format="dimension" />
+        <attr name="leftRatio" format="float" />
+        <attr name="indicatorWidth" format="dimension" />
+        <attr name="indicatorHeight" format="dimension" />
+        <attr name="indicatorPadding" format="dimension" />
+        <attr name="indicatorBarPadding" format="dimension" />
+        <attr name="cutSpace" format="dimension" />
+    </declare-styleable>
 </resources>

@@ -13,12 +13,35 @@
         android:background="@color/colorPrimary"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.saint.widget.BloodPressureView
+        android:id="@+id/testView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_35"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_20"
+        app:barHeight="@dimen/dp_14"
+        app:circleRadius="@dimen/dp_4"
+        app:cutSize="@dimen/dp_4"
+        app:indicatorBarPadding="@dimen/dp_6"
+        app:indicatorHeight="@dimen/dp_2"
+        app:indicatorPadding="@dimen/dp_5"
+        app:indicatorWidth="@dimen/dp_16"
+        app:layout_constraintTop_toBottomOf="@id/my_action_bar"
+        app:leftColor="#FF2357"
+        app:leftRatio="0.6"
+        app:leftText="@string/health_blood_high"
+        app:rightColor="#FF6D23"
+        app:rightText="@string/health_blood_low"
+        app:textSize="@dimen/sp_12" />
+
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/smart_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0"
+        android:layout_marginTop="@dimen/dp_10"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/my_action_bar">
+        app:layout_constraintTop_toBottomOf="@id/testView">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
